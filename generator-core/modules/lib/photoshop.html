@@ -51,7 +51,7 @@
           <div class="left-section">
             <ul class="nav nav-list">
               <li class="nav-header">
-                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (12)</a>
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (11)</a>
               </li>
             </ul>
             <ul class="nav nav-list package-list">
@@ -61,7 +61,6 @@
             </ul>
             <ul id="package_" class="nav nav-list">
               <li><a href="../../modules/app.html">app</a></li>
-              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
             </ul>
                         <ul class="nav nav-list package-list">
               <li class="nav-header">
@@ -108,6 +107,503 @@
     
     
           
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>PhotoshopClient</h4>
+                  <em><p>PhotoshopClient Class</p>
+</em>
+                  <dl>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function PhotoshopClient(options, connectListener) {
+        var self = this;
+        
+        if (!self instanceof PhotoshopClient) {
+            return new PhotoshopClient(options, connectListener);
+        } else {
+            var password = DEFAULT_PASSWORD;
+            
+            if (options.hasOwnProperty(&quot;password&quot;)) { password = options.password; }
+            if (options.hasOwnProperty(&quot;port&quot;)) { self._port = options.port; }
+            if (options.hasOwnProperty(&quot;hostname&quot;)) { self._hostname = options.hostname; }
+            if (options.hasOwnProperty(&quot;inputFd&quot;)) { self._inputFd = options.inputFd; }
+            if (options.hasOwnProperty(&quot;outputFd&quot;)) { self._outputFd = options.outputFd; }
+            
+            self._receiveBuffer = new Buffer(INITIAL_MESSAGE_BUFFER_SIZE);
+            self._receivedBytes = 0;
+            self._writeQueue = [];
+            
+            if (connectListener) {
+                this.once(&quot;connect&quot;, connectListener);
+            }
+            
+            var connectionPromise = null;
+            var cryptoPromise = null;
+            
+            if ((typeof self._inputFd === &quot;number&quot; &amp;&amp; typeof self._outputFd === &quot;number&quot;) ||
+                (typeof self._inputFd === &quot;string&quot; &amp;&amp; typeof self._outputFd === &quot;string&quot;)) {
+                connectionPromise = self._connectPipe();
+                var cryptoDeferred = Q.defer();
+                cryptoDeferred.resolve();
+                cryptoPromise = cryptoDeferred.promise;
+            } else if (self._hostname &amp;&amp; typeof self._port === &quot;number&quot;) {
+                connectionPromise = self._connectSocket();
+                cryptoPromise = self._initCrypto(password);
+            } else {
+                var connectionDeferred = Q.defer();
+                connectionDeferred.reject();
+                connectionPromise = connectionDeferred.promise;
+            }
+            
+            Q.all([
+                connectionPromise,
+                cryptoPromise
+            ]).done(
+                function () {
+                    self.emit(&quot;connect&quot;);
+                },
+                function (err) {
+                    self.emit(&quot;error&quot;, err);
+                    self.disconnect();
+                }
+            );
+        }
+    }
+    util.inherits(PhotoshopClient, EventEmitter);
+
+    &#x2F;&#x2F; Member Variables
+    &#x2F;&#x2F; ----------------
+    
+    PhotoshopClient.prototype._port = DEFAULT_PORT;
+    PhotoshopClient.prototype._hostname = DEFAULT_HOSTNAME;
+    PhotoshopClient.prototype._connectionState = CONNECTION_STATES.NONE;
+    PhotoshopClient.prototype._lastMessageID = 0;
+    PhotoshopClient.prototype._crypto = null;
+    PhotoshopClient.prototype._receiveBuffer = null;
+    PhotoshopClient.prototype._receivedBytes = 0;
+    PhotoshopClient.prototype._writeQueue = null;
+    PhotoshopClient.prototype._commandDeferreds = null;
+    PhotoshopClient.prototype._applicationPath = null;
+    
+    &#x2F;&#x2F; Methods
+    &#x2F;&#x2F; -------
+    
+    PhotoshopClient.prototype._initCrypto = function (password) {
+        var self = this;
+        var cryptoDeferred = Q.defer();
+        psCrypto.createPSCrypto(password, function (err, crypto) {
+            if (err) {
+                cryptoDeferred.reject(err);
+            } else {
+                self._crypto = crypto;
+                cryptoDeferred.resolve();
+            }
+        });
+        return cryptoDeferred.promise;
+    };
+
+    PhotoshopClient.prototype._connectPipe = function () {
+        var self = this;
+        var fs = require(&quot;fs&quot;);
+        var result = false;
+        
+        try {
+            self._connectionState = CONNECTION_STATES.CONNECTING;
+            
+            if (typeof self._inputFd === &quot;number&quot;) {
+                self._readStream = fs.createReadStream(null, {fd: self._inputFd});
+            } else {
+                &#x2F;&#x2F; named pipe
+                self.emit(&quot;info&quot;, &quot;using named read pipe &quot; + self._inputFd);
+                self._readStream = fs.createReadStream(self._inputFd);
+            }
+
+            self._readStream.on(&quot;data&quot;, function (incomingBuffer) {
+                var isNewMessage = self._receivedBytes === 0,
+                    minimumSize  = incomingBuffer.length + self._receivedBytes;
+                
+                self._receiveBuffer = ensureBufferSize(self._receiveBuffer, minimumSize);
+                incomingBuffer.copy(self._receiveBuffer, self._receivedBytes);
+                self._receivedBytes += incomingBuffer.length;
+
+                self._processReceiveBuffer(isNewMessage);
+            });
+            
+            self._readStream.on(&quot;error&quot;, function (err) {
+                self.emit(&quot;error&quot;, &quot;Pipe error: &quot; + err);
+                self.disconnect();
+            });
+                    
+            self._readStream.on(&quot;close&quot;, function () {
+                self._connectionState = CONNECTION_STATES.CLOSED;
+                self.emit(&quot;close&quot;);
+            });
+            
+            self._readStream.resume();
+
+            if (typeof self._outputFd === &quot;number&quot;) {
+                self._writeStream = fs.createWriteStream(null, {fd: self._outputFd});
+            } else {
+                &#x2F;&#x2F; named pipe
+                self.emit(&quot;info&quot;, &quot;using named write pipe &quot; + self._outputFd);
+                self._writeStream = fs.createWriteStream(self._outputFd);
+            }
+
+            self._writeStream.on(&quot;error&quot;, function (err) {
+                self.emit(&quot;error&quot;, &quot;Pipe error: &quot; + err);
+                self.disconnect();
+            });
+                    
+            self._writeStream.on(&quot;close&quot;, function () {
+                self._connectionState = CONNECTION_STATES.CLOSED;
+                self.emit(&quot;close&quot;);
+            });
+            
+            self._writeStream.on(&quot;drain&quot;, function () {
+                self._doPendingWrites();
+            });
+
+            result = true;
+        } catch (e) {
+            self.emit(&quot;error&quot;, &quot;Pipe error: &quot; + e);
+            self.disconnect();
+        }
+        
+        return result;
+    };
+    
+    PhotoshopClient.prototype._connectSocket = function () {
+        var self = this;
+        var connectSocketDeferred = Q.defer();
+        
+        self._socket = new net.Socket();
+        self._connectionState = CONNECTION_STATES.CONNECTING;
+        
+        self._socket.connect(self._port, self._hostname);
+        
+        &#x2F;&#x2F; register event handlers for socket
+        
+        self._socket.on(&quot;connect&quot;, function () {
+            self._socket.setKeepAlive(true, SOCKET_KEEPALIVE_DELAY);
+            self._socket.setNoDelay();
+            connectSocketDeferred.resolve(self);
+            self._writeStream = self._socket;
+        });
+
+        self._socket.on(&quot;error&quot;, function (err) {
+            if (connectSocketDeferred.promise.isPending()) {
+                connectSocketDeferred.reject(err);
+            }
+            self.emit(&quot;error&quot;, &quot;Socket error: &quot; + err);
+            self.disconnect();
+        });
+                
+        self._socket.on(&quot;close&quot;, function () {
+            self._connectionState = CONNECTION_STATES.CLOSED;
+            self.emit(&quot;close&quot;);
+        });
+        
+        self._socket.on(&quot;data&quot;, function (incomingBuffer) {
+            var isNewMessage = self._receivedBytes === 0,
+                minimumSize  = incomingBuffer.length + self._receivedBytes;
+            
+            self._receiveBuffer = ensureBufferSize(self._receiveBuffer, minimumSize);
+            incomingBuffer.copy(self._receiveBuffer, self._receivedBytes);
+            self._receivedBytes += incomingBuffer.length;
+
+            self._processReceiveBuffer(isNewMessage);
+        });
+
+        self._socket.on(&quot;drain&quot;, function () {
+            self._doPendingWrites();
+        });
+        
+        return connectSocketDeferred.promise;
+    };
+
+    PhotoshopClient.prototype._writeWhenFree  = function (buffer) {
+        var self = this;
+        self._writeQueue.push(buffer);
+        process.nextTick(function () { self._doPendingWrites(); });
+    };
+    
+    PhotoshopClient.prototype._doPendingWrites = function () {
+        if (this._writeStream &amp;&amp; this._writeQueue.length &gt; 0 &amp;&amp; !this._writeStream.busy) {
+            var bufferToWrite = this._writeQueue.shift();
+            var writeStatus = this._writeStream.write(bufferToWrite);
+            if (writeStatus &amp;&amp; this._writeQueue.length &gt; 0) {
+                this._doPendingWrites();
+            }
+        }
+        &#x2F;&#x2F; Continue to try writing as long as there is something left to write
+        if (this._writeStream &amp;&amp; this._writeQueue.length &gt; 0) {
+            process.nextTick(this._doPendingWrites.bind(this));
+        }
+    };
+
+    PhotoshopClient.prototype.isConnected = function () {
+        return (this._connectionState === CONNECTION_STATES.OPEN);
+    };
+    
+    PhotoshopClient.prototype.disconnect = function (listener) {
+        &#x2F;&#x2F; NOTE: This method *must* do any actual cleanup of os resources
+        &#x2F;&#x2F; (e.g. sockets, pipes) synchronously. Listeners may be called asynchronously
+        &#x2F;&#x2F; after those resources actually close. In cases where disconnect is called
+        &#x2F;&#x2F; at process.exit, listeners may not get called.
+        if (!listener) {
+            listener = function () { };
+        }
+
+        if (this._socket) {
+            var currentState = this._connectionState;
+            switch (currentState) {
+            case CONNECTION_STATES.NONE:
+                this._connectionState = CONNECTION_STATES.CLOSED;
+                process.nextTick(listener);
+                return true;
+            case CONNECTION_STATES.CONNECTING:
+                this._connectionState = CONNECTION_STATES.CLOSING;
+                this._socket.once(&quot;close&quot;, listener);
+                this._socket.end();
+                return true;
+            case CONNECTION_STATES.OPEN:
+                this._connectionState = CONNECTION_STATES.CLOSING;
+                this._socket.once(&quot;close&quot;, listener);
+                this._socket.end();
+                return true;
+            case CONNECTION_STATES.CLOSING:
+                this._socket.once(&quot;close&quot;, listener);
+                return true;
+            case CONNECTION_STATES.CLOSED:
+                process.nextTick(listener);
+                return true;
+            case CONNECTION_STATES.DESTROYED:
+                process.nextTick(listener);
+                return true;
+            }
+        } else {
+            if (this._readStream) {
+                try {
+                    this._readStream.close();
+                } catch (readCloseError) {
+                    &#x2F;&#x2F; do nothing
+                }
+                this._readStream = null;
+            }
+            
+            if (this._writeStream) {
+                try {
+                    this._writeStream.close();
+                } catch (writeCloseError) {
+                    &#x2F;&#x2F; do nothing
+                }
+                this._writeStream = null;
+            }
+            
+            this._connectionState = CONNECTION_STATES.CLOSED;
+            process.nextTick(listener);
+            return true;
+        }
+    };
+    
+    PhotoshopClient.prototype.destroy = function () {
+        this._connectionState = CONNECTION_STATES.DESTROYED;
+        if (this._socket) {
+            this._socket.destroy();
+        }
+    };
+
+    PhotoshopClient.prototype._sendMessage = function (payloadBuffer) {
+        var cipheredPayloadBuffer = this._crypto ? this._crypto.cipher(payloadBuffer) : payloadBuffer;
+        var headerBuffer = new Buffer(MESSAGE_PAYLOAD_OFFSET);
+
+        &#x2F;&#x2F; message length includes status and payload, but not the UInt32 specifying message length
+        var messageLength = cipheredPayloadBuffer.length + MESSAGE_STATUS_LENGTH;
+        headerBuffer.writeUInt32BE(messageLength, MESSAGE_LENGTH_OFFSET);
+        headerBuffer.writeInt32BE(STATUS_NO_COMM_ERROR, MESSAGE_STATUS_OFFSET);
+        
+        this._writeWhenFree(headerBuffer);
+        this._writeWhenFree(cipheredPayloadBuffer);
+    };
+
+    PhotoshopClient.prototype.sendKeepAlive = function () {
+        var id = this._lastMessageID = (this._lastMessageID + 1) % MAX_MESSAGE_ID,
+            payloadBuffer = new Buffer(PAYLOAD_HEADER_LENGTH);
+        
+        payloadBuffer.writeUInt32BE(PROTOCOL_VERSION, PAYLOAD_PROTOCOL_OFFSET);
+        payloadBuffer.writeUInt32BE(id, PAYLOAD_ID_OFFSET);
+        payloadBuffer.writeUInt32BE(MESSAGE_TYPE_KEEPALIVE, PAYLOAD_TYPE_OFFSET);
+        
+        this._sendMessage(payloadBuffer);
+
+        return id;
+    };
+
+    PhotoshopClient.prototype.sendCommand = function (javascript) {
+        var id = this._lastMessageID = (this._lastMessageID + 1) % MAX_MESSAGE_ID,
+            codeBuffer = new Buffer(javascript, &quot;utf8&quot;),
+            payloadBuffer = new Buffer(codeBuffer.length + PAYLOAD_HEADER_LENGTH);
+        
+        payloadBuffer.writeUInt32BE(PROTOCOL_VERSION, PAYLOAD_PROTOCOL_OFFSET);
+        payloadBuffer.writeUInt32BE(id, PAYLOAD_ID_OFFSET);
+        payloadBuffer.writeUInt32BE(MESSAGE_TYPE_JAVASCRIPT, PAYLOAD_TYPE_OFFSET);
+        codeBuffer.copy(payloadBuffer, PAYLOAD_HEADER_LENGTH);
+
+        this._sendMessage(payloadBuffer);
+        
+        return id;
+    };
+
+    PhotoshopClient.prototype._processReceiveBuffer = function (isNewMessage) {
+        &#x2F;&#x2F; Log when the message started to come in so we can analyze the performance
+        if (isNewMessage &amp;&amp; this._receivedBytes &gt; 0) {
+            this.messageStartTime = new Date().getTime();
+        }
+
+        &#x2F;&#x2F; The header hasn&#39;t arrived yet: stop here
+        if (this._receivedBytes &lt; MESSAGE_PAYLOAD_OFFSET) { return; }
+
+        &#x2F;&#x2F; Evaluate communication status
+        var commStatus = this._receiveBuffer.readInt32BE(MESSAGE_STATUS_OFFSET);
+        if (commStatus !== STATUS_NO_COMM_ERROR) {
+            console.error(&quot;Communication error: &quot; + commStatus);
+            this.emit(&quot;communicationsError&quot;, &quot;Photoshop communication error: &quot; + commStatus);
+            this.disconnect();
+            return;
+        }
+
+        &#x2F;&#x2F; Message length includes status and payload, but not the UInt32 specifying message length
+        var messageLength = this._receiveBuffer.readUInt32BE(MESSAGE_LENGTH_OFFSET),
+            totalLength   = messageLength + MESSAGE_STATUS_OFFSET;
+
+        &#x2F;&#x2F; Make sure the buffer is large enough to contain the whole message
+        this._receiveBuffer = ensureBufferSize(this._receiveBuffer, totalLength, this._receivedBytes);
+
+        &#x2F;&#x2F; Unless the entire message has already been received, stop here
+        if (this._receivedBytes &lt; totalLength) { return; }
+
+        &#x2F;&#x2F; Performance evaluation
+        var duration = new Date().getTime() - this.messageStartTime;
+        if (duration &gt; 10) {
+            var size  = this._receivedBytes &#x2F; 1024,
+                speed = size &#x2F; (duration &#x2F; 1000);
+            console.info(duration + &quot;ms to receive &quot; + round(size, 1) + &quot; kB (&quot; + round(speed, 1) + &quot; kB&#x2F;s)&quot;);
+        }
+        
+        &#x2F;&#x2F; Extract the message
+        var cipheredBody = this._receiveBuffer.slice(MESSAGE_PAYLOAD_OFFSET, totalLength),
+            remainingBytes = this._receivedBytes - totalLength,
+            preferredBufferSize = Math.max(INITIAL_MESSAGE_BUFFER_SIZE, remainingBytes);
+
+        &#x2F;&#x2F; Prepare the buffer for the next message
+        var oldBuffer = this._receiveBuffer;
+        this._receiveBuffer = new Buffer(preferredBufferSize);
+        if (remainingBytes &gt; 0) {
+            oldBuffer.copy(this._receiveBuffer, 0, totalLength, this._receivedBytes);
+        }
+        this._receivedBytes = remainingBytes;
+
+        &#x2F;&#x2F; Decrypt the message
+        var startTime = new Date().getTime(),
+            bodyBuffer = this._crypto ? this._crypto.decipher(cipheredBody) : cipheredBody;
+        duration = new Date().getTime() - startTime;
+        if (duration &gt; 10) {
+            console.info(duration + &quot;ms to decrypt buffer&quot;);
+        }
+
+        &#x2F;&#x2F; Process message
+        this._processMessage(bodyBuffer);
+        
+        &#x2F;&#x2F; Receive buffer might have more than one message, so process again
+        this._processReceiveBuffer(true);
+    };
+    
+    PhotoshopClient.prototype._processMessage = function (bodyBuffer) {
+        var protocolVersion = bodyBuffer.readUInt32BE(PAYLOAD_PROTOCOL_OFFSET),
+            messageID = bodyBuffer.readUInt32BE(PAYLOAD_ID_OFFSET),
+            messageType = bodyBuffer.readUInt32BE(PAYLOAD_TYPE_OFFSET),
+            messageBody = bodyBuffer.slice(PAYLOAD_HEADER_LENGTH);
+        
+        var rawMessage = {
+            protocolVersion: protocolVersion,
+            id: messageID,
+            type: messageType,
+            body: messageBody
+        };
+
+        if (protocolVersion !== PROTOCOL_VERSION) {
+            this.emit(&quot;communicationsError&quot;, &quot;unknown protocol version&quot;, protocolVersion);
+        } else if (messageType === MESSAGE_TYPE_JAVASCRIPT) {
+            var messageBodyString = messageBody.toString(&quot;utf8&quot;);
+            var messageBodyParts = messageBodyString.split(&quot;\r&quot;);
+            var eventName = null;
+            var parsedValue = null;
+            
+            if (messageBodyParts.length === 2) {
+                eventName = messageBodyParts[0];
+            }
+
+            parsedValue = messageBodyParts[messageBodyParts.length - 1];
+
+            &#x2F;&#x2F; Most commands pass JSON back. However, some pass strings that result from
+            &#x2F;&#x2F; toStrings of un-JSON-ifiable data (e.g. &quot;[ActionDescriptor]&quot;). Still others
+            &#x2F;&#x2F; pass actual strings (that are not JSON) that we want to use (e.g. requests
+            &#x2F;&#x2F; for the Photoshop path). So, we try to parse as JSON, and if we fail, we just
+            &#x2F;&#x2F; use the string as the parsedValue. For some known strings, we don&#39;t try,
+            &#x2F;&#x2F; in order to avoid uninformative error messages for the console and the logs.
+            &#x2F;&#x2F;
+            &#x2F;&#x2F; TODO: In the future, it might make more sense to have a different slot in
+            &#x2F;&#x2F; the message that gives parsed data (if available) and unparsed string (always)
+            if (KNOWN_LITERAL_STRING_MESSAGES.indexOf(parsedValue) === -1) {
+                try {
+                    parsedValue = JSON.parse(parsedValue);
+                } catch (jsonParseException) {
+                    &#x2F;&#x2F; do nothing; this is not unexpected
+                }
+            }
+    
+            if (eventName) {
+                this.emit(&quot;event&quot;, messageID, eventName, parsedValue, rawMessage);
+            } else {
+                this.emit(&quot;message&quot;, messageID, parsedValue, rawMessage);
+            }
+        } else if (messageType === MESSAGE_TYPE_PIXMAP) {
+            this.emit(&quot;pixmap&quot;, messageID, messageBody, rawMessage);
+        } else if (messageType === MESSAGE_TYPE_ERROR) {
+            this.emit(&quot;error&quot;, { id: messageID, body: messageBody.toString(&quot;utf8&quot;) });
+        } else {
+            this.emit(&quot;communicationsError&quot;, &quot;unknown message type&quot;, messageType);
+        }
+    };
+        
+    &#x2F;&#x2F; Factory Functions
+    &#x2F;&#x2F; -----------------    
+    
+    function createClient(options, connectListener) {
+        return new PhotoshopClient(options, connectListener);
+    }
+
+    &#x2F;&#x2F; Public Interface
+    &#x2F;&#x2F; =================================
+
+    exports.PhotoshopClient = PhotoshopClient;
+    exports.createClient = createClient;
+
+}());</code></pre>
+                </div>
+      
+      
+                
+              </div>
+            
+          </section>
           
         </div>
       </div>

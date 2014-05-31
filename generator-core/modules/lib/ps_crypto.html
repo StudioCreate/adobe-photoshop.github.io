@@ -51,7 +51,7 @@
           <div class="left-section">
             <ul class="nav nav-list">
               <li class="nav-header">
-                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (12)</a>
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (11)</a>
               </li>
             </ul>
             <ul class="nav nav-list package-list">
@@ -61,7 +61,6 @@
             </ul>
             <ul id="package_" class="nav nav-list">
               <li><a href="../../modules/app.html">app</a></li>
-              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
             </ul>
                         <ul class="nav nav-list package-list">
               <li class="nav-header">
@@ -103,6 +102,62 @@
     
     
           
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>PSCrypto</h4>
+                  <em><p>PSCrypto Class</p>
+</em>
+                  <dl>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function PSCrypto(derivedKey) {
+        this._derivedKey = derivedKey;
+    }
+    
+    PSCrypto.prototype.decipher = function (buf) {
+        var d = crypto.createDecipheriv(ALGORITHM, this._derivedKey, IV);
+        return new Buffer(d.update(buf, &quot;binary&quot;, &quot;binary&quot;) + d.final(&quot;binary&quot;), &quot;binary&quot;);
+    };
+    
+    PSCrypto.prototype.cipher = function (buf) {
+        var c = crypto.createCipheriv(ALGORITHM, this._derivedKey, IV);
+        return new Buffer(c.update(buf, &quot;binary&quot;, &quot;binary&quot;) + c.final(&quot;binary&quot;), &quot;binary&quot;);
+    };
+
+    &#x2F;&#x2F; Factory Functions
+    &#x2F;&#x2F; -----------------
+    
+    function createPSCrypto(password, callback) {
+        crypto.pbkdf2(password, SALT, NUM_ITERATIONS, KEY_LENGTH, function (err, derivedKey) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, new PSCrypto(derivedKey));
+            }
+        });
+    }
+
+    
+    &#x2F;&#x2F; Public Interface
+    &#x2F;&#x2F; ================
+    
+    exports.createPSCrypto = createPSCrypto;
+    
+}());</code></pre>
+                </div>
+      
+      
+                
+              </div>
+            
+          </section>
           
         </div>
       </div>

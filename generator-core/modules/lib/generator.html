@@ -51,7 +51,7 @@
           <div class="left-section">
             <ul class="nav nav-list">
               <li class="nav-header">
-                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (12)</a>
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (11)</a>
               </li>
             </ul>
             <ul class="nav nav-list package-list">
@@ -61,7 +61,6 @@
             </ul>
             <ul id="package_" class="nav nav-list">
               <li><a href="../../modules/app.html">app</a></li>
-              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
             </ul>
                         <ul class="nav nav-list package-list">
               <li class="nav-header">
@@ -115,6 +114,1456 @@
     
     
           
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>Generator</h4>
+                  <em></em>
+                  <dl>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function Generator() {
+        if (!this instanceof Generator) {
+            return new Generator();
+        }
+        &#x2F;&#x2F; TODO: declare these as prototype properties and document types
+        this._plugins = {};
+        this._photoshop = null;
+        this._instanceID = _instanceCount++;
+        this._messageDeferreds = [];
+        this._eventSubscriptions = {};
+        this._menuState = {};
+    }
+    util.inherits(Generator, EventEmitter);
+
+    
+    function createGenerator() {
+        return new Generator();
+    }
+
+    Object.defineProperty(Generator.prototype, &quot;version&quot;, {enumerable: true, value: packageConfig.version});
+
+    Generator.prototype.start = function (options) {
+        var self = this;
+
+        self._config = options.config || {};
+
+        function connectToPhotoshop() {
+            var connectionDeferred = Q.defer();
+            self._photoshop = photoshop.createClient(options);
+            self._photoshop.once(&quot;connect&quot;, function () {
+                connectionDeferred.resolve(self);
+            });
+
+            self._photoshop.on(&quot;close&quot;, function () {
+                _logger.info(&quot;Photoshop connection closed&quot;);
+                self.emit(&quot;close&quot;);
+            });
+
+            self._photoshop.on(&quot;error&quot;, function (err) {
+                _logger.warn(&quot;Photoshop error&quot;, err);
+                &#x2F;&#x2F; If the error does refers to a specific command we ran, reject the corresponding deferred
+                if (err.body &amp;&amp; err.id) {
+                    if (self._messageDeferreds[err.id]) {
+                        self._messageDeferreds[err.id].reject(err.body);
+                    }
+                }
+                &#x2F;&#x2F; TODO: Otherwise, gracefully shut down?
+            });
+
+            self._photoshop.on(&quot;communicationsError&quot;, function (err, rawMessage) {
+                _logger.warn(&quot;photoshop communications error: %j&quot;, {error: err, rawMessage: rawMessage});
+            });
+
+            self._photoshop.on(&quot;message&quot;, function (messageID, parsedValue) { &#x2F;&#x2F; ,rawMessage)
+                if (self._messageDeferreds[messageID]) {
+                    self._messageDeferreds[messageID].notify({type: &quot;javascript&quot;, value: parsedValue});
+                }
+            });
+
+            self._photoshop.on(&quot;info&quot;, function (info) {
+                _logger.info(&quot;Photoshop info: %j&quot;, info);
+            });
+
+            self._photoshop.on(&quot;event&quot;, function (messageID, eventName, parsedValue) { &#x2F;&#x2F; , rawMessage)
+                self.emitPhotoshopEvent(eventName, parsedValue);
+            });
+
+            self._photoshop.on(&quot;pixmap&quot;, function (messageID, messageBody) { &#x2F;&#x2F; , rawMessage)
+                if (self._messageDeferreds[messageID]) {
+                    self._messageDeferreds[messageID].notify({type: &quot;pixmap&quot;, value: messageBody});
+                }
+            });
+
+            return connectionDeferred.promise;
+        }
+        
+        return (connectToPhotoshop().then(
+            function () {
+                &#x2F;&#x2F; Setup Headlights logging
+                self._logHeadlights(&quot;Startup&quot;);
+                self._logHeadlights(&quot;Version: &quot; + packageConfig.version);
+                self.onPhotoshopEvent(&quot;generatorMenuChanged&quot;, function (event) {
+                    var menu = event.generatorMenuChanged;
+                    if (menu &amp;&amp; menu.name) {
+                        self._logHeadlights(&quot;Menu selected: &quot; + menu.name);
+                    }
+                });
+
+                self.getPhotoshopExecutableLocation().then(
+                    function (p) { &#x2F;&#x2F; success
+                        self._photoshop._applicationPath = p;
+                    },
+                    function (err) { &#x2F;&#x2F; error
+                        _logger.error(&quot;Error retrieving Photoshop executable location&quot;, err);
+                    }
+                );
+            })
+        );
+    };
+
+    &#x2F;&#x2F; Note: This is a private method. Call at your own risk, and follow instructions below.
+    &#x2F;&#x2F; Most users of the Generator API will want the public Generator.prototype.evaluateJSXString
+    &#x2F;&#x2F; method below.
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; This method returns a deferred (not a promise). Every time a message comes in from Photoshop
+    &#x2F;&#x2F; pertaining to this call, a &quot;progress&quot; notification is issued on the deferred. When the caller of
+    &#x2F;&#x2F; this method is no longer interested in any more messages, it is the resposnibility of the
+    &#x2F;&#x2F; caller to resolve the returned deferred. Doing that will cause the necessary cleanup
+    &#x2F;&#x2F; to happen internally (via a &quot;finally&quot; handler that this method installs on the deferred).
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; The progress notification will be an object of the form:
+    &#x2F;&#x2F;    { type : [string like &quot;javascript&quot; or &quot;pixmap&quot;],
+    &#x2F;&#x2F;      value : [dependent on type -- Object if &quot;javascript&quot;, Buffer if &quot;pixmap&quot;] }
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; If the caller of this message never resolves&#x2F;rejects the returned deferred, then we&#39;ll have a
+    &#x2F;&#x2F; memory leak on our hands.
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; The reason this method (and _sendJSXFile) exist is because some Generator-specific ExtendScript
+    &#x2F;&#x2F; returns multiple JS messages, and we need a way to handle that. However, all other general-purpose
+    &#x2F;&#x2F; ExtendScript will only return one (which is what the public API expects). As we
+    &#x2F;&#x2F; move Generator things out of ExtendScript (or add more stuff to Generator), the requirements
+    &#x2F;&#x2F; of this method (and _sendJSXFile) may change. That&#39;s why it&#39;s priate.
+    Generator.prototype._sendJSXString = function (s) {
+        var self = this,
+            deferred = Q.defer(),
+            id = self._photoshop.sendCommand(s);
+            
+        self._messageDeferreds[id] = deferred;
+
+        deferred.promise.finally(function () {
+            delete self._messageDeferreds[id];
+        });
+        
+        return deferred;
+    };
+
+    &#x2F;&#x2F; Note: This is a private method. Call at your own risk, and follow instructions below.
+    &#x2F;&#x2F; Most users of the Generator API will want the public Generator.prototype.evaluateJSXFile
+    &#x2F;&#x2F; method below.
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; See the comment for _sendJSXString above for details on how to use this if you really
+    &#x2F;&#x2F; need to use it.
+    Generator.prototype._sendJSXFile = function (path, params) {
+        var resolve = require(&quot;path&quot;).resolve,
+            readFile = require(&quot;fs&quot;).readFile;
+        
+        var self = this,
+            deferred = Q.defer();
+        
+        var paramsString = &quot;null&quot;;
+        if (params) {
+            try {
+                paramsString = JSON.stringify(params);
+            } catch (jsonError) {
+                deferred.reject(jsonError);
+            }
+        }
+        
+        if (deferred.promise.isPending()) {
+            readFile(resolve(__dirname, path), {encoding: &quot;utf8&quot;}, function (err, data) {
+                var id;
+
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    data = &quot;var params = &quot; + paramsString + &quot;;\n&quot; + data;
+                    id = self._photoshop.sendCommand(data);
+                    self._messageDeferreds[id] = deferred;
+
+                    deferred.promise.finally(function () {
+                        delete self._messageDeferreds[id];
+                    });
+                }
+            });
+        }
+        
+        return deferred;
+    };
+
+    Generator.prototype.evaluateJSXFile = function (path, params) {
+        var self = this,
+            deferred = self._sendJSXFile(path, params);
+
+        deferred.promise.progress(function (message) {
+            if (message.type === &quot;javascript&quot;) {
+                deferred.resolve(message.value);
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    Generator.prototype.evaluateJSXString = function (s) {
+        var self = this,
+            deferred = self._sendJSXString(s);
+
+        deferred.promise.progress(function (message) {
+            if (message.type === &quot;javascript&quot;) {
+                deferred.resolve(message.value);
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    Generator.prototype.alert = function (message, stringReplacements) {
+        this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;alert.jsx&quot;, { message: message, replacements: stringReplacements });
+    };</code></pre>
+                </div>
+      
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_logHeadlights</h4>
+                    <div class="description"><p>Log a string in Photoshop&#39;s &quot;Headlights&quot; database for feature usage analysis.
+ Note that the data will only actually be logged if the user has opted in to
+ providing customer feedback. If they have not opted in, the string will be
+ discarded.</p>
+<p> This method is intended to be used only by Adobe-created Generator plugins,
+ since third parties don&#39;t have a way to access headlights data.</p>
+<p> @param {!string} event The string to log in Headlights</p>
+<p> @return {Promise} resolved/rejected when request completes/errors</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype._logHeadlights = function (event) {
+        return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;logHeadlights.jsx&quot;, { event : event });
+    };
+        
+    Generator.prototype.shutdown = function () {
+        if (this._photoshop) {
+            try {
+                this._photoshop.disconnect();
+            } catch (photoshopDisconnectException) {
+                &#x2F;&#x2F; do nothing
+            }
+            this._photoshop = null;
+        }
+    };
+    
+    Generator.prototype.isConnected = function () {
+        return (this._photoshop &amp;&amp; this._photoshop.isConnected());
+    };
+
+    Generator.prototype.getPluginMetadata = function (directory) {
+        var fs = require(&quot;fs&quot;),
+            resolve = require(&quot;path&quot;).resolve,
+            metadata = null;
+
+        &#x2F;&#x2F; Make sure a directory was specified
+        if (!fs.statSync(directory).isDirectory()) {
+            throw new Error(&quot;Argument error: specified path is not a directory&quot;);
+        }
+
+        &#x2F;&#x2F; Load metadata
+        try {
+            metadata = require(resolve(directory, &quot;package.json&quot;));
+        } catch (metadataError) {
+            throw new Error(&quot;Error reading package.json file for plugin at path &#39;&quot; +
+                directory + &quot;&#39;: &quot; + metadataError.message);
+        }
+
+        &#x2F;&#x2F; Ensure plugin has a name
+        if (!(metadata &amp;&amp; metadata.name &amp;&amp; typeof metadata.name === &quot;string&quot;)) {
+            throw new Error(&quot;Invalid metadata for plugin at path &#39;&quot; + directory +
+                &quot;&#39; (plugins must have a valid package.json file with &#39;name&#39; property): &quot; +
+                JSON.stringify(metadata));
+        }
+
+        return metadata;
+    };
+
+    Generator.prototype.checkPluginCompatibility = function (metadata) {
+        var result = {compatible: true, message: null};
+
+        if (!metadata[&quot;generator-core-version&quot;]) {
+            &#x2F;&#x2F; Still compatible, but has a warning.
+            result.compatible = true;
+            result.message = &quot;Warning: Plugin &#39;&quot; + metadata.name +
+                &quot;&#39; did not specify which versions of generator-core it is compatible with.&quot; +
+                &quot; It will be loaded anyway, but providing generator-core-version&quot; +
+                &quot; in its package.json is recommended.&quot;;
+        } else if (packageConfig.version &amp;&amp;
+            !semver.satisfies(packageConfig.version, metadata[&quot;generator-core-version&quot;])) {
+            result.compatible = false;
+            result.message = &quot;The plugin &quot; + metadata.name + &quot; is incompatible with this version of generator-core.&quot; +
+                &quot; generator-core version: &quot; + packageConfig.version +
+                &quot;, plugin compatibility: &quot; + metadata[&quot;generator-core-version&quot;];
+        }
+
+        return result;
+    };
+
+    Generator.prototype.loadPlugin = function (directory) {
+        var metadata = null,
+            compatibility = null,
+            self = this;
+
+        function handleIncompatiblePlugin(metadata) {
+            self.alert(PLUGIN_INCOMPATIBLE_MESSAGE, [metadata.name]);
+            &#x2F;&#x2F; TODO: Record that we have given an alert for this plugin, and only
+            &#x2F;&#x2F; alert if we&#39;ve never alerted for it before.
+        }
+        
+        &#x2F;&#x2F; Get the metadata
+        try {
+            metadata = self.getPluginMetadata(directory);
+        } catch (metadataError) {
+            throw new Error(&quot;Could not load plugin: &quot; + metadataError.message);
+        }
+
+        &#x2F;&#x2F; Check if it is compatible
+        compatibility = self.checkPluginCompatibility(metadata);
+        if (!compatibility.compatible) {
+            handleIncompatiblePlugin(metadata);
+            _logger.error(compatibility.message);
+            throw new Error(compatibility.message);
+        } else if (compatibility.message) {
+            _logger.warn(compatibility.message);
+        }
+
+        &#x2F;&#x2F; Check for uniqueness
+        if (self._plugins[PLUGIN_KEY_PREFIX + metadata.name]) {
+            throw new Error(&quot;Attempted to load a plugin with a name that is already used. Path: &#39;&quot; +
+                directory + &quot;&#39;, name: &#39;&quot; + metadata.name + &quot;&#39;&quot;);
+        }
+
+        &#x2F;&#x2F; Do the actual plugin load
+        try {
+            _logger.debug(&quot;Loading plugin: %s&quot;, metadata.name);
+            &#x2F;&#x2F; NOTE: We don&#39;t need to worry about accidentally requiring the same plugin twice.
+            &#x2F;&#x2F; If the user did try to load it twice, require&#39;s caching would return the same
+            &#x2F;&#x2F; package.json both times (even if the package.json changed on disk), and so
+            &#x2F;&#x2F; we&#39;d get the same name both times, and bail in the &quot;if&quot; branch above.
+            var plugin = require(directory),
+                config = self._config[metadata.name] || {};
+
+            plugin.init(this, config, _loggerManager.createLogger(metadata.name));
+            self._plugins[PLUGIN_KEY_PREFIX + metadata.name] = {
+                metadata: metadata,
+                plugin: plugin,
+                config: config
+            };
+            _logger.debug(&quot;Plugin loaded: %s&quot;, metadata.name);
+            self._logHeadlights(&quot;Plugin loaded: &quot; + metadata.name);
+            self._logHeadlights(&quot;Plugin version: &quot; + metadata.name + &quot;:&quot; + metadata.version);
+        } catch (loadError) {
+            throw new Error(&quot;Could not load plugin at path &#39;&quot; + directory + &quot;&#39;: &quot; + loadError.message);
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>extractDocumentSettings</h4>
+                    <div class="description"><p>Extract and parse generator settings, optionally for one plugin only</p>
+</div>
+                    <dl>
+                      <dt>document</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>The object to extract settings from</dd>
+                      <dt>document.generatorSettings</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>The stored settings</dd>
+                      <dt>pluginId</dt>
+                      <dd class="label label-info pull-left">String</dd>
+                      <dd>The ID of the plugin to extract the settings of</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.extractDocumentSettings = function (document, pluginId) {
+        if (!document) { return {}; }
+        
+        var self = this,
+            &#x2F;&#x2F; Regardless of whether the source is a call to getDocumentInfo, an imageChanged event,
+            &#x2F;&#x2F; or a call to getDocumentSettings (both for a specific plugin and for all),
+            &#x2F;&#x2F; what Photoshop returns is always an object wrapped into { generatorSettings: ... }
+            settings = document.generatorSettings;
+
+        &#x2F;&#x2F; At this point we&#39;re either dealing with the settings for one plugin or for multiple plugins.
+        &#x2F;&#x2F; In the first case, the settings should be wrapped as { json: ... }, otherwise the latter case.
+        if (!settings.json) {
+            &#x2F;&#x2F; Do not modify the settings, but create a copy
+            var result = {};
+            Object.keys(settings).forEach(function (key) {
+                &#x2F;&#x2F; Unescape the plugin IDs to not leak this convention more than necessary
+                result[unescapePluginId(key)] = self._parseDocumentSettings(settings[key]);
+            });
+            settings = result;
+            
+            if (pluginId) {
+                &#x2F;&#x2F; Can use the pluginId directly because it was unescaped above
+                settings = settings[pluginId] || {};
+            }
+        } else {
+            settings = self._parseDocumentSettings(settings);
+        }
+
+        return settings;
+    };
+
+    Generator.prototype._parseDocumentSettings = function (settings) {
+        if (settings.json) {
+            try {
+                return JSON.parse(settings.json);
+            }
+            catch (e) {
+                _logger.error(&quot;Could not parse&quot; + settings.json + &quot;: &quot; + e.stack);
+            }
+        }
+        return settings;
+    };
+
+    Generator.prototype.subscribeToPhotoshopEvents = function (events) {
+        var self = this,
+            e,
+            i;
+
+        if (!util.isArray(events)) {
+            events = [events];
+        }
+
+        &#x2F;&#x2F; Prevent redundant event subscriptions
+        for (i = events.length - 1; i &gt;= 0; i--) {
+            e = events[i];
+            &#x2F;&#x2F; If we are already subscribed to this event
+            if (self._eventSubscriptions[e]) {
+                &#x2F;&#x2F; Remove this event from the list
+                events.splice(i, 1);
+            } else {
+                &#x2F;&#x2F; Otherwise remember the subscription
+                self._eventSubscriptions[e] = true;
+            }
+        }
+
+        if (events.length &gt; 0) {
+            var params = { events : events };
+            return self.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;networkEventSubscribe.jsx&quot;, params);
+        } else {
+            return new Q(true);
+        }
+
+    };
+
+    &#x2F;&#x2F; Photoshop events (e.g. &quot;imageChanged&quot;) are managed a little differently than
+    &#x2F;&#x2F; Generator events (e.g. connect, close, error) for two reasons. First, when a user
+    &#x2F;&#x2F; registers for a Photoshop event, we need to actually subscribe to that event over
+    &#x2F;&#x2F; the Photoshop connection. (And, if that subscription fails, we want to clean up
+    &#x2F;&#x2F; properly.) Second, we want to avoid name conflicts with Generator events. (E.g.
+    &#x2F;&#x2F; Photoshop could add an &quot;error&quot; event.) To do this, we have our own registration
+    &#x2F;&#x2F; and removal functions that mimic the regular EventEmitter interface. Event names
+    &#x2F;&#x2F; are prefixed with a constant string, and actual events are dispatched through
+    &#x2F;&#x2F; the usual &quot;emit&quot; codepath.
+
+    Generator.prototype._registerPhotoshopEventHelper = function (event, listener, isOnce) {
+        var self = this,
+            registerFunction = isOnce ? self.once : self.on;
+
+        self.subscribeToPhotoshopEvents(event).fail(function () {
+            _logger.error(&quot;Failed to subscribe to photoshop event %s&quot;, event);
+            self.removePhotoshopEventListener(event, listener);
+        });
+
+        return registerFunction.call(self, PHOTOSHOP_EVENT_PREFIX + event, listener);
+    };
+
+    Generator.prototype.onPhotoshopEvent = function (event, listener) {
+        return this._registerPhotoshopEventHelper(event, listener, false);
+    };
+    Generator.prototype.addPhotoshopEventListener = Generator.prototype.onPhotoshopEvent;
+
+    Generator.prototype.oncePhotoshopEvent = function (event, listener) {
+        return this._registerPhotoshopEventHelper(event, listener, true);
+    };
+
+    Generator.prototype.removePhotoshopEventListener = function (event, listener) {
+        &#x2F;&#x2F; TODO: We could unsubscribe from the PS event if we have no listeners left
+        return this.removeListener(PHOTOSHOP_EVENT_PREFIX + event, listener);
+    };
+
+    Generator.prototype.photoshopEventListeners = function (event) {
+        return this.listeners(PHOTOSHOP_EVENT_PREFIX + event);
+    };
+
+    Generator.prototype.emitPhotoshopEvent = function () {
+        var args = Array.prototype.slice.call(arguments);
+        if (args[0]) {
+            args[0] = PHOTOSHOP_EVENT_PREFIX + args[0];
+        }
+
+        return this.emit.apply(this, args);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getDocumentInfo</h4>
+                    <div class="description"><p>Get information about a document.
+To find out about the current document, leave documentId empty.</p>
+</div>
+                    <dl>
+                      <dt>documentId</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>Optional document ID</dd>
+                      <dt>flags</dt>
+                      <dd class="label label-info pull-left">Object.&lt;string, boolean&gt;</dd>
+                      <dd>Optional override of default flags for
+ document info request. The optional flags and their default values are:
+ compInfo: true
+ imageInfo: true
+ layerInfo: true
+ expandSmartObjects: false
+ getTextStyles: true
+ selectedLayers: false
+ getCompLayerSettings: true</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getDocumentInfo = function (documentId, flags) {
+        var params = {
+            documentId: documentId,
+            flags: {
+                compInfo:             true,
+                imageInfo:            true,
+                layerInfo:            true,
+                expandSmartObjects:   false,
+                getTextStyles:        true,
+                selectedLayers:       false,
+                getCompLayerSettings: true
+            }
+        };
+
+        if (flags) {
+            Object.keys(params.flags).forEach(function (key) {
+                if (flags.hasOwnProperty(key)) {
+                    params.flags[key] = flags[key];
+                }
+            });
+        }
+
+        return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;getDocumentInfo.jsx&quot;, params);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getDocumentSettingsForPlugin</h4>
+                    <div class="description"><p>Get the document-wide generator settings of the current document for a specific plugin.</p>
+</div>
+                    <dl>
+                      <dt>documentId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of the document to get the settings for</dd>
+                      <dt>pluginId</dt>
+                      <dd class="label label-info pull-left">String</dd>
+                      <dd>The ID of the plugin to get the settings for</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getDocumentSettingsForPlugin = function (documentId, pluginId) {
+        &#x2F;&#x2F; Note that technically pluginId is optional, but we don&#39;t want to make that offical
+        
+        var self = this,
+            settingsDeferred = Q.defer(),
+            params = { documentId: documentId, key: escapePluginId(pluginId) },
+            infoPromise = this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;getGeneratorSettings.jsx&quot;, params);
+
+        infoPromise.then(
+            function (settings) {
+                &#x2F;&#x2F; Don&#39;t pass the plugin ID here because due to using params.key above,
+                &#x2F;&#x2F; {{ generatorSettings: { &lt;pluginId&gt;: &lt;settings&gt; }} is shortened to
+                &#x2F;&#x2F; { generatorSettings: &lt;settings&gt; } anyway
+                settings = self.extractDocumentSettings(settings);
+                settingsDeferred.resolve(settings);
+            },
+            function (err) {
+                settingsDeferred.reject(err);
+            }
+        );
+
+        return settingsDeferred.promise;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getGuides</h4>
+                    <div class="description"><p>Get a list of guides in document.
+Returns a promise that resolves with the sets of horizontal and vertical guide positions in the given document</p>
+</div>
+                    <dl>
+                      <dt>documentId</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>Document ID
+</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise.&lt;{horizontal: Array.&lt;number&gt;,vertical: Array.&lt;number&gt;}&gt;</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getGuides = function (documentId) {
+
+        if (documentId === undefined) {
+            return Q.reject(&quot;Document ID is required&quot;);
+        } else {
+            return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;getGuides.jsx&quot;, { documentId: documentId })
+                .then(function (serializedGuides) {
+                    var guideParts = serializedGuides.split(&quot;;&quot;).map(function (guides) {
+                        &#x2F;&#x2F; when no guides in this direction
+                        if (guides === &quot;&quot;) {
+                            return [];
+                        }
+                        &#x2F;&#x2F; otherwise parse coordinates
+                        return guides.split(&quot;:&quot;).map(function (coordinate) { return parseFloat(coordinate); });
+                    });
+                    return {
+                        horizontal: guideParts[0],
+                        vertical: guideParts[1]
+                    };
+                });
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getLayerShape</h4>
+                    <div class="description"><p>Returns a promise that resolves to an object detailing the path
+present on the specified layer. If there is no path present,
+the promise rejects.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getLayerShape = function (documentId, layerId) {
+        var self = this,
+            timeoutTimer = null,
+            resultDeferred = Q.defer(),
+            executionDeferred = self._sendJSXFile(&quot;.&#x2F;jsx&#x2F;getLayerShape.jsx&quot;,
+                {documentId : documentId, layerId : layerId});
+
+        resultDeferred.promise.finally(function () {
+            executionDeferred.resolve(); &#x2F;&#x2F; done listening for messages
+
+            if (timeoutTimer !== null) {
+                clearTimeout(timeoutTimer);
+            }
+        });
+
+        executionDeferred.promise.progress(function (message) {
+            if (timeoutTimer === null) { &#x2F;&#x2F; First message we&#39;ve received
+                timeoutTimer = setTimeout(function () {
+                    _logger.warn(&quot;getLayerShape request timed out&quot;);
+                    executionDeferred.resolve(); &#x2F;&#x2F; done listening for messages
+                    resultDeferred.reject(&quot;timeout&quot;);
+                }, MULTI_MESSAGE_TIMEOUT);
+            }
+
+            if (message.type === &quot;javascript&quot;) {
+                if (message.value instanceof Object &amp;&amp; message.value.hasOwnProperty(&quot;path&quot;)) {
+                    resultDeferred.resolve(message.value);
+                } else if (message.value === &quot;&quot;) {
+                    &#x2F;&#x2F; sendLayerShapeToNetworkClient returns a JSON object that is an
+                    &#x2F;&#x2F; empty string if there is no shape data on the layer;
+                    resultDeferred.reject(&quot;layer does not contain a shape&quot;);
+                }
+            }
+        });
+
+        executionDeferred.promise.fail(function (err) {
+            resultDeferred.reject(err);
+        });
+
+        return resultDeferred.promise;
+    };
+
+    Generator.prototype.getDeepBounds = function (layer) {
+        var bounds;
+
+        if (!layer.layers) {
+            bounds = layer.bounds;
+        } else {
+            layer.layers.forEach(function (sub) {
+                var childBounds = this.getDeepBounds(sub);
+
+                if (!bounds) {
+                    bounds = childBounds;
+                } else {
+                    bounds = { &#x2F;&#x2F; Compute containing rect of union of bounds and childBounds
+                        left:   Math.min(bounds.left,   childBounds.left),
+                        top:    Math.min(bounds.top,    childBounds.top),
+                        right:  Math.max(bounds.right,  childBounds.right),
+                        bottom: Math.max(bounds.bottom, childBounds.bottom)
+                    };
+                }
+            }, this);
+        }
+
+        if (layer.mask &amp;&amp; layer.mask.bounds) {
+            var maskBounds = layer.mask.bounds;
+            
+            bounds = { &#x2F;&#x2F; compute containing rect of intersection of bounds and maskBounds
+                left:   Math.max(bounds.left,   maskBounds.left),
+                top:    Math.max(bounds.top,    maskBounds.top),
+                right:  Math.min(bounds.right,  maskBounds.right),
+                bottom: Math.min(bounds.bottom, maskBounds.bottom)
+            };
+        }
+
+        return bounds;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getOpenDocumentIDs</h4>
+                    <div class="description"><p>Get an array of all open document IDs.
+Returns a promise that resolves to an array of integers.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getOpenDocumentIDs = function () {
+        return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;getOpenDocumentIDs.jsx&quot;, {}).then(function (ids) {
+            if (typeof ids === &quot;number&quot;) {
+                return [ids];
+            } else if (typeof ids === &quot;string&quot; &amp;&amp; ids.length &gt; 0) {
+                return ids.split(&quot;:&quot;).map(function (id) { return parseInt(id, 10); });
+            } else {
+                return [];
+            }
+        });
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getPhotoshopExecutableLocation</h4>
+                    <div class="description"><p>Returns a Promise that resolves to the full path to the location of the Photoshop
+executable (not including the name of the executable itself.) On Mac, this gives
+a location <em>inside</em> the .app bundle.</p>
+<p>Important: Due to a bug in Photoshop (that likely won&#39;t be fixed), this function
+will not work properly if there is a literal &quot;%20&quot; in the absolute path. Moreover,
+PS as a whole may not work properly if there is a literal &quot;%20&quot; in its executable path</p>
+<p>On Mac this will look something like:
+   /Applications/Adobe Photoshop CC/Adobe Photoshop CC.app/Contents/MacOS</p>
+<p>On Windows this will look something like:
+   C:\Program Files\Adobe\Adobe Photoshop CC (64 Bit)</p>
+<p>See also: Generator.prototype.getPhotoshopPath</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getPhotoshopExecutableLocation = function () {
+        return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;getPhotoshopExecutableLocation.jsx&quot;, {});
+    };
+
+    Generator.prototype.getPhotoshopLocale = function () {
+        return this.evaluateJSXString(&quot;app.locale&quot;);
+    };
+
+    Generator.prototype.addMenuItem = function (name, displayName, enabled, checked) {
+        var menuItems = [], m;
+
+        &#x2F;&#x2F; Store menu state
+        this._menuState[MENU_STATE_KEY_PREFIX + name] = {
+            name: name,
+            displayName: displayName,
+            enabled: enabled,
+            checked: checked
+        };
+
+        &#x2F;&#x2F; Rebuild the whole menu
+        for (m in this._menuState) {
+            if (m.indexOf(MENU_STATE_KEY_PREFIX) === 0) {
+                menuItems.push(this._menuState[m]);
+            }
+        }
+        return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;buildMenu.jsx&quot;, {items : menuItems});
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getPhotoshopPath</h4>
+                    <div class="description"><p>Returns a Promise that resolves to the full path to the location of the root 
+Photoshop install directory (where things like the third-party &quot;Plug-ins&quot;
+directory live).</p>
+<p>On Mac this will look something like:
+   /Applications/Adobe Photoshop CC</p>
+<p>On Windows this will look something like:
+   C:\Program Files\Adobe\Adobe Photoshop CC (64 Bit)</p>
+<p>See also: Generator.prototype.getPhotoshopExecutableLocation</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getPhotoshopPath = function () {
+        return this.evaluateJSXString(&quot;File(app.path).fsName&quot;);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getPixmap</h4>
+                    <div class="description"><p>Get a pixmap representing the pixels of a layer, or just the bounds of that pixmap.
+The pixmap can be scaled either by providing a horizontal and vertical scaling factor (scaleX/scaleY)
+or by providing a mapping between an input rectangle and an output rectangle. The input rectangle
+is specified in document coordinates and should encompass the whole layer.
+The output rectangle should be of the target size.</p>
+</div>
+                    <dl>
+                      <dt>documentId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>Document ID</dd>
+                      <dt>layerSpec
+</dt>
+                      <dd class="label label-info pull-left">number, {firstLayerIndex: number, lastLayerIndex: number, =§hidden: Array.&lt;number&gt;}</dd>
+                      <dd>Either the layer ID of the desired layer as a number, or an object of the form {firstLayerIndex: number,
+ lastLayerIndex: number, ?hidden: Array.<number>} specifying the desired index range, inclusive, and
+ (optionally) an array of indices to hide. Note that the number form takes a layer ID, *not* a layer index.</dd>
+                      <dt>settings</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>An object with params to request the pixmap</dd>
+                      <dt>settings.boundsOnly</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether to return an object with bounds rather than the pixmap. The
+ returned object will have the format (but with different numbers):
+ { bounds: {top: 0, left: 0, bottom: 100, right: 100 } }</dd>
+                      <dt>settings.inputRect</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>Rectangular part of the document to use (usually the layer's bounds)</dd>
+                      <dt>settings.outputRect</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>Rectangle into which the the layer should fit</dd>
+                      <dt>settings.scaleX</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>The factor by which to scale the image horizontally (1.0 for 100%)</dd>
+                      <dt>settings.scaleX</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>The factor by which to scale the image vertically (1.0 for 100%)</dd>
+                      <dt>settings.inputRect.left</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's left side from the doc's left side</dd>
+                      <dt>settings.inputRect.top</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's top from the doc's top</dd>
+                      <dt>settings.inputRect.right</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's right side from the doc's left side</dd>
+                      <dt>settings.inputRect.bottom</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's bottom from the doc's top</dd>
+                      <dt>settings.outputRect.left</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's left side from the doc's left side</dd>
+                      <dt>settings.outputRect.top</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's top from the doc's top</dd>
+                      <dt>settings.outputRect.right</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's right side from the doc's left side</dd>
+                      <dt>settings.outputRect.bottom</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Pixel distance of the rect's bottom from the doc's top</dd>
+                      <dt>settings.useSmartScaling</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Use Photoshop's "smart" scaling to scale layer, which
+ (confusingly) means that stroke effects (e.g. rounded rect corners) are *not* scaled. (Default: false)</dd>
+                      <dt>settings.includeAncestorMasks</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Cause exported layer to be clipped by any ancestor masks
+ that are visible (Default: false)</dd>
+                      <dt>settings.allowDither</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>controls whether any dithering could possibly happen in the color
+ conversion to 8-bit RGB. If false, then dithering will definitely not occur, regardless of either
+ the value of useColorSettingsDither and the color settings in Photoshop. (Default: false)</dd>
+                      <dt>settings.useColorSettingsDither</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>If settings.allowDither is true, then this controls
+ whether to (if true) defer to the user's color settings in PS, or (if false) to force dither in any
+ case where a conversion to 8-bit RGB would otherwise be lossy. If allowDither is false, then the
+ value of this parameter is ignored. (Default: false)</dd>
+                      <dt>settings.interpolationType</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd>Force pixmap scaling to use the given interpolation method.
+ If defined, the value should be one of the Generator.prototype.INTERPOLATION constants. Otherwise,
+ Photoshop's default interpolation type (as specified in Preferences > Image Interpolation) is used.
+ (Default: undefined)</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getPixmap = function (documentId, layerSpec, settings) {
+        if (arguments.length !== 3) {
+            _logger.warn(&quot;Call to getPixmap with &quot; + arguments.length +
+                &quot; instead of 3 arguments - outdated plugin?&quot;);
+        }
+        var self              = this,
+            executionDeferred = null,
+            jsDeferred        = Q.defer(),
+            pixmapDeferred    = Q.defer(),
+            overallDeferred   = Q.defer(),
+            params            = {
+                documentId: documentId,
+                layerSpec:  layerSpec,
+                inputRect:  settings.inputRect,
+                outputRect: settings.outputRect,
+                scaleX:     settings.scaleX || 1,
+                scaleY:     settings.scaleY || 1,
+                bounds:     true,
+                boundsOnly: settings.boundsOnly,
+                useSmartScaling: settings.useSmartScaling || false,
+                includeAncestorMasks: settings.includeAncestorMasks || false,
+                allowDither: settings.allowDither || false,
+                useColorSettingsDither: settings.useColorSettingsDither || false,
+                interpolationType: settings.interpolationType
+            };
+
+        &#x2F;&#x2F; Because of PS communication irregularities in different versions of PS, it&#39;s very complicated to
+        &#x2F;&#x2F; know when we&#39;re &quot;done&quot; getting responses from executing this JSX file. In various scenarios, the
+        &#x2F;&#x2F; evaluation of the JSX file produces some subset of the following responses in some *arbitrary* order:
+        &#x2F;&#x2F;
+        &#x2F;&#x2F; - A javascript message that is a stringification of an Action Descriptor object
+        &#x2F;&#x2F;  (i.e. &quot;[ActionDescriptor]&quot;) -- this should always come back
+        &#x2F;&#x2F; - A javascript message that is a stringification of a JSON object that contains bounds -- currently
+        &#x2F;&#x2F;   this always comes back because &quot;bounds&quot; is hardcoded to &quot;true&quot; in the params list
+        &#x2F;&#x2F; - A pixmap message -- this should come back if and only if boundsOnly is false.
+        &#x2F;&#x2F;
+        &#x2F;&#x2F; The two deferreds at the top of this function (jsDeferred and pixmapDeferred) resolve when we&#39;ve
+        &#x2F;&#x2F; received all of the expected messages of the respective type with the expected content. 
+        &#x2F;&#x2F;
+        &#x2F;&#x2F; overallDeferred (the promise of which is returned by this function) resolves when both jsDeferred and
+        &#x2F;&#x2F; pixmapDeferred resolve.
+        &#x2F;&#x2F;
+        &#x2F;&#x2F; Note that this method could be slightly more efficient if we didn&#39;t create the pixmapDeffered in cases
+        &#x2F;&#x2F; where it wasn&#39;t necessary. But the logic is much simpler if we just create it and then resolve it
+        &#x2F;&#x2F; in cases where we don&#39;t need it. When the day comes that Generator is slow because we create one
+        &#x2F;&#x2F; extra deferred every time we generate an image, we&#39;ll optimize this.
+        executionDeferred = self._sendJSXFile(&quot;.&#x2F;jsx&#x2F;getLayerPixmap.jsx&quot;, params);
+
+        executionDeferred.promise.progress(function (message) {
+            if (message.type === &quot;javascript&quot; &amp;&amp;
+                    message.value instanceof Object &amp;&amp;
+                    message.value.hasOwnProperty(&quot;bounds&quot;)) {
+                jsDeferred.resolve(message.value);
+            } else if (message.type === &quot;pixmap&quot;) {
+                pixmapDeferred.resolve(message.value);
+            }
+        });
+
+        executionDeferred.promise.fail(function (err) {
+            jsDeferred.reject(err);
+            pixmapDeferred.reject(err);
+        });
+
+        &#x2F;&#x2F; Resolve the pixmapDeferred now if we aren&#39;t actually expecting a pixmap
+        if (params.boundsOnly) {
+            pixmapDeferred.resolve();
+        }
+
+        Q.all([jsDeferred.promise, pixmapDeferred.promise]).spread(
+            function (js, pixmapBuffer) {
+                executionDeferred.resolve();
+
+                if (params.boundsOnly &amp;&amp; js &amp;&amp; js.bounds) {
+                    overallDeferred.resolve(js);
+                } else if (js &amp;&amp; js.bounds &amp;&amp; pixmapBuffer) {
+                    var pixmap = xpm.Pixmap(pixmapBuffer);
+                    pixmap.bounds = js.bounds;
+                    overallDeferred.resolve(pixmap);
+                } else {
+                    var errStr = &quot;Unexpected response from PS in getLayerPixmap: jsDeferred val: &quot; +
+                        JSON.stringify(js) +
+                        &quot;, pixmapDeferred val: &quot; +
+                        pixmapBuffer ? &quot;truthy&quot; : &quot;falsy&quot;;
+                    overallDeferred.reject(new Error(errStr));
+                }
+            }, function (err) {
+                executionDeferred.reject(err);
+                overallDeferred.reject(err);
+            }
+        );
+
+        return overallDeferred.promise;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getPixmapParams</h4>
+                    <div class="description"><p>Computes the settings for getPixmap to achieve a certain scaling/padding result.</p>
+<p>staticInputBounds is essentially document.layers[i].bounds.
+visibleInputBounds is essentially document.layers[i].boundsWithFX or pixmap.bounds (better).
+paddedInputBounds is visibleInputBounds extended by document.layers[i].mask.bounds.
+paddedInputBounds can therefore extend beyond document.layers[i].mask.bounds (due to effects).</p>
+<p>For a usage example, see the Image Assets plugin (<a href="https://github.com/adobe-photoshop/generator-assets">https://github.com/adobe-photoshop/generator-assets</a>).</p>
+</div>
+                    <dl>
+                      <dt>settings</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>How to scale the pixmap (includeing padding)</dd>
+                      <dt>settings.width</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Requested width of the image</dd>
+                      <dt>settings.height</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Requested height of the image</dd>
+                      <dt>settings.scaleX</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Requested horizontal scaling of the image</dd>
+                      <dt>settings.scaleY</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>Requested vertical scaling of the image</dd>
+                      <dt>staticInputBounds</dt>
+                      <dd class="label label-info pull-left">Object&lt;String, float&gt;</dd>
+                      <dd>Bounds for the user-provided content (pixels, shapes)</dd>
+                      <dt>visibleInputBounds</dt>
+                      <dd class="label label-info pull-left">Object&lt;String, float&gt;</dd>
+                      <dd>Bounds for the visible content (user-provided + effects)</dd>
+                      <dt>paddedInputBounds</dt>
+                      <dd class="label label-info pull-left">Object&lt;String, float&gt;</dd>
+                      <dd>Bounds for the whole image (visible + padding)</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getPixmapParams = function (settings,
+        staticInputBounds, visibleInputBounds, paddedInputBounds) {
+        
+        &#x2F;&#x2F; For backwards compatibility
+        paddedInputBounds = paddedInputBounds || visibleInputBounds;
+
+        var &#x2F;&#x2F; Scaling settings
+            targetWidth         = settings.width,
+            targetHeight        = settings.height,
+            targetScaleX        = settings.scaleX || settings.scale || 1,
+            targetScaleY        = settings.scaleY || settings.scale || 1,
+            
+            &#x2F;&#x2F; Width and height of the bounds
+            staticInputWidth    = staticInputBounds.right   - staticInputBounds.left,
+            staticInputHeight   = staticInputBounds.bottom  - staticInputBounds.top,
+            visibleInputWidth   = visibleInputBounds.right  - visibleInputBounds.left,
+            visibleInputHeight  = visibleInputBounds.bottom - visibleInputBounds.top,
+            paddedInputWidth    = paddedInputBounds.right   - paddedInputBounds.left,
+            paddedInputHeight   = paddedInputBounds.bottom  - paddedInputBounds.top,
+            
+            &#x2F;&#x2F; How much of the width is due to effects
+            effectsInputWidth   = visibleInputWidth  - staticInputWidth,
+            effectsInputHeight  = visibleInputHeight - staticInputHeight,
+            &#x2F;&#x2F; How much of the width is due to padding (mask)
+            paddingInputWidth   = paddedInputWidth  - visibleInputWidth,
+            paddingInputHeight  = paddedInputHeight - visibleInputHeight,
+
+            &#x2F;&#x2F; Designated image size
+            paddedOutputWidthFloat = targetWidth  || (paddedInputWidth *
+                                    (targetWidth ? (targetWidth &#x2F; paddedInputWidth) : targetScaleX)),
+            paddedOutputHeightFloat = targetHeight || (paddedInputHeight *
+                                    (targetHeight  ? (targetHeight  &#x2F; paddedInputHeight)  : targetScaleY)),
+
+            &#x2F;&#x2F; Effects are not scaled when the transformation is non-uniform
+            effectsScaled       =
+                (paddedOutputWidthFloat &#x2F; paddedInputWidth) === (paddedOutputHeightFloat &#x2F; paddedInputHeight),
+
+            paddedOutputWidth   = Math.ceil(paddedOutputWidthFloat),
+            paddedOutputHeight  = Math.ceil(paddedOutputHeightFloat),
+
+            paddedOutputScaleX  = paddedOutputWidth  &#x2F; paddedInputWidth,
+            paddedOutputScaleY  = paddedOutputHeight &#x2F; paddedInputHeight,
+
+            &#x2F;&#x2F; How much to scale everything that can be scaled (static + padding, maybe effects)
+            scaleX              = effectsScaled ? paddedOutputScaleX : paddedOutputScaleX +
+                                    (effectsInputWidth  * (paddedOutputScaleX - 1)) &#x2F;
+                                    (staticInputWidth  + paddingInputWidth),
+            scaleY              = effectsScaled ? paddedOutputScaleY : paddedOutputScaleY +
+                                    (effectsInputHeight * (paddedOutputScaleY - 1)) &#x2F;
+                                    (staticInputHeight + paddingInputHeight),
+
+            &#x2F;&#x2F; The expected size of the pixmap returned by Photoshop (does not include padding)
+            visibleOutputWidth  = effectsScaled ? scaleX * visibleInputWidth :
+                                    scaleX * staticInputWidth + effectsInputWidth,
+            visibleOutputHeight = effectsScaled ? scaleY * visibleInputHeight :
+                                    scaleY * staticInputHeight + effectsInputHeight;
+
+        &#x2F;&#x2F; The settings for getPixmap
+        return {
+            &#x2F;&#x2F; For backwards compatibility
+            expectedWidth:  visibleOutputWidth,
+            expectedHeight: visibleOutputHeight,
+            
+            &#x2F;&#x2F; For now: absolute scaling only
+            inputRect: {
+                left:   staticInputBounds.left,
+                top:    staticInputBounds.top,
+                right:  staticInputBounds.left + staticInputWidth,
+                bottom: staticInputBounds.top  + staticInputHeight
+            },
+            outputRect: {
+                left:   0,
+                top:    0,
+                right:  visibleOutputWidth  - effectsInputWidth  * (effectsScaled ? scaleX : 1),
+                bottom: visibleOutputHeight - effectsInputHeight * (effectsScaled ? scaleY : 1)
+            },
+            
+            &#x2F;&#x2F; The padding depends on the actual size of the returned image, therefore provide a function
+            getPadding: function (pixmapWidth, pixmapHeight) {
+                &#x2F;&#x2F; Find out if the mask extends beyond the visible pixels
+                var paddingWanted;
+                [&quot;top&quot;, &quot;left&quot;, &quot;right&quot;, &quot;bottom&quot;].forEach(function (key) {
+                    if (paddedInputBounds[key] !== visibleInputBounds[key]) {
+                        paddingWanted = true;
+                        return false;
+                    }
+                });
+
+                &#x2F;&#x2F; When Photoshop produces inaccurate results, the padding is adjusted to compensate
+                &#x2F;&#x2F; When no padding is requested, this may be unwanted, so return a padding of 0px
+                if (!paddingWanted) {
+                    return { left: 0, top: 0, right: 0, bottom: 0 };
+                }
+
+                var &#x2F;&#x2F; How much padding is necessary in both dimensions
+                    missingWidth  = paddedOutputWidth  - pixmapWidth,
+                    missingHeight = paddedOutputHeight - pixmapHeight,
+                    &#x2F;&#x2F; How of the original padding was on which side (default 0 to counteract NaN)
+                    leftRatio     = ((visibleInputBounds.left - paddedInputBounds.left) &#x2F; paddingInputWidth)  || 0,
+                    topRatio      = ((visibleInputBounds.top  - paddedInputBounds.top)  &#x2F; paddingInputHeight) || 0,
+                    &#x2F;&#x2F; Concrete padding size on one side so the other side can use the rest
+                    leftPadding   = Math.round(leftRatio * missingWidth),
+                    topPadding    = Math.round(topRatio  * missingHeight);
+
+                &#x2F;&#x2F; Padding: how many transparent pixels to add on which side
+                return {
+                    left:   leftPadding,
+                    top:    topPadding,
+                    right:  missingWidth  - leftPadding,
+                    bottom: missingHeight - topPadding
+                };
+            }
+        };
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getPlugin</h4>
+                    <div class="description"><p>Returns an already-loaded plugin with the specified name. If no plugin
+with that name has been loaded, returns null.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getPlugin = function (name) {
+        var plugin = null;
+        if (this._plugins[PLUGIN_KEY_PREFIX + name] &amp;&amp;
+            this._plugins[PLUGIN_KEY_PREFIX + name].hasOwnProperty(&quot;plugin&quot;)) {
+            plugin = this._plugins[PLUGIN_KEY_PREFIX + name].plugin;
+        }
+
+        return plugin;
+    };
+
+    Generator.prototype.checkConnection = function () {
+        var self = this,
+            aliveDeferred = Q.defer();
+
+        var id = self._photoshop.sendKeepAlive();
+        self._jsMessageDeferreds[id] = aliveDeferred;
+
+        return aliveDeferred.promise;
+    };
+            
+    exports.Generator         = Generator;
+    exports.createGenerator   = createGenerator;
+    exports._escapePluginId   = escapePluginId;
+    exports._unescapePluginId = unescapePluginId;
+        
+}());</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getSVG</h4>
+                    <div class="description"><p>Get an SVG representing the layer. Returns a promise that resolves to an SVG string.
+The SVG can optionally be scaled proportionately using the &quot;scale&quot; parameter of the &quot;settings&quot; object</p>
+</div>
+                    <dl>
+                      <dt>documentId</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>Document ID</dd>
+                      <dt>layerId</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>Layer ID</dd>
+                      <dt>settings</dt>
+                      <dd class="label label-info pull-left">=Object</dd>
+                      <dd>An object with params to request the pixmap</dd>
+                      <dt>settings.scale</dt>
+                      <dd class="label label-info pull-left">float</dd>
+                      <dd>The factor by which to scale the SVG (1.0 for 100%)</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.getSVG = function (documentId, layerId, settings) {
+        &#x2F;&#x2F; documentId optional to avoid revving API
+        documentId = typeof(documentId) === &quot;number&quot; ? documentId : null;
+
+        var scale = settings &amp;&amp; settings.hasOwnProperty(&quot;scale&quot;) ? settings.scale : 1;
+
+        var params = {
+            layerId: layerId,
+            layerScale: scale,
+            documentId: documentId
+        };
+        
+
+        return (this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;getLayerSVG.jsx&quot;, params)
+            .then(function (result) {
+                return decodeURI(result.svgText);
+            })
+        );
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>savePixmap</h4>
+                    <div class="description"><p>@param {!Pixmap}  pixmap                An object representing the layer&#39;s image</p>
+</div>
+                    <dl>
+                      <dt>pixmap.width</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>The width of the image</dd>
+                      <dt>pixmap.height</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>The height of the image</dd>
+                      <dt>pixmap.pixels</dt>
+                      <dd class="label label-info pull-left">Buffer</dd>
+                      <dd>A buffer containing the actual pixel data</dd>
+                      <dt>pixmap.bitsPerChannel</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>Bits per channel</dd>
+                      <dt>path</dt>
+                      <dd class="label label-info pull-left">String</dd>
+                      <dd>The path to write to</dd>
+                      <dt>settings</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>An object with settings for converting the image</dd>
+                      <dt>settings.format</dt>
+                      <dd class="label label-info pull-left">String</dd>
+                      <dd>ImageMagick output format</dd>
+                      <dt>settings.quality</dt>
+                      <dd class="label label-info pull-left">integer</dd>
+                      <dd>A number indicating the quality - the meaning depends on the format</dd>
+                      <dt>settings.ppi</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The image's pixel density</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.savePixmap = function (pixmap, path, settings) {
+        var self    = this,
+            psPath  = self._photoshop._applicationPath,
+            convert = require(&quot;.&#x2F;convert&quot;);
+
+        &#x2F;&#x2F; check that arguments are of the correct type
+        pixmap.width          = parseInt(pixmap.width, 10);
+        pixmap.height         = parseInt(pixmap.height, 10);
+        pixmap.bitsPerChannel = parseInt(pixmap.bitsPerChannel, 10);
+        if (settings.hasOwnProperty(&quot;quality&quot;)) {
+            settings.quality  = parseInt(settings.quality, 10);
+        }
+        if (settings.hasOwnProperty(&quot;ppi&quot;)) {
+            settings.ppi      = parseFloat(settings.ppi);
+        }
+
+        return convert.savePixmap(psPath, pixmap, path, settings);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>setDocumentSettingsForPlugin</h4>
+                    <div class="description"><p>Set the document-wide generator settings of the current document for a specific plugin.</p>
+</div>
+                    <dl>
+                      <dt>settings</dt>
+                      <dd class="label label-info pull-left">Object</dd>
+                      <dd>The settings to set</dd>
+                      <dt>pluginId</dt>
+                      <dd class="label label-info pull-left">String</dd>
+                      <dd>The ID of the plugin to get the settings for</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.setDocumentSettingsForPlugin = function (settings, pluginId) {
+        var params = {
+                &#x2F;&#x2F; Escape the plugin ID because Photoshop can only use
+                &#x2F;&#x2F; letters, digits and underscores for object keys
+                key: escapePluginId(pluginId),
+                &#x2F;&#x2F; Serialize the settings because creating the corresponding ActionDescriptor is harder
+                &#x2F;&#x2F; Wrap the resulting string as { json: ... } because Photoshop needs an object here
+                settings: { json: JSON.stringify(settings) }
+            };
+
+        return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;setGeneratorSettings.jsx&quot;, params);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>toggleMenu</h4>
+                    <div class="description"><p>Change the enabled and checked state of an existing menu (and optionally change
+the display name). Returns a promise that resolves once the menu has been changed.</p>
+</div>
+                    <dl>
+                      <dt>name</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd>The identifier for the menu used when the menu was created</dd>
+                      <dt>enabled</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether the menu should be enabled</dd>
+                      <dt>checked</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether the menu should have a check mark</dd>
+                      <dt>displayName</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd>The new displayed menu text (remains unchanged if not specified)
+</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>A promise that resolves once the menu has been changed</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    Generator.prototype.toggleMenu = function (name, enabled, checked, displayName) {
+        var menu = this._menuState[MENU_STATE_KEY_PREFIX + name];
+        if (menu) {
+            &#x2F;&#x2F; store the state
+            menu.enabled = enabled;
+            menu.checked = checked;
+
+            &#x2F;&#x2F; send the new state to photoshop
+            var params = {name: name, enabled: enabled, checked: checked};
+            if (typeof(displayName) === &quot;string&quot; &amp;&amp; displayName !== &quot;&quot;) {
+                params.displayName = displayName;
+            }
+            
+            return this.evaluateJSXFile(&quot;.&#x2F;jsx&#x2F;toggleMenu.jsx&quot;, params);
+        } else {
+            var toggleFailedDeferred = Q.defer();
+            toggleFailedDeferred.reject(&quot;no menu with ID &quot; + name);
+            return toggleFailedDeferred.promise;
+        }
+    };
+
+    Generator.prototype.getMenuState = function (name) {
+        var result = null,
+            menu = this._menuState[MENU_STATE_KEY_PREFIX + name];
+
+        if (menu) {
+            result = {
+                enabled: menu.enabled,
+                checked: menu.checked
+            };
+        }
+        return result;
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
           
         </div>
       </div>
