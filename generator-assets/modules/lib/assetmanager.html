@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>assetmanager</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="..&#x2F;../modules/./componentmanager.html">componentmanager</a></li>
+              <li><a href="..&#x2F;../modules/./errormanager.html">errormanager</a></li>
+              <li><a href="..&#x2F;../modules/events.html">events</a></li>
+              <li><a href="..&#x2F;../modules/./filemanager.html">filemanager</a></li>
+              <li><a href="..&#x2F;../modules/os.html">os</a></li>
+              <li><a href="..&#x2F;../modules/q.html">q</a></li>
+              <li><a href="..&#x2F;../modules/util.html">util</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          <section class="functions">
+            <h3>Functions 
+              <label class="checkbox">
+                <input class="toggle-public" type="checkbox"> Show Private Members
+              </label>
+            </h3>
+            
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_intKeys</h4>
+              <div class="description"><p>Return the keys for a set as integers.</p>
+</div>
+              <dl>
+                  <dt>set</dt>
+                  <dd class="label label-info pull-left">{number: *}</dd>
+                  <dd>A set</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _intKeys(set) {
+        return Object.keys(set).map(function (key) {
+            return parseInt(key, 10);
+        });
+    }</code></pre>
+            </div>
+            
+          </section>
+          
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>AssetManager</h4>
+                  <em><p>The asset manager maintains a set of assets for a given document. On
+initialization, it parses the layers&#39; names into a set of components,
+requests renderings of each of those components from the render manager,
+and organizes the rendered assets into the appropriate files and folders.
+When the document changes, it requests that the appropriate components be
+re-rendered or moved into the right place. It also manages error reporting.</p>
+</em>
+                  <dl>
+                    <dt>generator</dt>
+                    <dd class="label label-info pull-left">Generator</dd>
+                    <dd></dd>
+                    <dt>config</dt>
+                    <dd class="label label-info pull-left">object</dd>
+                    <dd></dd>
+                    <dt>logger</dt>
+                    <dd class="label label-info pull-left">Logger</dd>
+                    <dd></dd>
+                    <dt>document</dt>
+                    <dd class="label label-info pull-left">Document</dd>
+                    <dd></dd>
+                    <dt>renderManager</dt>
+                    <dd class="label label-info pull-left">RenderManager</dd>
+                    <dd></dd>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function AssetManager(generator, config, logger, document, renderManager) {
+        events.EventEmitter.call(this);
+
+        this._generator = generator;
+        this._config = config;
+        this._logger = logger;
+        this._document = document;
+
+        this._renderManager = renderManager;
+        this._fileManager = new FileManager(generator, config, logger);
+        this._errorManager = new ErrorManager(generator, config, logger, this._fileManager);
+
+        this._handleChange = this._handleChange.bind(this);
+    }
+
+    util.inherits(AssetManager, events.EventEmitter);</code></pre>
+                </div>
+      
+                <section class="properties ">
+                  <h3>Properties 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_componentManager</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {ComponentManager}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._componentManager = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_errorManager</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {ErrorManager}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._errorManager = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_fileManager</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {FileManager}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._fileManager = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_filePromises</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>Array.&lt;Promise&gt;</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>The unordered set of promises from the fileManager for assets being moved into place.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._filePromises = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_renderManager</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {RenderManager}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._renderManager = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_renderPromises</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>{number: Promise.&lt;string&gt;}</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>The set of promises for components currently being rendered. The map is
+keyed on componetIds, and maps to Promises that resolve with the temporary
+path of the rendered asset.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._renderPromises = null;</code></pre>
+                  </div>
+                  
+                </section>
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_cleanup</h4>
+                    <div class="description"><p>Cleanup render jobs and assets for all layers in the given document.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._cleanup = function () {
+        if (this._componentManager &amp;&amp; this._fileManager.basePath) {
+            &#x2F;&#x2F; Clear out the removed layer components;
+            &#x2F;&#x2F; remove the assets from the old components and&#x2F;or cancel their renders
+            this._document.layers.visit(function (layer) {
+                if (!layer.group) {
+                    return;
+                }
+
+                var componentsToRemove = this._componentManager.getComponentsByLayer(layer.id);
+                Object.keys(componentsToRemove).forEach(function (componentId) {
+                    this._cleanupDerivedComponents(componentId);
+                }, this);
+            }.bind(this));
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_cleanupDerivedComponents</h4>
+                    <div class="description"><p>Cancel render jobs and remove assets for all the components derived from
+the basic component referred to by the given componentId.</p>
+</div>
+                    <dl>
+                      <dt>componentId</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._cleanupDerivedComponents = function (componentId) {
+        this._componentManager.getDerivedComponents(componentId).forEach(function (derivedComponent) {
+            if (this._hasPendingRender(derivedComponent.id)) {
+                this._renderManager.cancel(derivedComponent.id);
+            }
+            
+            this._fileManager.removeFileWithin(derivedComponent.assetPath);
+        }, this);
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_handleChange</h4>
+                    <div class="description"><p>Handle the document&#39;s change events. If the document is closed, finish
+processing. If layers are changed, reparse those layers and their
+dependencies to into components, and add the layer ids to the work set.</p>
+</div>
+                    <dl>
+                      <dt>change</dt>
+                      <dd class="label label-info pull-left">object</dd>
+                      <dd>A change object emitted by the Document instance
+ managed by this AssetManager instance.</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._handleChange = function (change) {
+        this._logger.debug(&quot;handleChange:&quot;, change);
+
+        if (change.file) {
+            if (this._document.saved &amp;&amp; !change.file.hasOwnProperty(&quot;previousSaved&quot;)) {
+                &#x2F;&#x2F; If the file has been renamed, asset generation will be disabled, so do nothing here
+                return;
+            }
+            this._fileManager.updateBasePath(this._document);
+        }
+
+        if (change.resolution) {
+            this._reset();
+        }
+
+        &#x2F;&#x2F; if the layer was just renamed; then reparse it and figure out if component
+        &#x2F;&#x2F; settings have changed; if so, add it to the work set; otherwise, just
+        &#x2F;&#x2F; fire off any relevant rename events;
+
+        if (change.layers) {
+            var changedLayerIds = _intKeys(change.layers);
+
+            &#x2F;&#x2F; Close the set of changed layers with their dependencies
+            var dependentLayers = changedLayerIds.reduce(function (dependentLayers, id) {
+                var layerChange = change.layers[id],
+                    layer = layerChange.layer,
+                    dependencies = layer.getDependentLayers();
+                
+                return _intKeys(dependencies).reduce(function (dependentLayers, layerId) {
+                    var dependentLayer = dependencies[layerId];
+                    dependentLayers[dependentLayer.id] = dependentLayer;
+                    return dependentLayers;
+                }, dependentLayers);
+            }.bind(this), {});
+
+            &#x2F;&#x2F; Find all the component specifications for all the changed layers and their dependencies
+            var specificationsByLayer = _intKeys(dependentLayers).reduce(function (specifications, layerId) {
+                var layer = dependentLayers[layerId],
+                    validSpecifications = [];
+
+                this._errorManager.removeErrors(layerId);
+
+                this._componentManager.findAllComponents(layer)
+                    .forEach(function (specification) {
+                        var component = specification.component,
+                            errors = specification.errors;
+
+                        if (component) {
+                            validSpecifications.push(component);
+                        } else if (errors) {
+                            errors.forEach(function (error) {
+                                this._errorManager.addError(layer, error);
+                            }, this);
+                        }
+                    }, this);
+
+                if (validSpecifications.length &gt; 0) {
+                    specifications[layer.id] = validSpecifications;
+                }
+
+                return specifications;
+            }.bind(this), {});
+
+            &#x2F;&#x2F; Determine whether or not the changes necessitate a complete reset.
+            &#x2F;&#x2F; E.g., has a default component changed?
+            var resetRequired = _intKeys(specificationsByLayer).some(function (layerId) {
+                var specifications = specificationsByLayer[layerId];
+
+                return specifications.some(function (specification) {
+                    return specification.hasOwnProperty(&quot;default&quot;);
+                });
+            }, this);
+
+            if (resetRequired) {
+                this._reset();
+                return;
+            }
+
+            &#x2F;&#x2F; Compute the set of removed layers;
+            &#x2F;&#x2F; subtract the removed layers from the set of changed layers above 
+            var removedLayerIds = changedLayerIds.filter(function (layerId) {
+                var layerChange = change.layers[layerId];
+                if (layerChange.type === &quot;removed&quot;) {
+                    if (specificationsByLayer.hasOwnProperty(layerId)) {
+                        delete specificationsByLayer[layerId];
+                    }
+                    return true;
+                }
+            }, this);
+
+            &#x2F;&#x2F; Clear out the removed layer components;
+            &#x2F;&#x2F; remove the assets from the old components and&#x2F;or cancel their renders
+            removedLayerIds.forEach(function (layerId) {
+                var componentsToRemove = this._componentManager.getComponentsByLayer(layerId);
+
+                Object.keys(componentsToRemove).forEach(function (componentId) {
+                    this._cleanupDerivedComponents(componentId);
+                    this._componentManager.removeComponent(componentId);
+                }, this);
+
+                this._errorManager.removeErrors(layerId);
+            }, this);
+
+            _intKeys(specificationsByLayer).forEach(function (layerId) {
+                var layer = dependentLayers[layerId],
+                    currentComponents = specificationsByLayer[layerId],
+                    previousComponents = this._componentManager.getComponentsByLayer(layerId);
+
+                Object.keys(previousComponents).forEach(function (componentId) {
+                    this._cleanupDerivedComponents(componentId);
+                    this._componentManager.removeComponent(componentId);
+                }, this);
+
+                currentComponents.forEach(function (component) {
+                    try {
+                        var componentId = this._componentManager.addComponent(layer, component);
+                        this._componentManager.getDerivedComponents(componentId).forEach(function (derivedComponent) {
+                            this._requestRender(derivedComponent);
+                        }, this);
+                    } catch (ex) {
+                        this._errorManager.addError(layer, ex.message);
+                    }
+                }, this);
+            }, this);
+
+            this._errorManager.reportErrors();
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_hasPendingRender</h4>
+                    <div class="description"><p>Determine whether or not the given component has a rendering job in flight.</p>
+</div>
+                    <dl>
+                      <dt>componentId</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._hasPendingRender = function (componentId) {
+        if (this._renderPromises.hasOwnProperty(componentId)) {
+            var promise = this._renderPromises[componentId];
+
+            if (promise.inspect().state === &quot;pending&quot;) {
+                return true;
+            }
+        }
+
+        return false;
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_init</h4>
+                    <div class="description"><p>Initialize this AssetManager instance, completely resetting internal state
+and re-rendering the components of all layers. This does NOT delete any
+existing assets; for that @see AssetManager.prototype._cleanup.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._init = function () {
+        this._renderPromises = {};
+        this._filePromises = [];
+        this._componentManager = new ComponentManager(this._generator, this._config, this._logger);
+        this._fileManager.updateBasePath(this._document);
+        this._errorManager.removeAllErrors();
+        this._renderManager.cancelAll(this._document.id);
+
+        var layerIdsWithComponents = [];
+        this._document.layers.visit(function (layer) {
+            &#x2F;&#x2F; Don&#39;t visit the top-level LayerGroup
+            if (!layer.group) {
+                return;
+            }
+
+            var hasValidComponent = false;
+
+            this._componentManager.findAllComponents(layer).forEach(function (result) {
+                var component = result.component;
+                if (component) {
+                    try {
+                        this._componentManager.addComponent(layer, component);
+                        hasValidComponent = true;
+                    } catch (ex) {
+                        this._errorManager.addError(layer, ex.message);
+                    }
+                } else if (result.errors) {
+                    result.errors.forEach(function (error) {
+                        this._errorManager.addError(layer, error);
+                    }.bind(this));
+                }
+            }, this);
+
+            if (hasValidComponent) {
+                layerIdsWithComponents.push(layer.id);
+            }
+        }.bind(this));
+
+        layerIdsWithComponents.forEach(function (layerId) {
+            var basicComponents = this._componentManager.getBasicComponentsByLayer(layerId);
+            basicComponents.forEach(function (component) {
+                var derivedComponents = this._componentManager.getDerivedComponents(component.id);
+                derivedComponents.forEach(function (component) {
+                    this._requestRender(component);
+                }, this);
+            }, this);
+        }, this);
+
+        this._errorManager.reportErrors();
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_requestRender</h4>
+                    <div class="description"><p>Request that the given component be rendered into an asset.</p>
+</div>
+                    <dl>
+                      <dt>component</dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._requestRender = function (component) {
+        &#x2F;&#x2F; Crude check for components whose eventual path will be too long
+        if (this._fileManager.basePath) {
+            var candidatePathLength = this._fileManager.basePath.length + component.assetPath.length + 1;
+            if (candidatePathLength &gt;= MAX_PATH_LENGTH) {
+                this._errorManager.addError(component.layer, &quot;Asset path is too long: &quot; + component.assetPath);
+                return;
+            }
+        }
+
+        &#x2F;&#x2F; FIXME: the document and layer might need to be cloned so that they
+        &#x2F;&#x2F; don&#39;t change in the middle of rendering
+        var renderPromise = this._renderManager.render(component);
+
+        this._renderPromises[component.id] = renderPromise;
+
+        renderPromise
+            .then(function (tmpPath) {
+                if (tmpPath) {
+                    var filePromise = this._fileManager.moveFileInto(tmpPath, component.assetPath);
+                    this._filePromises.push(filePromise);
+                }
+            }.bind(this))
+            .fail(function (err) {
+                if (err) {
+                    this._logger.error(&quot;Render failed: %s&quot;, component.assetPath, err);
+                } else {
+                    this._logger.info(&quot;Render canceled: %s&quot;, component.assetPath);
+                }
+            }.bind(this))
+            .finally(function () {
+                delete this._renderPromises[component.id];
+
+                &#x2F;&#x2F; If we&#39;ve processed all our render job then wait for all the
+                &#x2F;&#x2F; file movement to finish to emit an &quot;idle&quot; event
+                if (Object.keys(this._renderPromises).length === 0) {
+                    Q.allSettled(this._filePromises).finally(function () {
+                        this.emit(&quot;idle&quot;);
+                    }.bind(this));
+                    this._filePromises = [];
+                }
+            }.bind(this))
+            .done();
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_reset</h4>
+                    <div class="description"><p>Completely reset assets for this document, first attempting to removing
+existing assets and then regenerating all current assets.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype._reset = function () {
+        this._cleanup();
+        this._init();
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>start</h4>
+                    <div class="description"><p>Start generating assets for the document. All assets for the document will
+be regenerated initially, and new assets will continually be regenerated
+as a result of document changes.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype.start = function () {
+        this._document.on(&quot;change&quot;, this._handleChange);
+        this._init();
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>stop</h4>
+                    <div class="description"><p>Stop generating assets for the document. Note that this does not delete any
+existing assets, but document changes will be ignored and existing assets will
+not be updated.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    AssetManager.prototype.stop = function () {
+        this._document.removeListener(&quot;change&quot;, this._handleChange);
+        this._renderManager.cancelAll(this._document.id);
+        this._fileManager.cancelAll();
+    };
+
+    module.exports = AssetManager;
+}());</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../assets/js/prism.js"></script>
+  </body>
+</html>

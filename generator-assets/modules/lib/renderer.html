@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>renderer</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="..&#x2F;../modules/fs.html">fs</a></li>
+              <li><a href="..&#x2F;../modules/q.html">q</a></li>
+              <li><a href="..&#x2F;../modules/tmp.html">tmp</a></li>
+              <li><a href="..&#x2F;../modules/util.html">util</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          <section class="functions">
+            <h3>Functions 
+              <label class="checkbox">
+                <input class="toggle-public" type="checkbox"> Show Private Members
+              </label>
+            </h3>
+            
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_getTempPath</h4>
+              <div class="description"><p>Asynchronously get a unique temporary path name.</p>
+</div>
+              <dl>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _getTempPath() {
+        return Q.ninvoke(tmp, &quot;tmpName&quot;);
+    }</code></pre>
+            </div>
+            <div class="member public">
+              <span class="pull-right scope">
+                
+                Public API
+              </span>
+              <h4>createPixmapRenderer</h4>
+              <div class="description"><p>Return a new PixmapRenderer object.</p>
+</div>
+              <dl>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function createPixmapRenderer(generator, config, logger, document) {
+        return new PixmapRenderer(generator, config, logger, document);
+    }
+
+    exports.createPixmapRenderer = createPixmapRenderer;
+    exports.createSVGRenderer = createSVGRenderer;
+}());</code></pre>
+            </div>
+            <div class="member public">
+              <span class="pull-right scope">
+                
+                Public API
+              </span>
+              <h4>createSVGRenderer</h4>
+              <div class="description"><p>Return a new SVGRenderer object.</p>
+</div>
+              <dl>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function createSVGRenderer(generator, config, logger, document) {
+        return new SVGRenderer(generator, config, logger, document);
+    }</code></pre>
+            </div>
+            
+          </section>
+          
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>BaseRenderer</h4>
+                  <em><p>Abstract renderer class for a given document. Converts components to assets on disk.</p>
+</em>
+                  <dl>
+                    <dt>generator</dt>
+                    <dd class="label label-info pull-left">Generator</dd>
+                    <dd></dd>
+                    <dt>config</dt>
+                    <dd class="label label-info pull-left">object</dd>
+                    <dd></dd>
+                    <dt>logger</dt>
+                    <dd class="label label-info pull-left">Logger</dd>
+                    <dd></dd>
+                    <dt>document</dt>
+                    <dd class="label label-info pull-left">Document</dd>
+                    <dd></dd>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function BaseRenderer(generator, config, logger, document) {
+        this._generator = generator;
+        this._document = document;
+        this._logger = logger;
+
+        if (config.hasOwnProperty(&quot;use-smart-scaling&quot;)) {
+            this._useSmartScaling = !!config[&quot;use-smart-scaling&quot;];
+        }
+
+        if (config.hasOwnProperty(&quot;include-ancestor-masks&quot;)) {
+            this._includeAncestorMasks = !!config[&quot;include-ancestor-masks&quot;];
+        }
+
+        if (config.hasOwnProperty(&quot;allow-dither&quot;)) {
+            this._allowDither = !!config[&quot;allow-dither&quot;];
+        }
+    }</code></pre>
+                </div>
+      
+                <section class="properties ">
+                  <h3>Properties 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_allowDither</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {boolean=}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseRenderer.prototype._allowDither = undefined;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_includeAncestorMasks</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {boolean=}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseRenderer.prototype._includeAncestorMasks = undefined;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_useSmartScaling</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {boolean=}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseRenderer.prototype._useSmartScaling = undefined;</code></pre>
+                  </div>
+                  
+                </section>
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_convertToPixels</h4>
+                    <div class="description"><p>Convert a value in a given unit, at particular resolution, to a value in pixels per inch.</p>
+</div>
+                    <dl>
+                      <dt>value</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd></dd>
+                      <dt>unit</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>ppi</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseRenderer.prototype._convertToPixels = function (value, unit, ppi) {
+        if (!value || !unit || unit === &quot;px&quot;) {
+            return value;
+        }
+        
+        if (unit === &quot;in&quot;) {
+            return value * ppi;
+        } else if (unit === &quot;mm&quot;) {
+            return (value &#x2F; 25.4) * ppi;
+        } else if (unit === &quot;cm&quot;) {
+            return (value &#x2F; 2.54) * ppi;
+        } else {
+            this._logger.error(&quot;An invalid length unit was specified: &quot; + unit);
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>render</h4>
+                    <div class="description"><p>Render a given component to an asset</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd></dd>
+                      <dt>component</dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise.&lt;string&gt;</dd>
+                      <dd>Resolves with the temporary path of the new asset once rendering is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseRenderer.prototype.render = function (layer, component) {
+        var dataPromise = this._getData.apply(this, arguments),
+            pathPromise = _getTempPath();
+
+        return Q.all([dataPromise, pathPromise])
+            .spread(this._writeData.bind(this))
+            .thenResolve(pathPromise);
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>SVGRenderer</h4>
+                  <em><p>SVG asset renderer.</p>
+</em>
+                  <dl>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function SVGRenderer(generator, config, logger, document) {
+        BaseRenderer.call(this, generator, config, logger, document);
+    }
+
+    util.inherits(SVGRenderer, BaseRenderer);</code></pre>
+                </div>
+      
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_getData</h4>
+                    <div class="description"><p>Get SVG data for the given component.</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd></dd>
+                      <dt>component</dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise.&lt;string&gt;</dd>
+                      <dd>Resolves with the SVG data.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    SVGRenderer.prototype._getData = function (layer, component) {
+        var scale = component.scale || 1,
+            settings = {
+                scale: scale
+            };
+
+        return this._generator.getSVG(layer.document.id, layer.id, settings);
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_writeData</h4>
+                    <div class="description"><p>Write the render data to disk at the given path.</p>
+</div>
+                    <dl>
+                      <dt>data</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>path</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd>Temporary path at which to write data</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves when data has been written</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    SVGRenderer.prototype._writeData = function (data, path) {
+        return Q.nfcall(fs.writeFile, path, data, { encoding: &quot;utf8&quot; });
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>PixmapRenderer</h4>
+                  <em><p>Pixmap asset renderer.</p>
+</em>
+                  <dl>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function PixmapRenderer(generator, config, logger, document) {
+        BaseRenderer.call(this, generator, config, logger, document);
+
+        if (config.hasOwnProperty(&quot;interpolation-type&quot;)) {
+            this._interpolationType = config[&quot;interpolation-type&quot;];
+        }
+    }
+
+    util.inherits(PixmapRenderer, BaseRenderer);</code></pre>
+                </div>
+      
+                <section class="properties ">
+                  <h3>Properties 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_interpolationType</h4>
+                    <dl>
+                      <dt>See</dt>
+                      <dd><a href='#'>Generator.prototype.getPixmap</a></dd>
+                      <dt>Type</dt>
+                      <dd>boolean=</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>Interpolation method to use when scaling pixmaps. If defined, this should
+take the value of one of the Generator.prototype.INTERPOLATION constants.
+Otherwise, Photoshop&#39;s default interpolation method is used.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    PixmapRenderer.prototype._interpolationType = undefined;</code></pre>
+                  </div>
+                  
+                </section>
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_getData</h4>
+                    <div class="description"><p>Get pixmap data for the given component.</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd></dd>
+                      <dt>component</dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise.&lt;{pixmap: Pixmap,settings: object}&gt;</dd>
+                      <dd>Resolves with the pixmap data and settings</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    PixmapRenderer.prototype._getData = function (layer, component) {
+        &#x2F;&#x2F; The exact bounds computation, which is expensive, is skipped if all of the
+        &#x2F;&#x2F; following conditions hold:
+        &#x2F;&#x2F; 1. The component is either not scaled, or is only scaled by an integral
+        &#x2F;&#x2F;    factor (i.e, 100%, 200%, etc.)
+        &#x2F;&#x2F; 2. The layer does not have an enabled mask
+        &#x2F;&#x2F; 3. The layer does not have any enabled layer effects
+        &#x2F;&#x2F; 4. The &quot;include-ancestor-masks&quot; config option is NOT set
+        var hasComplexTransform = (component.hasOwnProperty(&quot;scale&quot;) &amp;&amp; component.scale % 1 !== 0) ||
+                component.hasOwnProperty(&quot;width&quot;) || component.hasOwnProperty(&quot;height&quot;),
+            hasMask = layer.mask &amp;&amp; layer.mask.enabled,
+            hasEffects = layer.layerEffects &amp;&amp; layer.layerEffects.isEnabled(),
+            settingsPromise;
+
+        if (hasComplexTransform || hasMask || hasEffects || this._includeAncestorMasks) {
+            settingsPromise = this._getSettingsWithExactBounds(layer, component);
+        } else {
+            try {
+                settingsPromise = new Q(this._getSettingsWithApproximateBounds(layer, component));
+            } catch (ex) {
+                settingsPromise = Q.reject(ex);
+            }
+        }
+
+        return settingsPromise.then(function (pixmapSettings) {
+            if (this._useSmartScaling !== undefined) {
+                pixmapSettings.useSmartScaling = this._useSmartScaling;
+            }
+            
+            if (this._includeAncestorMasks !== undefined) {
+                pixmapSettings.includeAncestorMasks = this._includeAncestorMasks;
+            }
+
+            if (this._allowDither !== undefined) {
+                pixmapSettings.allowDither = this._allowDither;
+                if (this._allowDither) {
+                    &#x2F;&#x2F; force dithering, even if it is off in the user&#39;s color settings,
+                    &#x2F;&#x2F; since they explicitly enabled it in Generator
+                    pixmapSettings.useColorSettingsDither = false;
+                }
+            }
+            
+            if (this._interpolationType !== undefined) {
+                pixmapSettings.interpolationType = this._interpolationType;
+            }
+
+            return this._generator.getPixmap(this._document.id, layer.id, pixmapSettings).then(function (pixmap) {
+                var padding = pixmapSettings.hasOwnProperty(&quot;getPadding&quot;) ?
+                        pixmapSettings.getPadding(pixmap.width, pixmap.height) : undefined,
+                    quality = component.quality,
+                    format = component.extension,
+                    ppi = this._document.resolution,
+                    settings = {
+                        quality: quality,
+                        format: format,
+                        ppi: ppi,
+                        padding: padding
+                    };
+
+                return {
+                    pixmap: pixmap,
+                    settings: settings
+                };
+            }.bind(this));
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_getSettingsWithApproximateBounds</h4>
+                    <div class="description"><p>Synchronously get approximate bounds for the given component. These bounds
+should only be used if layer pixmap is scaled by an integral multiple and if
+there is no mask and there are no enabled layer effects.</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd></dd>
+                      <dt>component</dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">{inputRect: Bounds,outputRect: Bounds,expectedWidth: number,
+ expectedHeight: number,getPadding: function (number,number): number }</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    PixmapRenderer.prototype._getSettingsWithApproximateBounds = function (layer, component) {
+        var scalar = component.scale;
+        if (!scalar) {
+            scalar = 1;
+        }
+
+        var inputRect = layer.bounds,
+            outputRect = inputRect.scale(scalar);
+
+        if (outputRect.right &lt;= outputRect.left || outputRect.bottom &lt;= outputRect.top) {
+            throw new Error(&quot;Refusing to render pixmap with zero bounds.&quot;);
+        }
+
+        return {
+            inputRect: inputRect,
+            outputRect: outputRect,
+            expectedWidth: outputRect.right - outputRect.left,
+            expectedHeight: outputRect.bottom - outputRect.top,
+            getPadding: function () {
+                return {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                };
+            }
+        };
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_getSettingsWithExactBounds</h4>
+                    <div class="description"><p>Asynchronously get exact bounds for the given component. These bounds
+should be used if layer pixmap is sized explicitly or is scaled by a
+non-integral multiple or if there is a mask or there are enabled layer
+effects.</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd></dd>
+                      <dt>component</dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise.&lt;{inputRect: Bounds,outputRect: Bounds,expectedWidth: number,
+ expectedHeight: number,getPadding: function (number,number): number }&gt;</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    PixmapRenderer.prototype._getSettingsWithExactBounds = function (layer, component) {
+        var ppi = this._document.resolution;
+
+        return layer.getExactBounds().then(function (exactBounds) {
+            if (exactBounds.right &lt;= exactBounds.left || exactBounds.bottom &lt;= exactBounds.top) {
+                throw new Error(&quot;Refusing to render pixmap with zero bounds.&quot;);
+            }
+
+            var scaleSettings = {
+                    width:  this._convertToPixels(component.width,  component.widthUnit, ppi),
+                    height: this._convertToPixels(component.height, component.heightUnit, ppi),
+                    scaleX: component.scaleX || component.scale,
+                    scaleY: component.scaleY || component.scale,
+                    &#x2F;&#x2F; Backwards compatibility
+                    scale:  component.scale
+                },
+                &#x2F;&#x2F; Mask
+                maskBounds = layer.mask &amp;&amp; layer.mask.bounds,
+                &#x2F;&#x2F; Static: User provided
+                staticBounds  = this._generator.getDeepBounds(layer),
+                &#x2F;&#x2F; Visible: User provided + effects
+                visibleBounds = exactBounds,
+                &#x2F;&#x2F; Padded: User provided + effects + padding through layer mask
+                paddedBounds  = !maskBounds ? exactBounds : {
+                    left:   Math.min(exactBounds.left,   maskBounds.left),
+                    top:    Math.min(exactBounds.top,    maskBounds.top),
+                    right:  Math.max(exactBounds.right,  maskBounds.right),
+                    bottom: Math.max(exactBounds.bottom, maskBounds.bottom)
+                },
+                pixmapSettings = this._generator.getPixmapParams(scaleSettings, staticBounds,
+                    visibleBounds, paddedBounds);
+
+            return pixmapSettings;
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_writeData</h4>
+                    <div class="description"><p>Write the render data to disk at the given path.</p>
+</div>
+                    <dl>
+                      <dt>data</dt>
+                      <dd class="label label-info pull-left">{pixmap: Pixmap,settings: object}</dd>
+                      <dd></dd>
+                      <dt>path</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd>Temporary path at which to write data</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves when data has been written</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    PixmapRenderer.prototype._writeData = function (data, path) {
+        return this._generator.savePixmap(data.pixmap, path, data.settings);
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../assets/js/prism.js"></script>
+  </body>
+</html>

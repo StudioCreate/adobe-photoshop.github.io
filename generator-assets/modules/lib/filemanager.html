@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>filemanager</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="..&#x2F;../modules/assert.html">assert</a></li>
+              <li><a href="..&#x2F;../modules/./asyncqueue.html">asyncqueue</a></li>
+              <li><a href="..&#x2F;../modules/fs-extra.html">fs-extra</a></li>
+              <li><a href="..&#x2F;../modules/path.html">path</a></li>
+              <li><a href="..&#x2F;../modules/q.html">q</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>FileManager</h4>
+                  <em><p>Manage a collection of files, specified with relative paths, under a
+given base path, specified absolutely.</p>
+</em>
+                  <dl>
+                    <dt>generator</dt>
+                    <dd class="label label-info pull-left">Generator</dd>
+                    <dd></dd>
+                    <dt>config</dt>
+                    <dd class="label label-info pull-left">object</dd>
+                    <dd></dd>
+                    <dt>logger</dt>
+                    <dd class="label label-info pull-left">Logger</dd>
+                    <dd></dd>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function FileManager(generator, config, logger) {
+        this._generator = generator;
+        this._config = config;
+        this._logger = logger;
+
+        this._queue = new AsyncQueue();
+        this._queue.pause();
+        this._queue.on(&quot;error&quot;, function (err) {
+            this._logger.error(err);
+        }.bind(this));
+    }</code></pre>
+                </div>
+      
+                <section class="properties ">
+                  <h3>Properties 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_basePath</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {?string}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._basePath = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_config</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {object}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._config = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_generator</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {Generator}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._generator = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_logger</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {Logger}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._logger = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_nextBaseDirFn</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {?function(): Promise}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._nextBaseDirFn = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_nextBaseDirPromise</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {Promise}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._nextBaseDirPromise = null;
+
+    Object.defineProperties(FileManager.prototype, {
+        &quot;basePath&quot;: {
+            get: function () { return this._basePath; },
+            set: function () { throw new Error(&quot;Cannot set basePath&quot;); }
+        }
+    });</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_queue</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {AsyncQueue}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._queue = null;</code></pre>
+                  </div>
+                  
+                </section>
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_asap</h4>
+                    <div class="description"><p>Schedule a filesystem operation to occur as soon as possible, waiting 
+only for the normal queue of filesystem operations to quiesce. If an
+existing ASAP operation is in progress, the given operation will execute
+as soon as the current operation completes. At most one ASAP operation
+will ever be queued; if there is an operation in progress AND a queued
+operation, scheduling another ASAP operation will cause the existing 
+ASAP operation to be dropped from the queue.</p>
+</div>
+                    <dl>
+                      <dt>fn</dt>
+                      <dd class="label label-info pull-left">function(): Promise</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._asap = function (fn) {
+        this._nextBaseDirFn = fn;
+
+        if (this._nextBaseDirPromise) {
+            return;
+        }
+
+        this._nextBaseDirPromise = this._queue.pause()
+            .then(function () {
+                if (this._nextBaseDirFn) {
+                    var fn = this._nextBaseDirFn;
+                    this._nextBaseDirFn = null;
+                    return fn();
+                }
+            }.bind(this))
+            .finally(function () {
+                this._nextBaseDirPromise = null;
+                if (this._nextBaseDirFn) {
+                    var fn = this._nextBaseDirFn;
+                    this._nextBaseDirFn = null;
+                    this._asap(fn);
+                } else {
+                    this._queue.unpause();
+                }
+            }.bind(this))
+            .done();
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_cleanup</h4>
+                    <div class="description"><p>Delete directories that are empty (modulo FILES_TO_IGNORE) between basePath
+and targetDirectory.</p>
+</div>
+                    <dl>
+                      <dt>basePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd>An absolute path</dd>
+                      <dt>targetDirectory</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd>An absolute path that is a child of basePath.</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once directory deletion is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._cleanup = function (basePath, targetDirectory) {
+        assert(targetDirectory.indexOf(basePath) === 0);
+
+        if (targetDirectory === basePath) {
+            return;
+        }
+
+        return Q.ninvoke(fs, &quot;readdir&quot;, targetDirectory)
+            .then(function (files) {
+                var nonempty = files.some(function (file) {
+                    return !FILES_TO_IGNORE.test(file);
+                });
+
+                if (nonempty) {
+                    return false;
+                } else {
+                    return Q.ninvoke(fs, &quot;remove&quot;, targetDirectory)
+                        .thenResolve(true);
+                }
+            }.bind(this), function (err) {
+                if (err.code === &quot;ENOENT&quot;) {
+                    return false;
+                } else {
+                    throw err;
+                }
+            }).then(function (removed) {
+                if (removed) {
+                    var parent = path.dirname(targetDirectory);
+                    return this._cleanup(basePath, parent);
+                }
+            }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_later</h4>
+                    <div class="description"><p>Enqueue a compound filesystem operation for later atomic execution. </p>
+</div>
+                    <dl>
+                      <dt>fn</dt>
+                      <dd class="label label-info pull-left">function(): Promise</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once the operation is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._later = function (fn) {
+        return this._queue.push(fn);
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_moveFileHelper</h4>
+                    <div class="description"><p>Safely moves files from one path to another. Ensures that the targetFullPath
+exists by creating the necessary subdirectories, and falls back from renaming
+to copying as needed. </p>
+</div>
+                    <dl>
+                      <dt>sourceFullPath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>targetFullPath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._moveFileHelper = function (sourceFullPath, targetFullPath) {
+        var targetDirectory = path.dirname(targetFullPath);
+
+        return Q.ninvoke(fs, &quot;mkdirs&quot;, targetDirectory)
+            .then(function () {
+                return Q.ninvoke(fs, &quot;rename&quot;, sourceFullPath, targetFullPath);
+            }.bind(this))
+            .fail(function (err) {
+                this._logger.warn(&quot;Unable to rename asset; copying instead:&quot;, err);
+                return Q.ninvoke(fs, &quot;copy&quot;, sourceFullPath, targetFullPath)
+                    .then(function () {
+                        return Q.ninvoke(fs, &quot;remove&quot;, sourceFullPath);
+                    });
+            }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_removeFileHelper</h4>
+                    <div class="description"><p>Remove the file or folder at the given full path. </p>
+</div>
+                    <dl>
+                      <dt>fullPath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._removeFileHelper = function (fullPath) {
+        return Q.ninvoke(fs, &quot;remove&quot;, fullPath);
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_updateBaseDirectory</h4>
+                    <div class="description"><p>Move the base directory, if it exists, managed by this FileManager from
+the given previousBasePath to the new location given by this._basePath.</p>
+</div>
+                    <dl>
+                      <dt>previousBasePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._updateBaseDirectory = function (previousBasePath) {
+        &#x2F;&#x2F; prioritize base directory operations ahead of asset operations
+        this._asap(function () {
+            var basePath = this._basePath;
+            return Q.ninvoke(fs, &quot;stat&quot;, previousBasePath)
+                .then(function (stats) {
+                    if (!stats.isDirectory()) {
+                        throw new Error(&quot;Can&#39;t move base directory: not a directory.&quot;);
+                    }
+
+                    return this._moveFileHelper(previousBasePath, basePath);
+                }.bind(this), function (err) {
+                    &#x2F;&#x2F; Do nothing if the directory doesn&#39;t exist yet;
+                    &#x2F;&#x2F; queued filesystem operations will create it on demand
+                    if (err.code !== &quot;ENOENT&quot;) {
+                        throw err;
+                    }
+                });
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_writeHelper</h4>
+                    <div class="description"><p>Write or append data to the file at the given fullPath. Ensure that the
+file at fullPath exists by creating the necessary subdirectories.</p>
+</div>
+                    <dl>
+                      <dt>fullPath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>data</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype._writeHelper = function (fullPath, data, append) {
+        var directory = path.dirname(fullPath),
+            operation = append ? &quot;appendFile&quot; : &quot;writeFile&quot;;
+
+        return Q.ninvoke(fs, &quot;mkdirs&quot;, directory)
+            .then(function () {
+                return Q.ninvoke(fs, operation, fullPath, data);
+            });
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>appendFileWithin</h4>
+                    <div class="description"><p>Append data to a file under the base directory managed by this FileManager
+instance.</p>
+</div>
+                    <dl>
+                      <dt>relativePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>data</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once the operation is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.appendFileWithin = function (relativePath, data) {
+        return this.writeFileWithin(relativePath, data, true);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>cancelAll</h4>
+                    <div class="description"><p>Cancel all pending filesystem operations</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.cancelAll = function () {
+        this._queue.removeAll();
+    };
+
+    module.exports = FileManager;
+}());</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>moveFileInto</h4>
+                    <div class="description"><p>Move a file at a given absolute path into the base directory managed by this
+FileManager instance to the given relative path.</p>
+</div>
+                    <dl>
+                      <dt>sourceFullPath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>targetRelativePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once the operation is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.moveFileInto = function (sourceFullPath, targetRelativePath) {
+        return this._later(function () {
+            var basePath = this._basePath;
+            if (!basePath) {
+                throw new Error(&quot;Can&#39;t move file: no base path&quot;);
+            }
+
+            var targetFullPath = path.resolve(basePath, targetRelativePath);
+            return this._moveFileHelper(sourceFullPath, targetFullPath);
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>moveFileWithin</h4>
+                    <div class="description"><p>Move a file under the base directory managed by this FileManager instance
+to the given relative path.</p>
+</div>
+                    <dl>
+                      <dt>sourceRelativePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>targetRelativePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once the operation is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.moveFileWithin = function (sourceRelativePath, targetRelativePath) {
+        return this._later(function () {
+            var basePath = this._basePath;
+            if (!basePath) {
+                throw new Error(&quot;Can&#39;t move file: no base path&quot;);
+            }
+
+
+            var sourceFullPath = path.resolve(basePath, targetRelativePath),
+                targetFullPath = path.resolve(basePath, targetRelativePath);
+
+            return this._moveFileHelper(sourceFullPath, targetFullPath)
+                .then(function () {
+                    var sourceDirectory = path.dirname(sourceFullPath);
+                    this._cleanup(basePath, sourceDirectory);
+                }.bind(this));
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>removeFileAbsolute</h4>
+                    <div class="description"><p>Remove a file at a given absolute path.</p>
+</div>
+                    <dl>
+                      <dt>fullPath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once the operation is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.removeFileAbsolute = function (fullPath) {
+        return this._later(function () {
+            return this._removeFileHelper(fullPath);
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>removeFileWithin</h4>
+                    <div class="description"><p>Remove a file under the base directory managed by this FileManager instance.</p>
+</div>
+                    <dl>
+                      <dt>relativePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once the operation is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.removeFileWithin = function (relativePath) {
+        return this._later(function () {
+            var basePath = this._basePath;
+            if (!basePath) {
+                throw new Error(&quot;Can&#39;t remove file: no base path&quot;);
+            }
+            
+            var fullPath = path.resolve(basePath, relativePath);
+
+            return this._removeFileHelper(fullPath)
+                .then(function () {
+                    var targetDirectory = path.dirname(fullPath);
+                    return this._cleanup(basePath, targetDirectory);
+                }.bind(this));
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>updateBasePath</h4>
+                    <div class="description"><p>Update the basePath managed by this FileManager instance to a location
+appropriate for the given document.</p>
+</div>
+                    <dl>
+                      <dt>document</dt>
+                      <dd class="label label-info pull-left">Document</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">?string</dd>
+                      <dd>The new basePath, if one exists.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.updateBasePath = function (document) {
+        var extension = document.extension || &quot;&quot;,
+            &#x2F;&#x2F; The file name without its extension (e.g., &quot;Untitled-1&quot; or &quot;hero-image&quot;)
+            documentName = extension.length ? document.name.slice(0, -extension.length) : document.name,
+            &#x2F;&#x2F; Determine whether the file is saved (i.e., it contains slashes or backslashes and is not in the trash)
+            &#x2F;&#x2F; Note that on Windows, a deleted file is reported without an absolute path
+            isSaved = document.saved &amp;&amp; document.file.indexOf(&quot;&#x2F;.Trashes&#x2F;&quot;) === -1,
+            documentDirectory = isSaved ? document.directory : _desktopDirectory,
+            basePath = documentDirectory ? path.resolve(documentDirectory, documentName + &quot;-assets&quot;) : null;
+
+        var previousBasePath = this._basePath;
+
+        if (basePath) {
+            this._basePath = basePath;
+            if (previousBasePath) {
+                this._updateBaseDirectory(previousBasePath);
+            } else {
+                this._queue.unpause();
+            }
+        }
+        
+        this._logger.debug(&quot;Base directory:&quot;, basePath);
+
+        return basePath;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>writeFileWithin</h4>
+                    <div class="description"><p>Write data to a file under the base directory managed by this FileManager
+instance.</p>
+</div>
+                    <dl>
+                      <dt>relativePath</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>data</dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                      <dt>append</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether the file should be appended to over overwritten</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise</dd>
+                      <dd>Resolves once the operation is complete.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    FileManager.prototype.writeFileWithin = function (relativePath, data, append) {
+        return this._later(function () {
+            var basePath = this._basePath;
+            if (!basePath) {
+                throw new Error(&quot;Can&#39;t write file: no base path&quot;);
+            }
+            
+            var fullPath = path.resolve(basePath, relativePath);
+
+            return this._writeHelper(fullPath, data, !!append);
+        }.bind(this));
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../assets/js/prism.js"></script>
+  </body>
+</html>

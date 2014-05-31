@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>componentmanager</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="..&#x2F;../modules/./parsermanager.html">parsermanager</a></li>
+              <li><a href="..&#x2F;../modules/path.html">path</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          <section class="functions">
+            <h3>Functions 
+              <label class="checkbox">
+                <input class="toggle-public" type="checkbox"> Show Private Members
+              </label>
+            </h3>
+            
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_deriveComponent</h4>
+              <div class="description"><p>Create a single derived component from a given default component and basic
+component. </p>
+</div>
+              <dl>
+                  <dt>def</dt>
+                  <dd class="label label-info pull-left">Component</dd>
+                  <dd>A default component</dd>
+                  <dt>basic</dt>
+                  <dd class="label label-info pull-left">Component</dd>
+                  <dd>A basic component</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _deriveComponent(def, basic) {
+        var derived = _shallowCopy(basic);
+
+        if (def.hasOwnProperty(&quot;folder&quot;)) {
+            if (derived.hasOwnProperty(&quot;folder&quot;)) {
+                var folder = def.folder.concat(basic.folder);
+                derived.folder = folder;
+            } else {
+                derived.folder = def.folder;
+            }
+        }
+
+        if (def.hasOwnProperty(&quot;suffix&quot;)) {
+            var index = basic.file.lastIndexOf(&quot;.&quot;),
+                filename = basic.file.substring(0, index),
+                extension = basic.file.substring(index);
+
+            derived.file = filename + def.suffix + extension;
+        }
+
+        if (def.hasOwnProperty(&quot;scale&quot;) ||
+            def.hasOwnProperty(&quot;width&quot;) ||
+            def.hasOwnProperty(&quot;height&quot;)) {
+            if (!derived.hasOwnProperty(&quot;scale&quot;) &amp;&amp;
+                !derived.hasOwnProperty(&quot;width&quot;) &amp;&amp;
+                !derived.hasOwnProperty(&quot;height&quot;)) {
+
+                if (def.hasOwnProperty(&quot;scale&quot;)) {
+                    derived.scale = def.scale;
+                }
+
+                if (def.hasOwnProperty(&quot;width&quot;)) {
+                    derived.width = def.width;
+                }
+
+                if (def.hasOwnProperty(&quot;height&quot;)) {
+                    derived.height = def.height;
+                }
+            }
+        }
+
+        if (def.hasOwnProperty(&quot;quality&quot;)) {
+            if (!derived.hasOwnProperty(&quot;quality&quot;)) {
+                derived.quality = def.quality;
+            }
+        }
+
+        derived.id = def.id + &quot;:&quot; + basic.id;
+        derived.assetPath = _getAssetPath(derived);
+        derived.default = def;
+
+        return derived;
+    }</code></pre>
+            </div>
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_getAssetPath</h4>
+              <div class="description"><p>Compute the relative asset path of the given component.</p>
+</div>
+              <dl>
+                  <dt>component</dt>
+                  <dd class="label label-info pull-left">Component</dd>
+                  <dd></dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _getAssetPath(component) {
+        if (component.folder) {
+            var folder = component.folder.concat([component.file]);
+            return folder.join(path.sep);
+        } else {
+            return component.file;
+        }
+    }</code></pre>
+            </div>
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_shallowCopy</h4>
+              <div class="description"><p>Create a shallow copy of a component.</p>
+</div>
+              <dl>
+                  <dt>component</dt>
+                  <dd class="label label-info pull-left">Component</dd>
+                  <dd></dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _shallowCopy(component) {
+        var clone = {},
+            property;
+
+        for (property in component) {
+            if (component.hasOwnProperty(property)) {
+                clone[property] = component[property];
+            }
+        }
+
+        return clone;
+    }</code></pre>
+            </div>
+            
+          </section>
+          
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>ComponentManager</h4>
+                  <em><p>ComponentManagers manage a set of Component objects.</p>
+</em>
+                  <dl>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function ComponentManager(generator, config) {
+        this._parserManager = new ParserManager(config);
+        this._allComponents = {};
+        this._componentsForLayer = {};
+        this._filenames = {};
+        this._defaultLayerId = null;
+    }</code></pre>
+                </div>
+      
+                <section class="properties ">
+                  <h3>Properties 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_allComponents</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>{number: Component}</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>The a set of components, keyed by component ID.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype._allComponents = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_componentsForLayer</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>{number: {number: boolean}}</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>Map from layer IDs to a set of component IDs. Used to retrieve all components
+for a given layer ID.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype._componentsForLayer = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_defaultLayerId</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>?number</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>The layer ID that contains a default component specification, if any.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype._defaultLayerId = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_filenames</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>{string: boolean}</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>The set of component filenames. Used to check for conflicting names</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype._filenames = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_parserManager</h4>
+                    <dl>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>@type {ParserManager}</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype._parserManager = null;</code></pre>
+                  </div>
+                  
+                </section>
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>addComponent</h4>
+                    <div class="description"><p>Add the provided component, which is contained by the given layer.</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd>The layer object that contains the component</dd>
+                      <dt>component</dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd>The componet object to add</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype.addComponent = function (layer, component) {
+
+        if (component.file) {
+            if (this._filenames.hasOwnProperty(component.file)) {
+                throw new Error(&quot;Duplicate file name: &quot; + component.file);
+            }
+        } else if (component.default) {
+            var specName;
+            if (component.folder) {
+                var folder = component.folder.concat([component.suffix]);
+                specName = folder.join(path.sep);
+            } else {
+                specName = component.suffix;
+            }
+
+            &#x2F;&#x2F; FIXME: this is not quite right because we don&#39;t yet detect
+            &#x2F;&#x2F; when derived componetns will have conflicting filenames. 
+            if (this._filenames.hasOwnProperty(specName)) {
+                throw new Error(&quot;Duplicate default specification: &quot; + specName);
+            }
+        }
+
+        if (component.default) {
+            if (this._defaultLayerId !== null &amp;&amp; this._defaultLayerId !== layer.id) {
+                throw new Error(&quot;Duplicate default layer: &quot; + layer.name);
+            }
+            this._defaultLayerId = layer.id;
+        }
+
+        var componentId = _componentIdCounter++;
+
+        component.id = componentId;
+        component.layer = layer;
+        component.assetPath = _getAssetPath(component);
+
+        this._allComponents[componentId] = component;
+        this._filenames[component.file] = true;
+
+        if (!this._componentsForLayer.hasOwnProperty(layer.id)) {
+            this._componentsForLayer[layer.id] = {};
+        }
+
+        this._componentsForLayer[layer.id][componentId] = true;
+
+        return componentId;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>findAllComponents</h4>
+                    <div class="description"><p>Extract all component-like objects from a given layer. Returns a list of
+items, each of which is either a component-like object or a list of analysis
+errors that should be reported back to the user. The component-like objects
+are only fully initialized after being added to a given component manager.</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd>The layer from which to extract components</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Array.&lt;{errors: Array.&lt;string&gt;</dd>
+                      <dd>| {component: Component}>}</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype.findAllComponents = function (layer) {
+        var results = this._parserManager.analyzeLayerName(layer.name),
+            components = [];
+
+        results.forEach(function (result) {
+            var errors = result.errors;
+            if (errors.length &gt; 0) {
+                components.push({errors: errors});
+            } else {
+                var component = result.component;
+                if (component.file || component.default) {
+                    components.push({component: component});
+                }
+            }
+        }, this);
+
+        return components;
+    };
+
+    module.exports = ComponentManager;
+}());</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getBasicComponentsByLayer</h4>
+                    <div class="description"><p>Get only the basic (i.e., not default or derived) components for a given layer ID.</p>
+</div>
+                    <dl>
+                      <dt>layerId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Array.&lt;Component&gt;</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype.getBasicComponentsByLayer = function (layerId) {
+        if (layerId === this._defaultLayerId) {
+            return [];
+        }
+
+        return Object.keys(this._componentsForLayer[layerId]).map(function (componentId) {
+            return this.getComponent(componentId);
+        }, this);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getComponent</h4>
+                    <div class="description"><p>Get the Component object for the given component ID.</p>
+</div>
+                    <dl>
+                      <dt>componentId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of the component object to retrieve</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Component</dd>
+                      <dd>The component object with the given ID</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype.getComponent = function (componentId) {
+        return this._allComponents[componentId];
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getComponentsByLayer</h4>
+                    <div class="description"><p>Get the set of component objects contained by the layer referred to by the given layer ID.</p>
+</div>
+                    <dl>
+                      <dt>layerId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of a layer object.</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">{number: Component}</dd>
+                      <dd>The set of components contained by
+ the layer with the given ID.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype.getComponentsByLayer = function (layerId) {
+        if (this._componentsForLayer.hasOwnProperty(layerId)) {
+            return Object.keys(this._componentsForLayer[layerId]).reduce(function (components, componentId) {
+                var component = this.getComponent(componentId);
+                components[componentId] = component;
+                return components;
+            }.bind(this), {});
+        } else {
+            return {};
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getDerivedComponents</h4>
+                    <div class="description"><p>Return all derived components originating from the Component referred to
+by the given componentId and all registered default components.</p>
+</div>
+                    <dl>
+                      <dt>componentId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Array.&lt;Component&gt;</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype.getDerivedComponents = function (componentId) {
+        var component = this.getComponent(componentId);
+
+        if (this._defaultLayerId === null) {
+            return [component];
+        }
+
+        if (component.default) {
+            return [];
+        }
+
+        var defaultComponentMap = this._componentsForLayer[this._defaultLayerId],
+            defaultComponents = Object.keys(defaultComponentMap).map(function (componentId) {
+                return this.getComponent(componentId);
+            }, this);
+
+        if (defaultComponents.length === 0) {
+            return [component];
+        }
+
+        return defaultComponents.map(function (def) {
+            return _deriveComponent(def, component);
+        });
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>removeComponent</h4>
+                    <div class="description"><p>Remove the component referred to by the given component ID.</p>
+</div>
+                    <dl>
+                      <dt>componentId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of the component to remove</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ComponentManager.prototype.removeComponent = function (componentId) {
+        var component = this._allComponents[componentId];
+
+        if (!component) {
+            throw new Error(&quot;Can&#39;t remove component: &quot; + componentId);
+        }
+
+        var layer = component.layer,
+            layerId = layer.id;
+
+        delete this._componentsForLayer[layerId][componentId];
+
+        if (Object.keys(this._componentsForLayer[layerId]).length === 0) {
+            delete this._componentsForLayer[layerId];
+
+            if (this._defaultLayerId === layerId) {
+                this._defaultLayerId = null;
+            }
+        }
+
+        delete this._allComponents[componentId];
+        delete this._filenames[component.file];
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../assets/js/prism.js"></script>
+  </body>
+</html>

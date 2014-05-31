@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>layer</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../../../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../../../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../../../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../../../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../../../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../../../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../../../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../../../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../../../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../../../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../../../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../../../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../../../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../../../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../../../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="..&#x2F;..&#x2F;../modules/assert.html">assert</a></li>
+              <li><a href="..&#x2F;..&#x2F;../modules/./bounds.html">bounds</a></li>
+              <li><a href="..&#x2F;..&#x2F;../modules/./layereffects.html">layereffects</a></li>
+              <li><a href="..&#x2F;..&#x2F;../modules/./mask.html">mask</a></li>
+              <li><a href="..&#x2F;..&#x2F;../modules/./path.html">path</a></li>
+              <li><a href="..&#x2F;..&#x2F;../modules/util.html">util</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          <section class="functions">
+            <h3>Functions 
+              <label class="checkbox">
+                <input class="toggle-public" type="checkbox"> Show Private Members
+              </label>
+            </h3>
+            
+            <div class="member public">
+              <span class="pull-right scope">
+                
+                Public API
+              </span>
+              <h4>createLayer</h4>
+              <div class="description"><p>Create a new layer object of the appropriate type for the given raw
+description. The new layer is not attached to its parent layer. </p>
+</div>
+              <dl>
+                  <dt>document</dt>
+                  <dd class="label label-info pull-left">Document</dd>
+                  <dd>The parent document for the new layer</dd>
+                  <dt>parent</dt>
+                    <span class="label label-nullable pull-left">nullable</span>
+                  <dd class="label label-info pull-left">BaseLayer</dd>
+                  <dd>The parent layer for the new layer</dd>
+                  <dt>rawLayer</dt>
+                  <dd class="label label-info pull-left">object</dd>
+                  <dd>The raw description of the new layer</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function createLayer(document, parent, rawLayer) {
+        if (!parent &amp;&amp; !rawLayer.hasOwnProperty(&quot;type&quot;)) {
+            return new LayerGroup(document, null, rawLayer);
+        }
+
+        switch (rawLayer.type) {
+        case &quot;layerSection&quot;:
+            return new LayerGroup(document, parent, rawLayer);
+        case &quot;layer&quot;:
+            return new Layer(document, parent, rawLayer);
+        case &quot;shapeLayer&quot;:
+            return new ShapeLayer(document, parent, rawLayer);
+        case &quot;textLayer&quot;:
+            return new TextLayer(document, parent, rawLayer);
+        case &quot;adjustmentLayer&quot;:
+            return new AdjustmentLayer(document, parent, rawLayer);
+        case &quot;smartObjectLayer&quot;:
+            return new SmartObjectLayer(document, parent, rawLayer);
+        case &quot;backgroundLayer&quot;:
+            return new BackgroundLayer(document, parent, rawLayer);
+        default:
+            throw new Error(&quot;Unknown layer type:&quot;, rawLayer.type);
+        }
+    }
+
+    exports.createLayer = createLayer;
+
+    exports.Layer = Layer;
+    exports.LayerGroup = LayerGroup;
+    exports.ShapeLayer = ShapeLayer;
+    exports.TextLayer = TextLayer;
+    exports.AdjustmentLayer = AdjustmentLayer;
+    exports.SmartObjectLayer = SmartObjectLayer;
+    exports.BackgroundLayer = BackgroundLayer;
+}());</code></pre>
+            </div>
+            
+          </section>
+          
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>BaseLayer</h4>
+                  <em><p>Abstract base class for representing layers in a document. This should not
+be instantiated directly.</p>
+</em>
+                  <dl>
+                    <dt>document</dt>
+                    <dd class="label label-info pull-left">Document</dd>
+                    <dd></dd>
+                    <dt>group</dt>
+                    <dd class="label label-info pull-left">LayerGroup</dd>
+                    <dd>The parent layer group of this layer. Null if the layer
+ is directly contained by the Document.</dd>
+                    <dt>raw</dt>
+                    <dd class="label label-info pull-left">object</dd>
+                    <dd>Raw description of the layer.</dd>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function BaseLayer(document, group, raw) {
+        this._document = document;
+        this._logger = document._logger;
+
+        if (group) {
+            this._setGroup(group);
+        }
+
+        var handledProperties = this._handledProperties || {},
+            property;
+
+        for (property in raw) {
+            if (raw.hasOwnProperty(property) &amp;&amp; !handledProperties.hasOwnProperty(property)) {
+                switch (property) {
+                case &quot;id&quot;:
+                    this._id = raw.id;
+                    break;
+                case &quot;name&quot;:
+                    this._setName(raw.name);
+                    break;
+                case &quot;bounds&quot;:
+                    this._setBounds(raw.bounds);
+                    break;
+                case &quot;boundsWithFX&quot;:
+                    this._setBoundsWithFX(raw.boundsWithFX);
+                    break;
+                case &quot;visible&quot;:
+                    this._setVisible(raw.visible);
+                    break;
+                case &quot;clipped&quot;:
+                    this._setClipped(raw.clipped);
+                    break;
+                case &quot;mask&quot;:
+                    this._setMask(raw.mask);
+                    break;
+                case &quot;layerEffects&quot;:
+                    this._setLayerEffects(raw.layerEffects);
+                    break;
+                case &quot;generatorSettings&quot;:
+                    this._setGeneratorSettings(raw.generatorSettings);
+                    break;
+                case &quot;blendOptions&quot;:
+                    this._setBlendOptions(raw.blendOptions);
+                    break;
+                case &quot;protection&quot;:
+                    this._setProtection(raw.protection);
+                    break;
+                case &quot;path&quot;:
+                    this._setPath(raw.path);
+                    break;
+                case &quot;index&quot;:
+                case &quot;type&quot;:
+                case &quot;added&quot;:
+                    &#x2F;&#x2F; ignore these properties
+                    break;
+                default:
+                    this._logger.warn(&quot;Unhandled property in raw constructor:&quot;, property, raw[property]);
+                }
+            }
+        }
+    }
+
+    Object.defineProperties(BaseLayer.prototype, {
+        &quot;document&quot;: {
+            get: function () { return this._document; },
+            set: function () { throw new Error(&quot;Cannot set document&quot;); }
+        },
+        &quot;id&quot;: {
+            get: function () { return this._id; },
+            set: function () { throw new Error(&quot;Cannot set id&quot;); }
+        },
+        &quot;name&quot;: {
+            get: function () { return this._name; },
+            set: function () { throw new Error(&quot;Cannot set name&quot;); }
+        },
+        &quot;bounds&quot;: {
+            get: function () { return this._bounds; },
+            set: function () { throw new Error(&quot;Cannot set bounds&quot;); }
+        },
+        &quot;boundsWithFX&quot;: {
+            get: function () { return this._boundsWithFX; },
+            set: function () { throw new Error(&quot;Cannot set boundsWithFX&quot;); }
+        },
+        &quot;visible&quot;: {
+            get: function () { return this._visible; },
+            set: function () { throw new Error(&quot;Cannot set visible&quot;); }
+        },
+        &quot;clipped&quot;: {
+            get: function () { return this._clipped; },
+            set: function () { throw new Error(&quot;Cannot set clipped&quot;); }
+        },
+        &quot;mask&quot;: {
+            get: function () { return this._mask; },
+            set: function () { throw new Error(&quot;Cannot set mask&quot;); }
+        },
+        &quot;layerEffects&quot;: {
+            get: function () { return this._layerEffects; },
+            set: function () { throw new Error(&quot;Cannot set layerEffects&quot;); }
+        },
+        &quot;generatorSettings&quot;: {
+            get: function () { return this._generatorSettings; },
+            set: function () { throw new Error(&quot;Cannot set generatorSettings&quot;); }
+        },
+        &quot;blendOptions&quot;: {
+            get: function () { return this._blendOptions; },
+            set: function () { throw new Error(&quot;Cannot set blendOptions&quot;); }
+        },
+        &quot;protection&quot;: {
+            get: function () { return this._protection; },
+            set: function () { throw new Error(&quot;Cannot set protection&quot;); }
+        },
+        &quot;path&quot;: {
+            get: function () { return this._path; },
+            set: function () { throw new Error(&quot;Cannot set path&quot;); }
+        },
+        &quot;group&quot;: {
+            get: function () { return this._group; },
+            set: function () { throw new Error(&quot;Cannot set group&quot;); }
+        }
+    });
+
+    BaseLayer.prototype._document = null;
+
+    BaseLayer.prototype._group = null;
+
+    BaseLayer.prototype._id = null;
+
+    BaseLayer.prototype._name = null;
+
+    BaseLayer.prototype._bounds = null;
+
+    BaseLayer.prototype._boundsWithFX = null;
+
+    BaseLayer.prototype._visible = null;
+
+    BaseLayer.prototype._clipped = null;
+
+    BaseLayer.prototype._mask = null;
+
+    BaseLayer.prototype._layerEffects = null;
+
+    BaseLayer.prototype._generatorSettings = null;
+
+    BaseLayer.prototype._blendOptions = null;
+
+    BaseLayer.prototype._protection = null;
+
+    BaseLayer.prototype._path = null;
+
+    BaseLayer.prototype._setGroup = function (group) {
+        this._group = group;
+    };
+
+    BaseLayer.prototype._setName = function (rawName) {
+        this._name = rawName;
+    };
+
+    BaseLayer.prototype._updateName = function (rawName) {
+        var previous = this._name;
+        this._setName(rawName);
+
+        return {
+            previous: previous
+        };
+    };
+
+    BaseLayer.prototype._setBounds = function (rawBounds) {
+        this._bounds = new Bounds(rawBounds);
+    };
+
+    BaseLayer.prototype._updateBounds = function (rawBounds) {
+        return this._bounds._applyChange(rawBounds);
+    };
+
+    BaseLayer.prototype._setBoundsWithFX = function (rawBoundsWithFX) {
+        this._boundsWithFX = new Bounds(rawBoundsWithFX);
+    };
+
+    BaseLayer.prototype._updateBoundsWithFX = function (rawBoundsWithFX) {
+        return this._bounds._applyChange(rawBoundsWithFX);
+    };
+
+    BaseLayer.prototype._setVisible = function (rawVisible) {
+        this._visible = rawVisible;
+    };
+
+    BaseLayer.prototype._updateVisible = function (rawVisible) {
+        var previous = this._visible;
+        this._setVisible(rawVisible);
+
+        return {
+            previous: previous
+        };
+    };
+
+    BaseLayer.prototype._setClipped = function (rawClipped) {
+        this._clipped = rawClipped;
+    };
+
+    BaseLayer.prototype._updateClipped = function (rawClipped) {
+        var previous = this._clipped;
+        this._setClipped(rawClipped);
+
+        return {
+            previous: previous
+        };
+    };
+
+    BaseLayer.prototype._setMask = function (rawMask) {
+        this._mask = new Mask(this._document, rawMask);
+    };
+
+    BaseLayer.prototype._updateMask = function (rawMask) {
+        if (rawMask.removed) {
+            var previous = this._mask;
+
+            delete this._mask;
+            return {
+                previous: previous
+            };
+        } else if (this._mask) {
+            return this._mask._applyChange(rawMask);
+        } else {
+            this._setMask(rawMask);
+            return {
+                previous: null
+            };
+        }
+    };
+
+    BaseLayer.prototype._setLayerEffects = function (rawLayerEffects) {
+        this._layerEffects = new LayerEffects(this._document, rawLayerEffects);
+    };
+
+    BaseLayer.prototype._updateLayerEffects = function (rawLayerEffects) {
+        if (this._layerEffects) {
+            return this._layerEffects._applyChange(rawLayerEffects);
+        } else {
+            this._setLayerEffects(rawLayerEffects);
+
+            return {
+                previous: null
+            };
+        }
+    };
+
+    BaseLayer.prototype._setGeneratorSettings = function (rawGeneratorSettings) {
+        this._generatorSettings = rawGeneratorSettings;
+    };
+
+    BaseLayer.prototype._updateGeneratorSettings = function (rawGeneratorSettings) {
+        var previous = this._generatorSettings;
+        this._setGeneratorSettings(rawGeneratorSettings);
+
+        return {
+            previous: previous
+        };
+    };
+
+    BaseLayer.prototype._setBlendOptions = function (raw) {
+        this._blendOptions = raw;
+    };
+
+    BaseLayer.prototype._updateBlendOptions = function (raw) {
+        var previous = this._blendOptions;
+        this._setBlendOptions(raw);
+
+        return {
+            previous: previous
+        };
+    };
+
+    BaseLayer.prototype._setProtection = function (raw) {
+        this._protection = raw;
+    };
+
+    BaseLayer.prototype._updateProtection = function (raw) {
+        var previous = this._protection;
+        this._setProtection(raw);
+
+        return {
+            previous: previous
+        };
+    };
+
+    BaseLayer.prototype._setPath = function (raw) {
+        this._path = new Path(this._document, raw);
+    };
+
+    BaseLayer.prototype._updatePath = function (raw) {
+        if (raw.removed) {
+            var previous = this._path;
+
+            delete this._path;
+            return {
+                previous: previous
+            };
+        } else if (this._path) {
+            return this._path._applyChange(raw);
+        } else {
+            this._setMask(raw);
+            return {
+                previous: null
+            };
+        }
+    };
+
+    BaseLayer.prototype.toString = function () {
+        return this.id + &quot;:&quot; + (this.name || &quot;-&quot;);
+    };
+
+    BaseLayer.prototype.getSize = function () {
+        return 1;
+    };
+
+    BaseLayer.prototype._detach = function () {
+        if (!this.group) {
+            return;
+        }
+
+        var parent = this.group,
+            id = this.id,
+            index = -1;
+
+        parent.layers.some(function (child, i) {
+            if (child.id === id) {
+                index = i;
+                return true;
+            }
+        }, this);
+
+        assert(index &gt; -1, &quot;Unable to detach layer from parent&quot;);
+        parent.layers.splice(index, 1);
+    };</code></pre>
+                </div>
+      
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_applyChange</h4>
+                    <div class="description"><p>Update this layer object with the given raw change description and return
+a set of change descriptions, keyed by property that changed.</p>
+</div>
+                    <dl>
+                      <dt>rawChange</dt>
+                      <dd class="label label-info pull-left">object</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">{string: object}</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseLayer.prototype._applyChange = function (rawChange) {
+        assert.strictEqual(this.id, rawChange.id, &quot;Layer ID mismatch: this &quot; + this.id + &quot;; change &quot; + rawChange.id);
+
+        if (rawChange.hasOwnProperty(&quot;changed&quot;)) {
+            throw new Error(&quot;Unknown change&quot;);
+        }
+
+        var handledProperties = this._handledProperties || {},
+            handledEvents = this._handledEvents || {},
+            changes = {},
+            change,
+            property;
+
+        for (property in rawChange) {
+            if (rawChange.hasOwnProperty(property) &amp;&amp;
+                !handledProperties.hasOwnProperty(property) &amp;&amp;
+                !handledEvents.hasOwnProperty(property)) {
+                switch (property) {
+                case &quot;id&quot;:
+                    &#x2F;&#x2F; do nothing
+                    break;
+                case &quot;name&quot;:
+                    change = this._updateName(rawChange.name);
+                    if (change) {
+                        changes.name = change;
+                    }
+                    break;
+                case &quot;bounds&quot;:
+                    change = this._updateBounds(rawChange.bounds);
+                    if (change) {
+                        changes.bounds = change;
+                    }
+                    break;
+                case &quot;boundsWithFX&quot;:
+                    change = this._updateBoundsWithFX(rawChange.boundsWithFX);
+                    if (change) {
+                        changes.boundsWithFX = change;
+                    }
+                    break;
+                case &quot;visible&quot;:
+                    change = this._updateVisible(rawChange.visible);
+                    if (change) {
+                        changes.visible = change;
+                    }
+                    break;
+                case &quot;clipped&quot;:
+                    change = this._updateClipped(rawChange.clipped);
+                    if (change) {
+                        changes.clipped = change;
+                    }
+                    break;
+                case &quot;mask&quot;:
+                    change = this._updateMask(rawChange.mask);
+                    if (change) {
+                        changes.mask = change;
+                    }
+                    break;
+                case &quot;layerEffects&quot;:
+                    change = this._updateLayerEffects(rawChange.layerEffects);
+                    if (change) {
+                        changes.layerEffects = change;
+                    }
+                    break;
+                case &quot;generatorSettings&quot;:
+                    change = this._updateGeneratorSettings(rawChange.generatorSettings);
+                    if (change) {
+                        changes.generatorSettings = change;
+                    }
+                    break;
+                case &quot;blendOptions&quot;:
+                    change = this._updateBlendOptions(rawChange.blendOptions);
+                    if (change) {
+                        changes.blendOptions = change;
+                    }
+                    break;
+                case &quot;protection&quot;:
+                    change = this._updateProtection(rawChange.protection);
+                    if (change) {
+                        changes.protection = change;
+                    }
+                    break;
+                case &quot;path&quot;:
+                    change = this._updatePath(rawChange.path);
+                    if (change) {
+                        changes.path = change;
+                    }
+                    break;
+                case &quot;metaDataOnly&quot;:
+                    changes.metaDataOnly = !!rawChange.metaDataOnly;
+                    break;
+                case &quot;added&quot;:
+                case &quot;removed&quot;:
+                case &quot;type&quot;:
+                case &quot;index&quot;:
+                case &quot;layersAdjusted&quot;:
+                case &quot;clipGroup&quot;:
+                    &#x2F;&#x2F; handled elsewhere; do nothing
+                    break;
+                default:
+                    this._logger.warn(&quot;Unhandled property in raw change:&quot;, property, rawChange[property]);
+                }
+            }
+        }
+
+        return changes;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getDependentLayers</h4>
+                    <div class="description"><p>Get the set of layers that are dependent on this layer. Currently just
+returns a set of layers that includes this layer and all its parents, as
+well as the next sibling layer if this layer is clipped.</p>
+</div>
+                    <dl>
+                      <dt>dependents</dt>
+                      <dd class="label label-info pull-left">{number: Layer}</dd>
+                      <dd>Accumulation parameter; internal only.</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">{number: Layer}</dd>
+                      <dd>The set of dependent layers, which may include
+ this layer, indexed by Layer ID.</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseLayer.prototype.getDependentLayers = function (dependents) {
+        dependents = dependents || {};
+
+        &#x2F;&#x2F; Ignore the top-level layer group
+        if (this.document.layers !== this) {
+            dependents[this.id] = this;
+        }
+
+        if (this.group) {
+            this.group.getDependentLayers(dependents);
+
+            if (this.clipped) {
+                var id = this.id,
+                    localIndex = -1,
+                    sibling;
+
+                this.group.layers.some(function (layer, index) {
+                    if (layer.id === id) {
+                        localIndex = index;
+                        return true;
+                    }
+                }, this);
+
+                if (this.group.layers.length &gt; localIndex + 1) {
+                    sibling = this.group.layers[localIndex + 1];
+                    dependents[sibling.id] = sibling;
+                }
+            }
+        }
+
+        return dependents;
+    };
+
+    function Layer(document, group, raw) {
+        BaseLayer.call(this, document, group, raw);
+
+        if (raw.hasOwnProperty(&quot;smartObject&quot;)) {
+            this._setSmartObject(raw.smartObject);
+        }
+    }
+    util.inherits(Layer, BaseLayer);
+
+    Object.defineProperties(Layer.prototype, {
+        &quot;smartObject&quot;: {
+            get: function () { return this._smartObject; },
+            set: function () { throw new Error(&quot;Cannot set smartObject&quot;); }
+        }
+    });
+
+    Layer.prototype._handledProperties = {
+        &quot;pixels&quot;: true,
+        &quot;smartObject&quot;: true
+    };
+
+    Layer.prototype._handledEvents = {
+        &quot;pixels&quot;: true
+    };
+
+    Layer.prototype._setSmartObject = _setSmartObject;
+
+    Layer.prototype._updateSmartObject = _updateSmartObject;
+
+    Layer.prototype._applyChange = function (raw) {
+        var changes = BaseLayer.prototype._applyChange.call(this, raw),
+            change;
+
+        if (raw.hasOwnProperty(&quot;smartObject&quot;)) {
+            change = this._updateSmartObject(raw.smartObject);
+            if (change) {
+                changes.smartObject = change;
+            }
+        }
+
+        if (raw.hasOwnProperty(&quot;pixels&quot;)) {
+            changes.pixels = !!raw.pixels;
+        }
+
+        if (Object.keys(changes).length &gt; 0) {
+            return changes;
+        }
+    };
+
+    function BackgroundLayer(document, group, raw) {
+        BaseLayer.call(this, document, group, raw);
+    }
+    util.inherits(BackgroundLayer, BaseLayer);
+
+    BackgroundLayer.prototype._handledProperties = {
+        &quot;pixels&quot;: true
+    };
+
+    BackgroundLayer.prototype._handledEvents = {
+        &quot;pixels&quot;: true
+    };
+
+    BackgroundLayer.prototype._applyChange = function (raw) {
+        var changes = BaseLayer.prototype._applyChange.call(this, raw);
+
+        if (raw.hasOwnProperty(&quot;pixels&quot;)) {
+            changes.pixels = !!raw.pixels;
+        }
+
+        if (Object.keys(changes).length &gt; 0) {
+            return changes;
+        }
+    };
+
+    function ShapeLayer(document, group, raw) {
+        BaseLayer.call(this, document, group, raw);
+
+        if (raw.hasOwnProperty(&quot;fill&quot;)) {
+            this._setFill(raw.fill);
+        }
+
+        if (raw.hasOwnProperty(&quot;strokeStyle&quot;)) {
+            this._setStrokeStyle(raw.strokeStyle);
+        }
+    }
+    util.inherits(ShapeLayer, BaseLayer);
+
+    Object.defineProperties(ShapeLayer.prototype, {
+        &quot;fill&quot;: {
+            get: function () { return this._fill; },
+            set: function () { throw new Error(&quot;Cannot set fill&quot;); }
+        },
+        &quot;strokeStyle&quot;: {
+            get: function () { return this._strokeStyle; },
+            set: function () { throw new Error(&quot;Cannot set strokeStyle&quot;); }
+        }
+    });
+
+    ShapeLayer.prototype._handledProperties = {
+        &quot;fill&quot;: true,
+        &quot;strokeStyle&quot;: true
+    };
+
+    ShapeLayer.prototype._setFill = _setFill;
+
+    ShapeLayer.prototype._updateFill = _updateFill;
+
+    ShapeLayer.prototype._setStrokeStyle = function (raw) {
+        this._strokeStyle = raw;
+    };
+
+    ShapeLayer.prototype._updateStrokeStyle = function (raw) {
+        var previous = this._strokeStyle;
+        this._setStrokeStyle(raw);
+
+        return {
+            previous: previous
+        };
+    };
+
+    ShapeLayer.prototype._applyChange = function (raw) {
+        var changes = BaseLayer.prototype._applyChange.call(this, raw),
+            change;
+
+        if (raw.hasOwnProperty(&quot;fill&quot;)) {
+            change = this._updateFill(raw.fill);
+            if (change) {
+                changes.fill = change;
+            }
+        }
+
+        if (raw.hasOwnProperty(&quot;strokeStyle&quot;)) {
+            change = this._updateStrokeStyle(raw.strokeStyle);
+            if (change) {
+                changes.strokeStyle = change;
+            }
+        }
+
+        if (Object.keys(changes).length &gt; 0) {
+            return changes;
+        }
+    };
+
+    function TextLayer(document, group, raw) {
+        BaseLayer.call(this, document, group, raw);
+
+        if (raw.hasOwnProperty(&quot;text&quot;)) {
+            this._setText(raw.text);
+        }
+    }
+    util.inherits(TextLayer, BaseLayer);
+
+    Object.defineProperties(TextLayer.prototype, {
+        &quot;text&quot;: {
+            get: function () { return this._text; },
+            set: function () { throw new Error(&quot;Cannot set text&quot;); }
+        }
+    });
+
+    TextLayer.prototype._handledProperties = {
+        &quot;text&quot;: true
+    };
+
+    TextLayer.prototype._setText = function (raw) {
+        this._text = raw;
+    };
+
+    TextLayer.prototype._updateText = function (raw) {
+        var previous = this._text;
+        this._setText(raw);
+
+        return {
+            previous: previous
+        };
+    };
+
+    TextLayer.prototype._applyChange = function (raw) {
+        var changes = BaseLayer.prototype._applyChange.call(this, raw),
+            change;
+
+        if (raw.hasOwnProperty(&quot;text&quot;)) {
+            change = this._updateText(raw.text);
+            if (change) {
+                changes.text = change;
+            }
+        }
+
+        if (Object.keys(changes).length &gt; 0) {
+            return changes;
+        }
+    };
+
+    function AdjustmentLayer(document, group, raw) {
+        BaseLayer.call(this, document, group, raw);
+
+        this._setAdjustment(raw.adjustment);
+    }
+    util.inherits(AdjustmentLayer, BaseLayer);
+
+    Object.defineProperties(AdjustmentLayer.prototype, {
+        &quot;adjustment&quot;: {
+            get: function () { return this._adjustment; },
+            set: function () { throw new Error(&quot;Cannot set adjustment&quot;); }
+        }
+    });
+
+    AdjustmentLayer.prototype._handledProperties = {
+        &quot;adjustment&quot;: true,
+        &quot;fill&quot;: true
+    };
+
+    AdjustmentLayer.prototype._setAdjustment = function (raw) {
+        this._adjustment = raw;
+    };
+
+    AdjustmentLayer.prototype._updateAdjustment = function (raw) {
+        var previous = this._adjustment;
+        this._setAdjustment(raw);
+
+        return {
+            previous: previous
+        };
+    };
+
+    AdjustmentLayer.prototype.getDependentLayers = function () {
+        var dependents = BaseLayer.prototype.getDependentLayers.call(this);
+
+        if (!this.clipped) {
+            this.document.layers.visit(function (layer) {
+                if (this.id === layer.id) {
+                    return true;
+                }
+
+                dependents[layer.id] = layer;
+            }.bind(this));
+        }
+        
+
+        return dependents;
+    };
+
+    AdjustmentLayer.prototype._setFill = _setFill;
+
+    AdjustmentLayer.prototype._updateFill = _updateFill;
+
+    AdjustmentLayer.prototype._applyChange = function (raw) {
+        var changes = BaseLayer.prototype._applyChange.call(this, raw),
+            change;
+
+        if (raw.hasOwnProperty(&quot;adjustment&quot;)) {
+            change = this._updateAdjustment(raw.adjustment);
+            if (change) {
+                changes.adjustment = change;
+            }
+        }
+
+        if (Object.keys(changes).length &gt; 0) {
+            return changes;
+        }
+    };
+
+    function SmartObjectLayer(document, group, raw) {
+        BaseLayer.call(this, document, group, raw);
+
+        this._setSmartObject(raw.smartObject);
+        this._setTimeContent(raw.timeContent);
+    }
+    util.inherits(SmartObjectLayer, BaseLayer);
+
+    Object.defineProperties(SmartObjectLayer.prototype, {
+        &quot;smartObject&quot;: {
+            get: function () { return this._smartObject; },
+            set: function () { throw new Error(&quot;Cannot set fill&quot;); }
+        },
+        &quot;timeContent&quot;: {
+            get: function () { return this._timeContent; },
+            set: function () { throw new Error(&quot;Cannot set timeContent&quot;); }
+        }
+    });
+
+    SmartObjectLayer.prototype._handledProperties = {
+        &quot;smartObject&quot;: true,
+        &quot;timeContent&quot;: true
+    };
+
+    SmartObjectLayer.prototype._setSmartObject = _setSmartObject;
+
+    SmartObjectLayer.prototype._updateSmartObject = _updateSmartObject;
+
+    SmartObjectLayer.prototype._setTimeContent = function (raw) {
+        this._timeContent = raw;
+    };
+
+    SmartObjectLayer.prototype._updateTimeContent = function (raw) {
+        var previous = this._timeContent;
+        this._setTimeContent(raw);
+
+        return {
+            previous: previous
+        };
+    };
+
+    SmartObjectLayer.prototype._applyChange = function (raw) {
+        var changes = BaseLayer.prototype._applyChange.call(this, raw),
+            change;
+
+        if (raw.hasOwnProperty(&quot;smartObject&quot;)) {
+            change = this._updateSmartObject(raw.smartObject);
+            if (change) {
+                changes.smartObject = change;
+            }
+        }
+
+        if (raw.hasOwnProperty(&quot;timeContent&quot;)) {
+            change = this._updateTimeContent(raw.timeContent);
+            if (change) {
+                changes.timeContent = change;
+            }
+        }
+
+        if (Object.keys(changes).length &gt; 0) {
+            return changes;
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getExactBounds</h4>
+                    <div class="description"><p>Asynchonously request exact bounds for the given layer. This is a
+relatively expensive operation. Ideally, the outcome would be cached and
+reused, and cleared when this layer or any dependent layer is changed.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">Promise.&lt;Bounds&gt;</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseLayer.prototype.getExactBounds = function () {
+        var document = this._document,
+            generator = document._generator;
+
+        return generator.getPixmap(document.id, this.id, EXACT_BOUNDS_SETTINGS)
+            .get(&quot;bounds&quot;)
+            .then(function (rawBounds) {
+                return new Bounds(rawBounds);
+            });
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>visit</h4>
+                    <div class="description"><p>Apply the given visitor function to this layer, returning the return
+value from that application.</p>
+</div>
+                    <dl>
+                      <dt>visitor</dt>
+                      <dd class="label label-info pull-left">function(BaseLayer): boolean</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether the parent should halt visitation</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    BaseLayer.prototype.visit = function (visitor) {
+        return visitor(this);
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>LayerGroup</h4>
+                  <em><p>Represents a LayerGroup. </p>
+</em>
+                  <dl>
+                    <dt>document</dt>
+                    <dd class="label label-info pull-left">Document</dd>
+                    <dd>The parent document for this LayerGroup</dd>
+                    <dt>group</dt>
+                    <dd class="label label-info pull-left">LayerGroup</dd>
+                    <dd>The parent LayerGroup for this LayerGroup, null
+ only if this is the top-level LayerGroup associated with a Document. </dd>
+                    <dt>raw</dt>
+                    <dd class="label label-info pull-left">object</dd>
+                    <dd>The raw description of the LayerGroup used for initialization.</dd>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function LayerGroup(document, group, raw) {
+        BaseLayer.call(this, document, group, raw);
+
+        var targetIndex = 0;
+
+        this.layers = [];
+        if (raw.hasOwnProperty(&quot;layers&quot;)) {
+            raw.layers
+                .sort(function (l1, l2) {
+                    return l1.index - l2.index;
+                })
+                .forEach(function (rawLayer) {
+                    var layer = createLayer(this.document, this, rawLayer);
+
+                    targetIndex += layer.getSize() - 1;
+
+                    this.addLayerAtIndex(layer, targetIndex);
+
+                    targetIndex++;
+                }, this);
+        }
+    }
+    util.inherits(LayerGroup, BaseLayer);
+
+    LayerGroup.prototype._handledProperties = {
+        &quot;layers&quot;: true
+    };</code></pre>
+                </div>
+      
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>addLayerAtIndex</h4>
+                    <div class="description"><p>Attach a new child layer under this LayerGroup at a given index. Not all
+indices are valid for all LayerGroups and child layers; an exception is
+raised if the index is invalid. If the child layer is successfully attached,
+the child&#39;s group property is set to this LayerGroup.</p>
+</div>
+                    <dl>
+                      <dt>childToAdd</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd>The child layer to add to this LayerGroup</dd>
+                      <dt>targetIndex</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The index at which to attach the child</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    LayerGroup.prototype.addLayerAtIndex = function (childToAdd, targetIndex) {
+        var currentIndex = childToAdd.getSize() - 1,
+            nextIndex = currentIndex,
+            child;
+
+        &#x2F;&#x2F; Invariant: currentIndex &lt;= targetIndex
+        var index;
+        for (index = 0; index &lt; this.layers.length; index++) {
+            if (targetIndex &lt;= currentIndex) {
+                break;
+            }
+
+            &#x2F;&#x2F; currentIndex &lt; targetIndex
+            child = this.layers[index];
+            nextIndex += child.getSize();
+
+            &#x2F;&#x2F; nextIndex &lt;= targetIndex
+            if (targetIndex &lt; nextIndex &amp;&amp; child instanceof LayerGroup) {
+                &#x2F;&#x2F; currentIndex &lt; targetIndex &lt; nextIndex
+                child.addLayerAtIndex(childToAdd, targetIndex - (currentIndex + 1));
+                return;
+            }
+
+            &#x2F;&#x2F;currentIndex &lt;= targetIndex
+            currentIndex = nextIndex;
+        }
+
+        assert.strictEqual(currentIndex, targetIndex, &quot;Invalid insertion index: &quot; + targetIndex);
+        childToAdd._setGroup(this);
+        this.layers.splice(index, 0, childToAdd);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>findLayer</h4>
+                    <div class="description"><p>Find among this LayerGroup and all of its children a layer with the given
+ID. Returns null if no layer is found; and otherwise a record containing
+a reference to the layer and its index.</p>
+</div>
+                    <dl>
+                      <dt>id</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of the layer to find</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">?{layer: Layer,index: number}</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    LayerGroup.prototype.findLayer = function (id) {
+        var currentIndex = 0,
+            result;
+
+        this.layers.some(function (child) {
+            if (child instanceof LayerGroup) {
+                currentIndex++;
+                result = child.findLayer(id);
+                if (result) {
+                    result.index += currentIndex;
+                    return true;
+                } else {
+                    currentIndex += child.getSize() - 2;
+                }
+            }
+
+            if (child.id === id) {
+                result = {
+                    layer: child,
+                    index: currentIndex
+                };
+                return true;
+            }
+
+            currentIndex++;
+        });
+
+        return result;
+    };
+
+    LayerGroup.prototype._applyChange = function (rawLayerChange, changedLayers, parentIndex) {
+        var rawLayerChanges = rawLayerChange.layers;
+
+        if (rawLayerChange.hasOwnProperty(&quot;layers&quot;)) {
+            &#x2F;&#x2F; Size of the complete layer group, after layer additions
+            var finalSize = this.getSize();
+
+            &#x2F;&#x2F; Apply structural changes in increasing index order
+            rawLayerChanges.sort(function (l1, l2) {
+                return l1.index - l2.index;
+            });
+
+            rawLayerChanges.forEach(function (rawLayerChange) {
+                var id = rawLayerChange.id,
+                    child;
+
+                if (rawLayerChange.added) {
+                    child = createLayer(this.document, this, rawLayerChange);
+                    changedLayers[id].layer = child;
+                } else {
+                    if (!changedLayers.hasOwnProperty(id)) {
+                        if (rawLayerChange.removed) {
+                            return;
+                        } else {
+                            throw new Error(&quot;Can&#39;t find changed layer:&quot;, id);
+                        }
+                    }
+
+                    child = changedLayers[id].layer;
+                }
+
+                &#x2F;&#x2F; recursively apply each child layer&#39;s changes
+                var changes = child._applyChange(rawLayerChange, changedLayers, rawLayerChange.index);
+                if (changes) {
+                    changedLayers[child.id].changes = changes;
+                }
+
+                &#x2F;&#x2F; Augment the size of this group with the size of the child to be added
+                if (changedLayers[id].type === &quot;added&quot; || changedLayers[id].type === &quot;moved&quot;) {
+                    finalSize += child.getSize();
+                }
+            }, this);
+
+            &#x2F;&#x2F; The offset at which children in this group should be added
+            var offset;
+            if (parentIndex === undefined) {
+                offset = 0;
+            } else {
+                offset = parentIndex - (finalSize - 2);
+            }
+
+            &#x2F;&#x2F; Add the child at the new index
+            rawLayerChanges.forEach(function (rawLayerChange) {
+                var id = rawLayerChange.id;
+                if (!changedLayers.hasOwnProperty(id)) {
+                    return;
+                }
+
+                var change = changedLayers[id];
+                if (change.type === &quot;added&quot; || change.type === &quot;moved&quot;) {
+                    var index = rawLayerChange.index,
+                        relativeIndex = index - offset,
+                        child = change.layer;
+
+                    change.previousGroup = child.group;
+                    this.addLayerAtIndex(child, relativeIndex);
+                }
+            }, this);
+        }
+
+        return BaseLayer.prototype._applyChange.call(this, rawLayerChange);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>findLayerAtIndex</h4>
+                    <div class="description"><p>Find among this LayerGroup and all of its children a layer at the
+given index. Returns null if no layer is found.</p>
+</div>
+                    <dl>
+                      <dt>targetIndex</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>Index of the layer to find</dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">?Layer</dd>
+                      <dd>The layer at the given index</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    LayerGroup.prototype.findLayerAtIndex = function (targetIndex) {
+        if (this.layers.length === 0) {
+            return null;
+        }
+
+        var child = this.layers[0],
+            currentIndex = this.layers[0].getSize() - 1,
+            nextIndex = currentIndex;
+
+        if (targetIndex &lt; currentIndex &amp;&amp; child instanceof LayerGroup) {
+            return child.findLayerAtIndex(targetIndex - 1);
+        }
+
+        var index;
+        for (index = 1; index &lt; this.layers.length; index++) {
+            if (targetIndex &lt;= currentIndex) {
+                break;
+            }
+
+            child = this.layers[index];
+            nextIndex += child.getSize();
+            if (targetIndex &lt; nextIndex) {
+                return child.findLayerAtIndex(targetIndex - (currentIndex + 2));
+            } else {
+                currentIndex = nextIndex;
+            }
+        }
+
+        if (targetIndex === currentIndex) {
+            return child;
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>getSize</h4>
+                    <div class="description"><p>The total size of the LayerGroup and all of its children, where the size
+of a LayerGroup is the sum of the sizes of its children + 2, and the size
+of a non-group layer is 1.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The size of the LayerGroup</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    LayerGroup.prototype.getSize = function () {
+        return this.layers.reduce(function (size, layer) {
+            return size + layer.getSize();
+        }, 2);
+    };
+
+    LayerGroup.prototype.toString = function () {
+        var result = BaseLayer.prototype.toString.call(this),
+            length = this.layers.length;
+
+        result += &quot; [&quot;;
+        this.layers.forEach(function (layer, index) {
+            result += layer.toString();
+            if (index !== length - 1) {
+                result += &quot;, &quot;;
+            }
+        });
+        result += &quot;]&quot;;
+
+        return result;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>visit</h4>
+                    <div class="description"><p>Apply the given visitor function to each layer contained within this
+LayerGroup, including this LayerGroup itself if it is not the Document&#39;s
+top-level layer group. Visitation is stopped if the visitor function ever
+returns true. Layers are visited in index order (i.e., from the bottom of
+the layers panel to the top).</p>
+</div>
+                    <dl>
+                      <dt>visitor</dt>
+                      <dd class="label label-info pull-left">function(BaseLayer): boolean</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether visitation was explicitly halted</dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    LayerGroup.prototype.visit = function (visitor) {
+        var terminated = this.layers.some(function (layer) {
+            return layer.visit(visitor);
+        }, this);
+
+        if (terminated) {
+            return true;
+        }
+
+        &#x2F;&#x2F; Do not traverse the top-level layer group
+        if (this.document.layers === this) {
+            return terminated;
+        }
+
+        return BaseLayer.prototype.visit.call(this, visitor);
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../../assets/js/prism.js"></script>
+  </body>
+</html>

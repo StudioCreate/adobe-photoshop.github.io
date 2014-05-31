@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/prism.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>main</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="../modules/./lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../modules/./lib/documentmanager.html">documentmanager</a></li>
+              <li><a href="../modules/./lib/headlights.html">headlights</a></li>
+              <li><a href="../modules/./lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../modules/./lib/statemanager.html">statemanager</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          <section class="functions">
+            <h3>Functions 
+              <label class="checkbox">
+                <input class="toggle-public" type="checkbox"> Show Private Members
+              </label>
+            </h3>
+            
+            <div class="member private public">
+              <span class="pull-right scope">
+                Private
+                Public API
+              </span>
+              <h4>_getConfig</h4>
+              <div class="description"><p>Get a copy of the plugin&#39;s config object. For automated testing only.</p>
+</div>
+              <dl>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _getConfig() {
+        var copy = {},
+            property;
+
+        for (property in _config) {
+            if (_config.hasOwnProperty(property)) {
+                copy[property] = _config[property];
+            }
+        }
+ 
+        return copy;
+    }</code></pre>
+            </div>
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_handleFileChange</h4>
+              <div class="description"><p>Handler for a the &quot;file&quot; change event fired by Document objects. Disables
+asset generation after Save As is performed on an an already-saved file.</p>
+</div>
+              <dl>
+                  <dt>id</dt>
+                  <dd class="label label-info pull-left">number</dd>
+                  <dd>The ID of the Document that changed</dd>
+                  <dt>change</dt>
+                  <dd class="label label-info pull-left">{previous: string=,previousSaved: boolean=}}</dd>
+                  <dd>The file
+ change event emitted by the Document</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _handleFileChange(id, change) {
+        &#x2F;&#x2F; If the filename changed but the saved state didn&#39;t change, then the file must have been renamed
+        if (change.previous &amp;&amp; !change.hasOwnProperty(&quot;previousSaved&quot;)) {
+            _stopAssetGeneration(id);
+            _stateManager.deactivate(id);
+        }
+    }</code></pre>
+            </div>
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_pauseAssetGeneration</h4>
+              <div class="description"><p>Disable asset generation for the given Document ID, halting any asset
+rending in progress.</p>
+</div>
+              <dl>
+                  <dt>id</dt>
+                    <span class="label label-non-nullable pull-left">non-nullable</span>
+                  <dd class="label label-info pull-left">number</dd>
+                  <dd>The document ID for which asset generation should be disabled.</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _pauseAssetGeneration(id) {
+        if (_waitingDocuments.hasOwnProperty(id)) {
+            _canceledDocuments[id] = true;
+        } else if (_assetManagers.hasOwnProperty(id)) {
+            _assetManagers[id].stop();
+        }
+    }</code></pre>
+            </div>
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_restartAssetGeneration</h4>
+              <div class="description"><p>Restart asset generation for the given Document ID. This is called when
+a Document emits an &quot;end&quot; event, indicating that there was an error
+updating its internal state as from Photoshop&#39;s change events.</p>
+</div>
+              <dl>
+                  <dt>id</dt>
+                    <span class="label label-non-nullable pull-left">non-nullable</span>
+                  <dd class="label label-info pull-left">number</dd>
+                  <dd>The document ID for which asset generation should be enabled.</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _restartAssetGeneration(id) {
+        _stopAssetGeneration(id);
+        _startAssetGeneration(id);
+    }</code></pre>
+            </div>
+            <div class="member private public">
+              <span class="pull-right scope">
+                Private
+                Public API
+              </span>
+              <h4>_setConfig</h4>
+              <div class="description"><p>Set the plugin&#39;s config object. This mutates the referenced object, not the
+reference. For automated testing only.</p>
+</div>
+              <dl>
+                  <dt>config</dt>
+                  <dd class="label label-info pull-left">object</dd>
+                  <dd></dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _setConfig(config) {
+        var property;
+
+        &#x2F;&#x2F; clear out the existing properties
+        for (property in _config) {
+            if (_config.hasOwnProperty(property)) {
+                delete _config[property];
+            }
+        }
+
+        &#x2F;&#x2F; add in the new properties
+        for (property in config) {
+            if (config.hasOwnProperty(property)) {
+                _config[property] = config[property];
+            }
+        }
+    }</code></pre>
+            </div>
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_startAssetGeneration</h4>
+              <div class="description"><p>Enable asset generation for the given Document ID, causing all annotated
+assets in the given document to be regenerated.</p>
+</div>
+              <dl>
+                  <dt>id</dt>
+                    <span class="label label-non-nullable pull-left">non-nullable</span>
+                  <dd class="label label-info pull-left">number</dd>
+                  <dd>The document ID for which asset generation should be enabled.</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _startAssetGeneration(id) {
+        if (_waitingDocuments.hasOwnProperty(id)) {
+            return;
+        }
+
+        var documentPromise = _documentManager.getDocument(id);
+        
+        _waitingDocuments[id] = documentPromise;
+
+        documentPromise.done(function (document) {
+            delete _waitingDocuments[id];
+
+            if (_canceledDocuments.hasOwnProperty(id)) {
+                delete _canceledDocuments[id];
+            } else {
+                if (!_assetManagers.hasOwnProperty(id)) {
+                    _assetManagers[id] = new AssetManager(_generator, _config, _logger, document, _renderManager);
+
+                    document.on(&quot;closed&quot;, _stopAssetGeneration.bind(undefined, id));
+                    document.on(&quot;end&quot;, _restartAssetGeneration.bind(undefined, id));
+                    document.on(&quot;file&quot;, _handleFileChange.bind(undefined, id));
+                }
+                _assetManagers[id].start();
+            }
+        });
+    }</code></pre>
+            </div>
+            <div class="member private">
+              <span class="pull-right scope">
+                Private
+                
+              </span>
+              <h4>_stopAssetGeneration</h4>
+              <div class="description"><p>Completely stop asset generation for the given Document ID and collect
+its AssetManager instance.</p>
+</div>
+              <dl>
+                  <dt>id</dt>
+                    <span class="label label-non-nullable pull-left">non-nullable</span>
+                  <dd class="label label-info pull-left">number</dd>
+                  <dd>The document ID for which asset generation should be disabled.</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function _stopAssetGeneration(id) {
+        _pauseAssetGeneration(id);
+
+        if (_assetManagers.hasOwnProperty(id)) {
+            delete _assetManagers[id];
+        }
+    }</code></pre>
+            </div>
+            <div class="member public">
+              <span class="pull-right scope">
+                
+                Public API
+              </span>
+              <h4>init</h4>
+              <div class="description"><p>Initialize the Assets plugin.</p>
+</div>
+              <dl>
+                  <dt>generator</dt>
+                  <dd class="label label-info pull-left">Generator</dd>
+                  <dd>The Generator instance for this plugin.</dd>
+                  <dt>config</dt>
+                  <dd class="label label-info pull-left">object</dd>
+                  <dd>Configuration options for this plugin.</dd>
+                  <dt>logger</dt>
+                  <dd class="label label-info pull-left">Logger</dd>
+                  <dd>The Logger instance for this plugin.</dd>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function init(generator, config, logger) {
+        _generator = generator;
+        _config = config;
+        _logger = logger;
+
+        _documentManager = new DocumentManager(generator, config, logger);
+        _stateManager = new StateManager(generator, config, logger, _documentManager);
+        _renderManager = new RenderManager(generator, config, logger);
+
+        &#x2F;&#x2F; For automated tests
+        exports._renderManager = _renderManager;
+        exports._stateManager = _stateManager;
+        exports._assetManagers = _assetManagers;
+
+        _stateManager.on(&quot;enabled&quot;, _startAssetGeneration);
+        _stateManager.on(&quot;disabled&quot;, _pauseAssetGeneration);
+
+        Headlights.init(generator, logger, _stateManager, _renderManager);
+    }
+
+
+    exports.init = init;
+
+    &#x2F;&#x2F; For automated tests
+    exports._getConfig = _getConfig;
+    exports._setConfig = _setConfig;
+}());</code></pre>
+            </div>
+            
+          </section>
+          
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../assets/js/prism.js"></script>
+  </body>
+</html>

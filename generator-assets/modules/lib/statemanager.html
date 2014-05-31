@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>statemanager</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="..&#x2F;../modules/events.html">events</a></li>
+              <li><a href="..&#x2F;../modules/../package.json.html">package.json</a></li>
+              <li><a href="..&#x2F;../modules/util.html">util</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>StateManager</h4>
+                  <em><p>Manages the state image asset generation for all documents. Emits &quot;active&quot;
+and &quot;inactive&quot; events with the following parameter when the state of image
+asset generation state changes:</p>
+<pre><code> 1. @param {number} The ID of the document for which image asset
+     generation is now active or inactive.
+</code></pre></em>
+                  <dl>
+                    <dt>generator</dt>
+                    <dd class="label label-info pull-left">Generator</dd>
+                    <dd></dd>
+                    <dt>config</dt>
+                    <dd class="label label-info pull-left">object</dd>
+                    <dd></dd>
+                    <dt>logger</dt>
+                    <dd class="label label-info pull-left">Logger</dd>
+                    <dd></dd>
+                    <dt>documentManager</dt>
+                    <dd class="label label-info pull-left">DocumentManager</dd>
+                    <dd></dd>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function StateManager(generator, config, logger, documentManager) {
+        EventEmitter.call(this);
+
+        this._generator = generator;
+        this._config = config;
+        this._logger = logger;
+
+        this._enabledDocumentIds = {};
+        this._menuPromise = this._generator.addMenuItem(MENU_ID, MENU_LABEL, false, false)
+            .finally(this._processNextMenuOperation.bind(this, false, false));
+
+        documentManager.on(&quot;activeDocumentChanged&quot;,
+            this._handleActiveDocumentChanged.bind(this));
+        documentManager.on(&quot;openDocumentsChanged&quot;,
+            this._handleOpenDocumentsChanged.bind(this));
+        this._generator.onPhotoshopEvent(&quot;generatorMenuChanged&quot;,
+            this._handleMenuClicked.bind(this));
+    }
+
+    util.inherits(StateManager, EventEmitter);</code></pre>
+                </div>
+      
+                <section class="properties ">
+                  <h3>Properties 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_activeDocumentId</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>?number</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>The ID of the currently activeDocument document. Only read from _handleMenuClicked.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._activeDocumentId = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_dummyMenuClicked</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>boolean</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>Indicates whether we received a dummy menu click and are awaiting a first 
+activeDocumentChanged event.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._dummyMenuClicked = false;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_enabledDocumentIds</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>{number, boolean}</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>The subset of open document IDs for which generator is enabled. Used to
+prevent redundant &quot;enabled&quot; or &quot;disabled&quot; events from being emitted.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._enabledDocumentIds = null;</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_menuPromise</h4>
+                    <dl>
+                      <dt>Type</dt>
+                      <dd>?Promise</dd>
+                      <dt>Private</dt>
+                    </dl>
+                    <div class="description"><p>Used to serialize menu events; resolves when menu state updates are complete.</p>
+</div>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._menuPromise = null;</code></pre>
+                  </div>
+                  
+                </section>
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_handleActiveDocumentChanged</h4>
+                    <div class="description"><p>Handle the activeDocumentChanged event emitted by the DocumentManager.
+Updates the menu state.</p>
+</div>
+                    <dl>
+                      <dt>id</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of the new currently active document, or null if
+ there is none.</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._handleActiveDocumentChanged = function (id) {
+        this._activeDocumentId = id;
+
+        if (id) {
+            if (this._dummyMenuClicked) {
+                this.activate(id);
+            } else {
+                this._setMenuState(id, true, this._enabledDocumentIds.hasOwnProperty(id));
+            }
+        } else {
+            this._setMenuState(null, false, false);
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_handleMenuClicked</h4>
+                    <div class="description"><p>Click handler for the plugin&#39;s generator menu. If there no document is
+currently open, do nothing. Otherwise, flip the status of the current 
+document, record the new state in the document&#39;s settings, and set the
+menu state accordingly. </p>
+</div>
+                    <dl>
+                      <dt>event</dt>
+                      <dd class="label label-info pull-left">{name: string}</dd>
+                      <dd>Click event object, which contains at least
+ the name of the clicked menu item.</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._handleMenuClicked = function (event) {
+        var menu = event.generatorMenuChanged;
+        if (!menu) {
+            return;
+        }
+
+        if (menu.name === DUMMY_MENU_ID) {
+            &#x2F;&#x2F; When we receive a dummy menu click, instead of toggling the
+            &#x2F;&#x2F; generator status for the current document we should force
+            &#x2F;&#x2F; generator to be enabled. However, we may or may not have
+            &#x2F;&#x2F; received an activeDocumentChanged event by the time of the
+            &#x2F;&#x2F; click. If we HAVE received such an event and know the active
+            &#x2F;&#x2F; document, explicitly activate it as a result of the dummy menu
+            &#x2F;&#x2F; click. Otherwise, note that we have received a dummy menu click
+            &#x2F;&#x2F; and wait a few seconds for an activeDocumentChanged event. If
+            &#x2F;&#x2F; the event arrives, activate that document. Otherwise, clear the
+            &#x2F;&#x2F; flag and proceed as usual.
+            if (this._activeDocumentId !== null) {
+                this.activate(this._activeDocumentId);
+            } else {
+                this._dummyMenuClicked = true;
+
+                setTimeout(function () {
+                    this._dummyMenuClicked = false;
+                }.bind(this), DUMMY_MENU_CLICK_TIMEOUT);
+            }
+            return;
+        }
+
+        &#x2F;&#x2F; Ignore changes to other menus
+        if (menu.name !== MENU_ID) {
+            return;
+        }
+
+        var activeDocumentId = this._activeDocumentId;
+        if (activeDocumentId === null) {
+            this._logger.warn(&quot;Ignoring menu click without a current document.&quot;);
+            return;
+        }
+
+        var currentMenuState = this._generator.getMenuState(menu.name),
+            currentChecked = currentMenuState.checked;
+
+        if (currentChecked) {
+            this.deactivate(activeDocumentId);
+        } else {
+            this.activate(activeDocumentId);
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_handleOpenDocumentsChanged</h4>
+                    <div class="description"><p>Handle the openDocumentsChanged event emitted by the DocumentManager.
+Updates the internal set of documents for which Generator is enabled.</p>
+</div>
+                    <dl>
+                      <dt>all</dt>
+                      <dd class="label label-info pull-left">Array.&lt;number&gt;</dd>
+                      <dd>The complete set of open document IDs</dd>
+                      <dt>opened</dt>
+                      <dd class="label label-info pull-left">Array.&lt;number&gt;</dd>
+                      <dd>The set of newly opened document IDs</dd>
+                      <dt>closed</dt>
+                      <dd class="label label-info pull-left">Array.&lt;number&gt;</dd>
+                      <dd>The set of newly closed documentIDs</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._handleOpenDocumentsChanged = function (all, opened, closed) {
+        var open = opened || all;
+
+        open.forEach(function (id) {
+            this._generator.getDocumentSettingsForPlugin(id, PLUGIN_ID).done(function (settings) {
+                &#x2F;&#x2F; If we&#39;ve already explicitly enabled this document as a result of
+                &#x2F;&#x2F; a dummy menu click then ignore the document&#39;s stored settings
+                if (this._enabledDocumentIds.hasOwnProperty(id)) {
+                    return;
+                }
+                
+                var enabled = !!(settings &amp;&amp; settings.enabled);
+                this._setInternalState(id, enabled);
+
+                &#x2F;&#x2F; If the openDocumentsChanged event includes the active document,
+                &#x2F;&#x2F; but the corresponding activeDocumentChange event fired first then
+                &#x2F;&#x2F; that handler would have been unable to set the menu state.
+                if (this._activeDocumentId === id) {
+                    this._handleActiveDocumentChanged(id);
+                }
+            }.bind(this));
+        }, this);
+
+        if (closed) {
+            closed.forEach(function (id) {
+                this._setInternalState(id, false);
+            }, this);
+        }
+
+        if (all.length === 0) {
+            this._setMenuState(null, false, false);
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_processNextMenuOperation</h4>
+                    <div class="description"><p>After a menu operation (either creation or toggling), this method should
+be called to determine if there is another pending menu operation. If so
+that operation is executed asynchronously.</p>
+</div>
+                    <dl>
+                      <dt>enabled</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether the previous menu operation left the menu enabled</dd>
+                      <dt>checked</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether the previous menu operation left the menu checked</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._processNextMenuOperation = function (enabled, checked) {
+        var nextMenuState = this._nextMenuState;
+
+        this._menuPromise = null;
+        this._nextMenuState = null;
+
+        &#x2F;&#x2F; If there is a saved next state, handle it now if it&#39;s consistent with the current document id
+        if (nextMenuState) {
+            if (this._activeDocumentId === nextMenuState.id) {
+                if (enabled !== nextMenuState.enabled || checked !== nextMenuState.checked) {
+                    this._setMenuState(nextMenuState.id, nextMenuState.enabled, nextMenuState.checked);
+                }
+            } else {
+                &#x2F;&#x2F; Something went wrong; reset menu state to that of _activeDocumentId
+                var nextEnabled = this._activeDocumentId !== null,
+                    nextChecked = this._enabledDocumentIds.hasOwnProperty(this._activeDocumentId);
+
+                this._setMenuState(this._activeDocumentId, nextEnabled, nextChecked);
+            }
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_setDocumentState</h4>
+                    <div class="description"><p>Update the document&#39;s Generator state.</p>
+</div>
+                    <dl>
+                      <dt>id</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd></dd>
+                      <dt>enabled</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._setDocumentState = function (id, enabled) {
+        var settings = { enabled: enabled };
+
+        this._generator.setDocumentSettingsForPlugin(settings, PLUGIN_ID).done();
+        this._setInternalState(id, enabled);
+        this._setMenuState(id, true, enabled);
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_setInternalState</h4>
+                    <div class="description"><p>Record the state of the given document ID (i.e., enabled or disabled) and,
+if the state has changed, emit the appropriate state change event.</p>
+</div>
+                    <dl>
+                      <dt>id</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>A document's ID</dd>
+                      <dt>enabled</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether or not the document is currently enabled</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._setInternalState = function (id, enabled) {
+        if (this._enabledDocumentIds.hasOwnProperty(id) !== enabled) {
+            var eventName = enabled ? &quot;enabled&quot; : &quot;disabled&quot;;
+
+            if (enabled) {
+                this._enabledDocumentIds[id] = true;
+            } else {
+                delete this._enabledDocumentIds[id];
+            }
+
+            this.emit(eventName, id);
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_setMenuState</h4>
+                    <div class="description"><p>Set the state of the menu (i.e., whether it is enabled and/or checked) as
+appropriate for the given document. If there are multiple concurrent calls
+to this function, only the last will be applied.</p>
+</div>
+                    <dl>
+                      <dt>id</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>A document's ID</dd>
+                      <dt>enabled</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether or not the menu should be enabled</dd>
+                      <dt>checked</dt>
+                      <dd class="label label-info pull-left">boolean</dd>
+                      <dd>Whether or not the menu entry should be checked</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype._setMenuState = function (id, enabled, checked) {
+        &#x2F;&#x2F; There is a menu operation in progress, save this state change and handle
+        &#x2F;&#x2F; it later when the operation is complete
+        if (this._menuPromise &amp;&amp; this._menuPromise.inspect().state === &quot;pending&quot;) {
+            this._nextMenuState = {
+                id: id,
+                enabled: enabled,
+                checked: checked
+            };
+            return;
+        }
+
+        &#x2F;&#x2F; Execute the state change
+        this._menuPromise = this._generator.toggleMenu(MENU_ID, enabled, checked)
+            .finally(this._processNextMenuOperation.bind(this, enabled, checked));
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>activate</h4>
+                    <div class="description"><p>Activate asset generation for the given document ID.</p>
+</div>
+                    <dl>
+                      <dt>id</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of the Document to activate.</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype.activate = function (id) {
+        this._setDocumentState(id, true);
+    };
+
+    module.exports = StateManager;
+}());</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>deactivate</h4>
+                    <div class="description"><p>Deactivate asset generation for the given document ID.</p>
+</div>
+                    <dl>
+                      <dt>id</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd>The ID of the Document to deactivate.</dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    StateManager.prototype.deactivate = function (id) {
+        this._setDocumentState(id, false);
+    };</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../assets/js/prism.js"></script>
+  </body>
+</html>

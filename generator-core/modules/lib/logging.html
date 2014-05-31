@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>logging</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (12)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../modules/app.html">app</a></li>
+              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../modules/lib/config.html">config</a></li>
+              <li><a href="../../modules/lib/convert.html">convert</a></li>
+              <li><a href="../../modules/lib/generator.html">generator</a></li>
+              <li><a href="../../modules/lib/logging.html">logging</a></li>
+              <li><a href="../../modules/lib/photoshop.html">photoshop</a></li>
+              <li><a href="../../modules/lib/png2base64.html">png2base64</a></li>
+              <li><a href="../../modules/lib/ps_crypto.html">ps_crypto</a></li>
+              <li><a href="../../modules/lib/stdlog.html">stdlog</a></li>
+              <li><a href="../../modules/lib/utils.html">utils</a></li>
+              <li><a href="../../modules/lib/xpm.html">xpm</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            <ul class="nav nav-list">
+              <li><a href="..&#x2F;../modules/events.html">events</a></li>
+              <li><a href="..&#x2F;../modules/stream.html">stream</a></li>
+              <li><a href="..&#x2F;../modules/util.html">util</a></li>
+            </ul>
+            
+            
+          </section>
+    
+    
+          <section class="functions">
+            <h3>Functions 
+              <label class="checkbox">
+                <input class="toggle-public" type="checkbox"> Show Private Members
+              </label>
+            </h3>
+            
+            <div class="member">
+              <span class="pull-right scope">
+                
+                
+              </span>
+              <h4>Logger</h4>
+              <div class="description"><p>Logger objects are used to create log events. The constructor for Logger objects is
+private (not accessible outside this module). Instead, they are created through the
+LoggerManager.prototype.createLogger method.</p>
+</div>
+              <dl>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function Logger(manager, source) {
+        Object.defineProperties(this, {
+            &quot;manager&quot; : {
+                value : manager,
+                writable : false,
+                enumerable : true,
+            },
+            &quot;source&quot; : {
+                value : source,
+                writable : false,
+                enumerable : true,
+            }
+        });
+    }</code></pre>
+            </div>
+            <div class="member public">
+              <span class="pull-right scope">
+                
+                Public API
+              </span>
+              <h4>LoggerManager</h4>
+              <div class="description"><p>LoggerManager objects are EventEmitters that emit two events: &quot;message&quot; and &quot;end&quot;</p>
+<p>&quot;message&quot; events have a single object as their data. That object has the following properties:
+  source -- the ID of the plugin (or &quot;core&quot;) from which the log event originated.
+  level -- an integer corresponding to the log level constants defined on this module,
+  time -- a Date object representing the time of the log event,
+  callLocation -- an object containing &quot;long&quot; and &quot;short&quot; properties that contains long and short string
+    representations of the location in the source where the log event was generated
+  message -- the actual log message, possibly containing formatting caracters (e.g. &quot;%d&quot;) for a
+    string formatting function to use (he Logger itself doesn&#39;t do any string formatting).
+  args -- an array of optional args, possibly used by a string format function</p>
+<p>&quot;end&quot; events do not have any data. An &quot;end&quot; event will be emitted at most once, in response
+  to a call to Logger.prototype.end. No &quot;message&quot; events will be emitted after an &quot;end&quot; event.</p>
+<p>Log level can be set by assigning an int (corresponding to the log level constants defined in
+this module) to the property &quot;level&quot;.</p>
+<p>Log entries are initiated through Logger objects, which can be created by calling the
+&quot;createLogger&quot; method on a LoggerManager object. Then, users can call the
+Logger.prototype.error/warn/info/debug/warning/log functions, which are variadic. The first
+argument is the log message, and any additional arguments are passed along in the &quot;args&quot; array.</p>
+</div>
+              <dl>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function LoggerManager(level) {
+        if (!(this instanceof LoggerManager)) {
+            return new LoggerManager(level);
+        }
+
+        EventEmitter.call(this);
+
+        &#x2F;&#x2F; set the internal level variable to default
+        var _logLevel = exports.LOG_LEVEL_WARNING;
+
+        &#x2F;&#x2F; define getter&#x2F;setter for log level
+        Object.defineProperty(this, &quot;level&quot;, {
+            enumerable: true,
+            get: function () {
+                return _logLevel;
+            },
+            set: function (val) {
+                var newLevel = parseInt(val, 10); &#x2F;&#x2F; coerce to int
+                if (newLevel &gt;= exports.LOG_LEVEL_NONE &amp;&amp; newLevel &lt;= exports.LOG_LEVEL_DEBUG) {
+                    _logLevel = newLevel;
+                }
+            }
+        });
+
+        &#x2F;&#x2F; use setter to (possibly) set the log level to caller&#39;s value
+        this.level = level;
+
+        var _ended = false;
+        Object.defineProperty(this, &quot;ended&quot;, {
+            enumerable: true,
+            get: function () {
+                return _ended;
+            }
+        });
+        this.end = function () {
+            if (!_ended) {
+                _ended = true;
+                this.emit(&quot;end&quot;);
+            }
+        };
+    }
+
+    util.inherits(LoggerManager, EventEmitter);</code></pre>
+            </div>
+            <div class="member public">
+              <span class="pull-right scope">
+                
+                Public API
+              </span>
+              <h4>StreamFormatter</h4>
+              <div class="description"><p>StreamFormatter objects are Readable streams. They output a string represntation
+of the log events generated by the &quot;logger&quot; variable.</p>
+<p>The &quot;options&quot; argument is passed directly to the stream.Readable constructor.
+No configuration of the log format is supported at this time.</p>
+</div>
+              <dl>
+              </dl>
+              <button class="btn btn-small show-code">Show code</button>
+              <pre class="language-javascript"><code class="language-javascript">    function StreamFormatter(loggerManager, options) {
+        if (!(this instanceof StreamFormatter)) {
+            return new StreamFormatter(loggerManager, options);
+        }
+
+        stream.Readable.call(this, options);
+        this._buffer = [];
+        this._pushable = false;
+        this._ended = false;
+        loggerManager.on(&quot;message&quot;, this._handleMessage.bind(this));
+        loggerManager.on(&quot;end&quot;, function () { this._handleMessage(&quot;END&quot;); }.bind(this));
+    }
+    util.inherits(StreamFormatter, stream.Readable);
+
+    StreamFormatter.prototype._doRead = function () {
+        var entry = null,
+            entryString = null,
+            messageArgs = [];
+
+        while (this._pushable &amp;&amp; this._buffer.length &gt; 0) {
+            entry = this._buffer.shift();
+            if (entry === &quot;END&quot;) {
+                this.push(null); &#x2F;&#x2F; EOF
+                this._pushable = false;
+                this._ended = true;
+            } else {
+                entryString = util.format(&quot;[%s:%s %s %s] &quot;,
+                    levelToString(entry.level),
+                    entry.source,
+                    dateToMilliTimeString(entry.time),
+                    entry.callLocation.short
+                );
+
+                messageArgs = entry.args.concat(); &#x2F;&#x2F; copy args array
+                messageArgs.unshift(entry.message); &#x2F;&#x2F; add format string to beginning
+                entryString += util.format.apply(null, messageArgs);
+
+                entryString += &quot;\n&quot;;
+
+                this._pushable = this.push(entryString);
+            }
+        }
+    };
+
+    StreamFormatter.prototype._handleMessage = function (entry) {
+        if (!this._ended) {
+            this._buffer.push(entry);
+            this._doRead();
+        }
+    };
+
+    StreamFormatter.prototype._read = function () { &#x2F;&#x2F; (size)
+        this._pushable = true;
+        this._doRead();
+    };
+
+    exports.LoggerManager = LoggerManager;
+    exports.createLoggerManager = function (level) { return new LoggerManager(level); };
+
+    exports.levelToString = levelToString;
+    exports.dateToMilliTimeString = dateToMilliTimeString;
+
+    exports.StreamFormatter = StreamFormatter;
+    exports.createStreamFormatter = function (loggerManager, options) {
+        return new StreamFormatter(loggerManager, options);
+    };
+
+}());</code></pre>
+            </div>
+            
+          </section>
+          
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../assets/js/prism.js"></script>
+  </body>
+</html>

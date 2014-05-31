@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/typeahead.js-bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets/css/prism.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.css">
+    <![endif]-->
+    <script type="text/javascript" src="../../assets/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../assets/js/typeahead.js"></script>
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+    
+    <script>
+      window.moduleLevel = "../..";
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="../../index.html"> API</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#classes">Classes</a></li>
+              </ul>
+            </div>
+            <input class="typeahead" placeholder="Search..." type="text" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>errormanager</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="left-section">
+            <ul class="nav nav-list">
+              <li class="nav-header">
+                <a href="#" id="toggle-other-modules"><i class="icon-folder-close"></i> Modules (17)</a>
+              </li>
+            </ul>
+            <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_"><i class="icon-folder-open"></i></a>
+              </li>
+            </ul>
+            <ul id="package_" class="nav nav-list">
+              <li><a href="../../modules/Gruntfile.html">Gruntfile</a></li>
+              <li><a href="../../modules/main.html">main</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib"><i class="icon-folder-open"></i>lib</a>
+              </li>
+            </ul>
+            <ul id="package_lib" class="nav nav-list">
+              <li><a href="../../modules/lib/assetmanager.html">assetmanager</a></li>
+              <li><a href="../../modules/lib/asyncqueue.html">asyncqueue</a></li>
+              <li><a href="../../modules/lib/componentmanager.html">componentmanager</a></li>
+              <li><a href="../../modules/lib/errormanager.html">errormanager</a></li>
+              <li><a href="../../modules/lib/filemanager.html">filemanager</a></li>
+              <li><a href="../../modules/lib/headlights.html">headlights</a></li>
+              <li><a href="../../modules/lib/parsermanager.html">parsermanager</a></li>
+              <li><a href="../../modules/lib/renderer.html">renderer</a></li>
+              <li><a href="../../modules/lib/rendermanager.html">rendermanager</a></li>
+              <li><a href="../../modules/lib/statemanager.html">statemanager</a></li>
+            </ul>
+                        <ul class="nav nav-list package-list">
+              <li class="nav-header">
+                <a href="javascript:;" class="toggle-package" data-package="package_lib_dom"><i class="icon-folder-open"></i>lib.dom</a>
+              </li>
+            </ul>
+            <ul id="package_lib_dom" class="nav nav-list">
+              <li><a href="../../modules/lib/dom/bounds.html">bounds</a></li>
+              <li><a href="../../modules/lib/dom/layer.html">layer</a></li>
+              <li><a href="../../modules/lib/dom/layereffects.html">layereffects</a></li>
+              <li><a href="../../modules/lib/dom/mask.html">mask</a></li>
+              <li><a href="../../modules/lib/dom/path.html">path</a></li>
+            </ul>
+            
+          </div>
+        </div>
+        <div class="module span9">
+          <section class="description">
+            <h3>Description</h3>
+            <div>
+              
+            </div>
+          </section>
+    
+          <section class="dependencies">
+            <h3>Dependencies</h3>
+            
+            
+            <span class="alert alert-info">This module has no dependencies</span>
+            
+          </section>
+    
+    
+          
+          <section class="classes">
+            <h2>Classes</h2>
+            
+              <div class="well">
+                <div class="member public">
+                  <span class="pull-right scope">
+                    Constructor
+                  </span>
+                  <h4>ErrorManager</h4>
+                  <em><p>Manage a collection of user-reportable errors, each associated with a
+particular layer.</p>
+</em>
+                  <dl>
+                    <dt>generator</dt>
+                    <dd class="label label-info pull-left">Generator</dd>
+                    <dd></dd>
+                    <dt>config</dt>
+                    <dd class="label label-info pull-left">object</dd>
+                    <dd></dd>
+                    <dt>logger</dt>
+                    <dd class="label label-info pull-left">Logger</dd>
+                    <dd></dd>
+                    <dt>fileManager</dt>
+                    <dd class="label label-info pull-left">FileManager</dd>
+                    <dd></dd>
+                  </dl>
+                  
+                  <button class="btn btn-small show-code">Show code</button>
+                  <pre class="language-javascript"><code class="language-javascript">    function ErrorManager(generator, config, logger, fileManager) {
+        this._generator = generator;
+        this._config = config;
+        this._logger = logger;
+
+        this._fileManager = fileManager;
+
+        this._errors = {};
+        this._errorsAdded = {};
+        this._errorsRemoved = false;
+    }</code></pre>
+                </div>
+      
+      
+                <section class="methods">
+                  <h3>Methods 
+                    <label class="checkbox">
+                      <input class="toggle-public" type="checkbox"> Show Private Members
+                    </label>
+                  </h3>
+                  
+                  <div class="member private">
+                    <span class="pull-right scope">
+                      Private
+                      
+                    </span>
+                    <h4>_getErrorString</h4>
+                    <div class="description"><p>Get a string containing all the errors for the layers indicated by the given
+list of layerIds.</p>
+</div>
+                    <dl>
+                      <dt>layerIds</dt>
+                      <dd class="label label-info pull-left">Array.&lt;number&gt;</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                      <dt>Returns: </dt>
+                      <dd class="label label-info pull-left">string</dd>
+                      <dd></dd>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ErrorManager.prototype._getErrorString = function (layerIds) {
+        return layerIds.reduce(function (allMessages, layerId) {
+            var errorMessages = this._errors[layerId],
+                combinedMessage = errorMessages.join(&quot;&quot;);
+
+            return allMessages + combinedMessage;
+        }.bind(this), &quot;&quot;);
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>addError</h4>
+                    <div class="description"><p>Add a single user-reportable error for the given layer.</p>
+</div>
+                    <dl>
+                      <dt>layer</dt>
+                      <dd class="label label-info pull-left">Layer</dd>
+                      <dd></dd>
+                      <dt>err</dt>
+                      <dd class="label label-info pull-left">object</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ErrorManager.prototype.addError = function (layer, err) {
+        var datetime = new Date().toLocaleString(),
+            message = &quot;[&quot; + datetime + &quot;] Layer \&quot;&quot; + layer.name + &quot;\&quot;: &quot; + err + &quot;\n&quot;;
+
+        if (!this._errors.hasOwnProperty(layer.id)) {
+            this._errors[layer.id] = [];
+        }
+
+        this._errors[layer.id].push(message);
+        this._errorsAdded[layer.id] = true;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>removeAllErrors</h4>
+                    <div class="description"><p>Remove all user-reportable errors for all layers. Even if there are no errors,
+calling this method will force all errors to be re-written when errors are
+reported next.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ErrorManager.prototype.removeAllErrors = function () {
+        this._errors = {};
+        this._errorsRemoved = true;
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>removeErrors</h4>
+                    <div class="description"><p>Remove all user-reportable errors for layer indicated by the given layerId.</p>
+</div>
+                    <dl>
+                      <dt>layerId</dt>
+                      <dd class="label label-info pull-left">number</dd>
+                      <dd></dd>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ErrorManager.prototype.removeErrors = function (layerId) {
+        if (this._errors.hasOwnProperty(layerId)) {
+            delete this._errors[layerId];
+            this._errorsRemoved = true;
+        }
+    };</code></pre>
+                  </div>
+                  <div class="member">
+                    <span class="pull-right scope">
+                      
+                      
+                    </span>
+                    <h4>reportErrors</h4>
+                    <div class="description"><p>Update the errors.txt file on disk according to the current set of errors.</p>
+</div>
+                    <dl>
+                    </dl>
+                    <dl>
+                    </dl>
+                    <button class="btn btn-small show-code">Show code</button>
+                    <pre class="language-javascript"><code class="language-javascript">    ErrorManager.prototype.reportErrors = function () {
+        var layerIdsWithErrors,
+            errorString;
+
+        function _getSortedKeys(set) {
+            return Object.keys(set)
+                .map(function (key) {
+                    return parseInt(key, 10);
+                })
+                .sort();
+        }
+
+        if (this._errorsRemoved) {
+            layerIdsWithErrors = _getSortedKeys(this._errors);
+            if (layerIdsWithErrors.length &gt; 0) {
+                errorString = this._getErrorString(layerIdsWithErrors);
+                this._fileManager.writeFileWithin(ERRORS_FILE, errorString);
+            } else {
+                this._fileManager.removeFileWithin(ERRORS_FILE);
+            }
+        } else {
+            layerIdsWithErrors = _getSortedKeys(this._errorsAdded);
+            if (layerIdsWithErrors.length &gt; 0) {
+                errorString = this._getErrorString(layerIdsWithErrors);
+                this._fileManager.appendFileWithin(ERRORS_FILE, errorString);
+            }
+        }
+
+        this._errorsRemoved = false;
+        this._errorsAdded = {};
+    };
+
+
+    module.exports = ErrorManager;
+}());</code></pre>
+                  </div>
+                </section>
+                
+              </div>
+            
+          </section>
+          
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../assets/js/prism.js"></script>
+  </body>
+</html>
