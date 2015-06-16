@@ -3,7 +3,7 @@
 }());
 
 // get contributors
-var url = "https://api.github.com/repos/adobe/brackets/contributors?per_page=20";
+var url = "https://api.github.com/repos/adobe-photoshop/spaces-design/contributors?per_page=30";
 
 function displayJson(data) {
   "use strict";
