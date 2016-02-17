@@ -10,6 +10,7 @@ function displayJson(data) {
   //console.log('displayJson');
   var displayContent = "", 
       contributors = document.getElementById("contributors");
+  data = Math.round(Math.random()) ? data.reverse() : data;
   data.forEach(function (member) {
     displayContent += '<div class="column_5">';
     displayContent += '<a href="' + member.html_url + '">';
